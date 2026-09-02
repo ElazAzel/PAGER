@@ -1,0 +1,1977 @@
+{
+  "schema_version": 1,
+  "product": "PAGER",
+  "installed_at": "2026-09-02T18:00:59.742211+00:00",
+  "source_spec": "docs/SPEC.md#source-installation",
+  "global_skills_root": "C:/Users/elaza/.codex/skills",
+  "global_reference_root": "C:/Users/elaza/.codex/references/pager-sources",
+  "installer": {
+    "path": "C:/Users/elaza/.codex/skills/.system/skill-installer/scripts/install-skill-from-github.py",
+    "sha256": "7e8a12a0abf906f8391713b521bc42b237e1dd17137c295bc2e4e6823dfaf0ae",
+    "support_path": "C:/Users/elaza/.codex/skills/.system/skill-installer/scripts/github_utils.py",
+    "support_sha256": "2f9702afb9f0da740181fa4a3214f663e460f80cd5cea2e7dcaab00ad269082e"
+  },
+  "preparation_path": "C:/Users/elaza/.codex/references/pager-sources/preparation.json",
+  "sources": [
+    {
+      "repo": "anthropics/skills",
+      "url": "https://github.com/anthropics/skills",
+      "observed_ref": "main",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "commit_url": "https://github.com/anthropics/skills/commit/53048666b05b4799081517d00e09e0a2dd688678",
+      "committed_at": "2026-09-01T18:30:38Z",
+      "observed_at": "2026-09-02T17:53:40.605260+00:00",
+      "archive_url": "https://codeload.github.com/anthropics/skills/zip/53048666b05b4799081517d00e09e0a2dd688678",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/source.zip",
+      "archive_sha256": "351b657a1b2df0795e78e3584340dd5afeecdb7fc7427bcb4d0e019a701a5c97",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/files.sha256.json",
+      "tree_sha256": "e1324dbcdc223ffab80d7ea3efa31d4e7695e7ef77954cc87f53eebda845b186",
+      "git_tree_sha": "53048666b05b4799081517d00e09e0a2dd688678",
+      "git_blob_verification": "all files match pinned Git tree",
+      "file_count": 419,
+      "bytes": 10975832,
+      "skill_paths": [
+        "skills/academy-guide/SKILL.md",
+        "skills/algorithmic-art/SKILL.md",
+        "skills/brand-guidelines/SKILL.md",
+        "skills/canvas-design/SKILL.md",
+        "skills/claude-api/SKILL.md",
+        "skills/discernment-nudge/SKILL.md",
+        "skills/doc-coauthoring/SKILL.md",
+        "skills/docx/SKILL.md",
+        "skills/frontend-design/SKILL.md",
+        "skills/internal-comms/SKILL.md",
+        "skills/mcp-builder/SKILL.md",
+        "skills/pdf/SKILL.md",
+        "skills/pptx/SKILL.md",
+        "skills/skill-creator/SKILL.md",
+        "skills/slack-gif-creator/SKILL.md",
+        "skills/theme-factory/SKILL.md",
+        "skills/web-artifacts-builder/SKILL.md",
+        "skills/webapp-testing/SKILL.md",
+        "skills/xlsx/SKILL.md",
+        "template/SKILL.md"
+      ],
+      "licenses": [
+        {
+          "path": "skills/academy-guide/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/academy-guide/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/academy-guide/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/algorithmic-art/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/algorithmic-art/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/algorithmic-art/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/brand-guidelines/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/brand-guidelines/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/brand-guidelines/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "sha256": "8ddd61b18ba2c0d0dbe4a691cf5f1a0673f473d02fa0546e67ee88c006aeff6e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "sha256": "fbc746aabf0eb1847dfd92e2efc4596d79fa897d60b8e64062a22f585508fb3f",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "sha256": "45cc82ab4032273c0924025ffcf8f0665a68e1a5955e3f7247e5daf1deeb1326",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "sha256": "0e4f4eb8534bc66a76aca13dd19c1f9731b2008866b29ccff182b764649df9b4",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "sha256": "35680d14547b6748b6f362a052a46d22764ce5eccf96e18b74f567bb2ee58114",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "sha256": "bfe7842fcb88323e2981e24710c25202677385a8c75fb6a87217b275a0247ae3",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "sha256": "e0de629968b52255548d5fafcf30b24ff9edae0eda362380755a75816404d0fa",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "sha256": "6a873c900f584109b13ae0aaf81d6e3cf0a68751a216b03f7b6c68d547057bb4",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "sha256": "c0a3f3125ac491ef3d1f09f401be4834c646562f647e44f2bcbc49f0466c656d",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "sha256": "5294ce778857e1eb02e830b6ab06435537d38f43055327e73d03a2d4d57d5123",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "sha256": "bf4dc6d13a8cccd4807133c77a1ee9619a16b92cb23322258725ab6731c2f6e5",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "sha256": "8373b11312ace78c4cec2e8f9f6aa9f2330601107dac7bcf899c6f2dbd40c5a5",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "sha256": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "sha256": "eaf9bdb675f6d87e5feb88199ab3ea581d3bd2082f426e384fa9c394576d7260",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "sha256": "55959eef5b0c3b2e3c1c7631b8ff0f9447d75de20f29cfa7db5bcfb026763343",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "sha256": "62e37a82d3f1ef2a70712885fa8b3144b65fd144d8e748d6196b690a354d792c",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "sha256": "81c6c71d83b5b45d7344f96df12bb4a2477a5b092a9144757ee1d0f50f855175",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "sha256": "7c2a6970584ddad04919816163746f83b378078015899b18468b40f05e9ce128",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "sha256": "1945b62cd76da9a3051a1660dde72afaa64ffc2666d30e7a78356d651653ba2f",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "sha256": "7f54d1d9f1ae1ba9f2722f978145f90324fea34ca3c2304b3a29cfa96ac6037e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "sha256": "2eaf541f7eb8b512e4c757a5212060abf5b6edfef230e9d7640bf736b315c33a",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "sha256": "435fbfb7e66988b2a06686a4cb966faec733f35d8fe100a1601573c27f3e0bb8",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "sha256": "6b849745119bbe85ec01fd080c9cd50234da9f52ac6e48b55d1a424a0c4d7ca9",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "sha256": "74c9c4eb88e891483e1b7bc54780b452cbf4f4df66d4e71881d7569aa2130749",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "sha256": "3f1466cb5438f31782eeb6e895f3a655bc4d090e24263e331f555357d1cb734e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "sha256": "ace8c22a3326318b54e67c3691857929634205533f454a70ef5a3473ddb2e2ba",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "sha256": "cdcb8039606b40a027a6d24586ec62d5fe29c701343d82a048c829cb28a3dd28",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/claude-api/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/claude-api/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/claude-api/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/discernment-nudge/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/discernment-nudge/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/discernment-nudge/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/docx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/docx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/docx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "skills/frontend-design/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/frontend-design/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/frontend-design/LICENSE.txt",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/internal-comms/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/internal-comms/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/internal-comms/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/mcp-builder/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/mcp-builder/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/mcp-builder/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/pdf/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pdf/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pdf/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "skills/pptx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pptx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pptx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "skills/skill-creator/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/skill-creator/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/skill-creator/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/slack-gif-creator/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/slack-gif-creator/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/slack-gif-creator/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/theme-factory/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/theme-factory/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/theme-factory/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/web-artifacts-builder/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/web-artifacts-builder/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/web-artifacts-builder/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/webapp-testing/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/webapp-testing/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/webapp-testing/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "skills/xlsx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/xlsx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/xlsx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ]
+    },
+    {
+      "repo": "anthropics/claude-code",
+      "url": "https://github.com/anthropics/claude-code",
+      "observed_ref": "main",
+      "commit": "aef74afe01f65b602258d6102b0da9730ac6f0aa",
+      "commit_url": "https://github.com/anthropics/claude-code/commit/aef74afe01f65b602258d6102b0da9730ac6f0aa",
+      "committed_at": "2026-09-01T22:33:14Z",
+      "observed_at": "2026-09-02T17:53:48.155610+00:00",
+      "archive_url": "https://codeload.github.com/anthropics/claude-code/zip/aef74afe01f65b602258d6102b0da9730ac6f0aa",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/source.zip",
+      "archive_sha256": "1fcd97524441a1c32ae4f852f2a14cc602aa1c5f4506fe5b0a676bfb052e3950",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/files.sha256.json",
+      "tree_sha256": "011d909f0f4f8902134bbfe4fe88eb590eb594a2caa4f2e225f307fa8eabb4cd",
+      "git_tree_sha": "aef74afe01f65b602258d6102b0da9730ac6f0aa",
+      "git_blob_verification": "all files match pinned Git tree",
+      "file_count": 229,
+      "bytes": 13184587,
+      "skill_paths": [
+        "plugins/claude-opus-4-5-migration/skills/claude-opus-4-5-migration/SKILL.md",
+        "plugins/frontend-design/skills/frontend-design/SKILL.md",
+        "plugins/hookify/skills/writing-rules/SKILL.md",
+        "plugins/plugin-dev/skills/agent-development/SKILL.md",
+        "plugins/plugin-dev/skills/command-development/SKILL.md",
+        "plugins/plugin-dev/skills/hook-development/SKILL.md",
+        "plugins/plugin-dev/skills/mcp-integration/SKILL.md",
+        "plugins/plugin-dev/skills/plugin-settings/SKILL.md",
+        "plugins/plugin-dev/skills/plugin-structure/SKILL.md",
+        "plugins/plugin-dev/skills/skill-development/SKILL.md"
+      ],
+      "licenses": [
+        {
+          "path": "LICENSE.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/snapshot/LICENSE.md",
+          "url": "https://github.com/anthropics/claude-code/blob/aef74afe01f65b602258d6102b0da9730ac6f0aa/LICENSE.md",
+          "sha256": "728158fd1037143fad6907e8fa34804177e598b7326519503fe83cafdef849e6",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        }
+      ]
+    },
+    {
+      "repo": "blader/humanizer",
+      "url": "https://github.com/blader/humanizer",
+      "observed_ref": "main",
+      "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "commit_url": "https://github.com/blader/humanizer/commit/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "committed_at": "2026-08-19T05:58:53Z",
+      "observed_at": "2026-09-02T17:53:49.705350+00:00",
+      "archive_url": "https://codeload.github.com/blader/humanizer/zip/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/source.zip",
+      "archive_sha256": "462abe9158b15678e82ff06b84b6099b19149b2e11e20b4fe0115a640d5a2acb",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/files.sha256.json",
+      "tree_sha256": "2437fe67296517ea84a31e93ffbedd625432919472ffacbf7142bd04aaea9804",
+      "git_tree_sha": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "git_blob_verification": "all files match pinned Git tree",
+      "file_count": 9,
+      "bytes": 52925,
+      "skill_paths": [
+        "SKILL.md"
+      ],
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/snapshot/LICENSE",
+          "url": "https://github.com/blader/humanizer/blob/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/LICENSE",
+          "sha256": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+          "classification": "MIT"
+        }
+      ]
+    },
+    {
+      "repo": "Vladimir-Human/humanizer-ru",
+      "url": "https://github.com/Vladimir-Human/humanizer-ru",
+      "observed_ref": "main",
+      "commit": "df918c383731c6063b064fd18cb243c05f4c1a9d",
+      "commit_url": "https://github.com/Vladimir-Human/humanizer-ru/commit/df918c383731c6063b064fd18cb243c05f4c1a9d",
+      "committed_at": "2026-08-30T03:24:18Z",
+      "observed_at": "2026-09-02T17:53:58.889021+00:00",
+      "archive_url": "https://codeload.github.com/Vladimir-Human/humanizer-ru/zip/df918c383731c6063b064fd18cb243c05f4c1a9d",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/source.zip",
+      "archive_sha256": "326c21b759245b29ad02ead3d04fc9b05b1e1e894c88694b38d12ae7c0bda81a",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/files.sha256.json",
+      "tree_sha256": "dc6fa9533a1804341be097ae3bdadd797e313d025f8028c4d3ef414f7c7b5449",
+      "git_tree_sha": "df918c383731c6063b064fd18cb243c05f4c1a9d",
+      "git_blob_verification": "all files match pinned Git tree",
+      "file_count": 747,
+      "bytes": 4853755,
+      "skill_paths": [
+        "SKILL.md",
+        "dsh/skills/humanizer-ru/SKILL.md"
+      ],
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/snapshot/LICENSE",
+          "url": "https://github.com/Vladimir-Human/humanizer-ru/blob/df918c383731c6063b064fd18cb243c05f4c1a9d/LICENSE",
+          "sha256": "b0057afb49cd823e36f2188bd58650978e523ee69388a2edbd0bbbabd924ef5d",
+          "classification": "MIT"
+        }
+      ]
+    },
+    {
+      "repo": "Nutlope/hallmark",
+      "url": "https://github.com/Nutlope/hallmark",
+      "observed_ref": "main",
+      "commit": "13ac0ec7e148655948100b6396439e481361d690",
+      "commit_url": "https://github.com/Nutlope/hallmark/commit/13ac0ec7e148655948100b6396439e481361d690",
+      "committed_at": "2026-08-06T16:19:18Z",
+      "observed_at": "2026-09-02T17:54:07.472566+00:00",
+      "archive_url": "https://codeload.github.com/Nutlope/hallmark/zip/13ac0ec7e148655948100b6396439e481361d690",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/source.zip",
+      "archive_sha256": "99f03c744182b8421b14c3948c489003cb0c5adf81e95aea25ebd8534537ad42",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/files.sha256.json",
+      "tree_sha256": "1607b05a5c050212ad737aa34bae27eb9818758f4271c25c03a461a56850e44f",
+      "git_tree_sha": "13ac0ec7e148655948100b6396439e481361d690",
+      "git_blob_verification": "all files match pinned Git tree",
+      "file_count": 286,
+      "bytes": 17787446,
+      "skill_paths": [
+        "skills/hallmark/SKILL.md"
+      ],
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/snapshot/LICENSE",
+          "url": "https://github.com/Nutlope/hallmark/blob/13ac0ec7e148655948100b6396439e481361d690/LICENSE",
+          "sha256": "06088a8b94598626f27612dea42300154bf7be967c85d9d3eee4490cb056af7d",
+          "classification": "MIT"
+        }
+      ]
+    },
+    {
+      "repo": "public-apis/public-apis",
+      "url": "https://github.com/public-apis/public-apis",
+      "observed_ref": "master",
+      "commit": "9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "commit_url": "https://github.com/public-apis/public-apis/commit/9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "committed_at": "2026-09-02T02:23:53Z",
+      "observed_at": "2026-09-02T17:55:31.487358+00:00",
+      "archive_url": "https://codeload.github.com/public-apis/public-apis/zip/9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "archive_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/source.zip",
+      "archive_sha256": "ead71b9dcf63935967c032cd0d9d00266b9ea1a4175c903d44aaed1843d407d6",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/snapshot",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/files.sha256.json",
+      "tree_sha256": "046488eabb9a54becf8051551939c2348590b06ed7a1c89b644db721ff6199ee",
+      "git_tree_sha": "9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "git_blob_verification": "all files match pinned Git tree",
+      "archive_omissions_recovered": [
+        {
+          "path": ".github/ISSUE_TEMPLATE.md",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/ISSUE_TEMPLATE.md",
+          "sha256": "e448a2281672e5ecefd676dbcae064d02d6023be6ce3624a5180f192cc7bda56",
+          "git_blob_sha": "58b6570f6adf2ae628e36ddf5287518880f92f25"
+        },
+        {
+          "path": ".github/PULL_REQUEST_TEMPLATE.md",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/PULL_REQUEST_TEMPLATE.md",
+          "sha256": "a8c685da60bf14fa991a0de770bce87772f73befeb258e680bd33ece3703e2fa",
+          "git_blob_sha": "e0b687238dba93091334f8b12ad123c43606841e"
+        },
+        {
+          "path": ".github/assets/apilayer-banner.png",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/assets/apilayer-banner.png",
+          "sha256": "fe560e77610b52fc656be80bdfa8baa8a2460b954b07e667d997f646b2aae91b",
+          "git_blob_sha": "226b542866230023112223347fb189cef3933fec"
+        },
+        {
+          "path": ".github/assets/sponsors_logo/m3o_logo_black.png",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/assets/sponsors_logo/m3o_logo_black.png",
+          "sha256": "4d7b9a80be5074bf53a25ebbb08e5d4eacd1e1b07a87450dda97e74d25f493c2",
+          "git_blob_sha": "c133215275b2c0cab375e292cd560962939f2f48"
+        },
+        {
+          "path": ".github/assets/sponsors_logo/m3o_logo_white.png",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/assets/sponsors_logo/m3o_logo_white.png",
+          "sha256": "ad563260b450ff772cd4945c75b20c68d45d1543172408d76a6dd11c93947e7b",
+          "git_blob_sha": "7c1da481437b460cfaf57c522503297cdc10610c"
+        },
+        {
+          "path": ".github/cs1586-APILayerLogoUpdate2022-LJ_v2-HighRes.png",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/cs1586-APILayerLogoUpdate2022-LJ_v2-HighRes.png",
+          "sha256": "ad63ec1320c16e4ec14e5f3b90d0c240cc203dbeb0d4febf7d808dab723084d6",
+          "git_blob_sha": "43a9b3276ba10f3d2ca4fb6a564ffb4b8e5287ee"
+        },
+        {
+          "path": ".github/workflows/test_of_push_and_pull.yml",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/workflows/test_of_push_and_pull.yml",
+          "sha256": "8a22155773d3d0f1f9695862a2181f05fe99e91c5c10ec56e4326ad289ec58c0",
+          "git_blob_sha": "4ee1316f9302a440b6e1a1564481c5e997464ec3"
+        },
+        {
+          "path": ".github/workflows/test_of_validate_package.yml",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/workflows/test_of_validate_package.yml",
+          "sha256": "3707515707ca46de281770b5b1d200a0461f7793aa0fd7eec54f869c480ef006",
+          "git_blob_sha": "f739df81d75929c8a489c3d5e21b0d0d5bbd68c6"
+        },
+        {
+          "path": ".github/workflows/validate_links.yml",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/.github/workflows/validate_links.yml",
+          "sha256": "ff6e4e510ec413c38f1cf5d3c99e67967e054dc117ce4f8483d6bb0b33879022",
+          "git_blob_sha": "33fef08876400e25cc61eb3802b481697cd62171"
+        },
+        {
+          "path": "README.md",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/README.md",
+          "sha256": "a13912ecf427656d33baecb6f5cca88d233eef17debb383c4fcc98fe02680de6",
+          "git_blob_sha": "ade44e71b5e2246565541b7c5813effc3d9de06b"
+        },
+        {
+          "path": "scripts/README.md",
+          "url": "https://raw.githubusercontent.com/public-apis/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/scripts/README.md",
+          "sha256": "864682f1962b40d22c2879b3b87ed716c917d21c80f0f8b85d627140a62b956a",
+          "git_blob_sha": "2e926a37d1eccfa4a71df5081492f441248ffdb1"
+        }
+      ],
+      "file_count": 23,
+      "bytes": 376968,
+      "skill_paths": [],
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/snapshot/LICENSE",
+          "url": "https://github.com/public-apis/public-apis/blob/9d0426870ee7edc9ffedf21cc5b2e87604819549/LICENSE",
+          "sha256": "07704fa08e479d81930b0ad53c7c1d634c766736d27f725044949f982c1c9447",
+          "classification": "MIT"
+        }
+      ]
+    }
+  ],
+  "registrations": [
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/academy-guide",
+      "source_name": "academy-guide",
+      "registered_name": "academy-guide",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/academy-guide",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/academy-guide/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/academy-guide",
+      "path": "C:/Users/elaza/.codex/skills/academy-guide",
+      "original_skill_sha256": "f27992510c051355dfe68c92394d509af730da5298094ec86834ee40bbd31376",
+      "installed_skill_sha256": "f27992510c051355dfe68c92394d509af730da5298094ec86834ee40bbd31376",
+      "source_file_count": 2,
+      "source_tree_sha256": "83bef57f950ff6f25a6843aceeae3184a25a1642a2abf4e627180805058d6f93",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/academy-guide/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/academy-guide/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/academy-guide/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/academy-guide.sha256.json",
+      "installed_tree_sha256": "756b6704c594d053d7860e0b56d637b11f7a504f25933dd7a7ec0e031542824b",
+      "installed_file_count": 6
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/algorithmic-art",
+      "source_name": "algorithmic-art",
+      "registered_name": "algorithmic-art",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/algorithmic-art",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/algorithmic-art/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/algorithmic-art",
+      "path": "C:/Users/elaza/.codex/skills/algorithmic-art",
+      "original_skill_sha256": "3bc4092c09804853186524c826bc0621b940bb6122c05b84496dff95388e6eef",
+      "installed_skill_sha256": "3bc4092c09804853186524c826bc0621b940bb6122c05b84496dff95388e6eef",
+      "source_file_count": 4,
+      "source_tree_sha256": "c126ba30599faa6fee7ba7e92c226bfee2532fef3e528c1dcdfbb543b716dc46",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/algorithmic-art/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/algorithmic-art/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/algorithmic-art/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/algorithmic-art.sha256.json",
+      "installed_tree_sha256": "efd32a3ab10bbd4e53271f90d96f77c275f3a1a0bb13e409795e028375db707b",
+      "installed_file_count": 8
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/brand-guidelines",
+      "source_name": "brand-guidelines",
+      "registered_name": "brand-guidelines",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/brand-guidelines",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/brand-guidelines/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/brand-guidelines",
+      "path": "C:/Users/elaza/.codex/skills/brand-guidelines",
+      "original_skill_sha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "installed_skill_sha256": "1120b3769e2985cefb3d25be981b1f914abeba57ae079b83c20c666c164fa9fe",
+      "source_file_count": 2,
+      "source_tree_sha256": "c0f2ca0cb9895a63d71e75f0dd86d5194cb6ba9587afa6832c7146b32a85284f",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/brand-guidelines/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/brand-guidelines/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/brand-guidelines/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/brand-guidelines.sha256.json",
+      "installed_tree_sha256": "f0a238d40473b6edff9d9d6b2a00d8f2b65080b0a67de274c898f1fabfea2f16",
+      "installed_file_count": 6
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/canvas-design",
+      "source_name": "canvas-design",
+      "registered_name": "canvas-design",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design",
+      "path": "C:/Users/elaza/.codex/skills/canvas-design",
+      "original_skill_sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b",
+      "installed_skill_sha256": "a1f288079624402f30682753c1d43920b6664785698d21d3e7aa197450a6448b",
+      "source_file_count": 83,
+      "source_tree_sha256": "e0f96e9c8473a6c804f00da9b97862b40a208948cde3c0fa914ad71c133abc89",
+      "license": "Apache-2.0, OFL-1.1",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/ArsenalSC-OFL.txt",
+          "sha256": "8ddd61b18ba2c0d0dbe4a691cf5f1a0673f473d02fa0546e67ee88c006aeff6e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/BigShoulders-OFL.txt",
+          "sha256": "fbc746aabf0eb1847dfd92e2efc4596d79fa897d60b8e64062a22f585508fb3f",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Boldonse-OFL.txt",
+          "sha256": "45cc82ab4032273c0924025ffcf8f0665a68e1a5955e3f7247e5daf1deeb1326",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/BricolageGrotesque-OFL.txt",
+          "sha256": "0e4f4eb8534bc66a76aca13dd19c1f9731b2008866b29ccff182b764649df9b4",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/CrimsonPro-OFL.txt",
+          "sha256": "35680d14547b6748b6f362a052a46d22764ce5eccf96e18b74f567bb2ee58114",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/DMMono-OFL.txt",
+          "sha256": "bfe7842fcb88323e2981e24710c25202677385a8c75fb6a87217b275a0247ae3",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/EricaOne-OFL.txt",
+          "sha256": "e0de629968b52255548d5fafcf30b24ff9edae0eda362380755a75816404d0fa",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/GeistMono-OFL.txt",
+          "sha256": "6a873c900f584109b13ae0aaf81d6e3cf0a68751a216b03f7b6c68d547057bb4",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Gloock-OFL.txt",
+          "sha256": "c0a3f3125ac491ef3d1f09f401be4834c646562f647e44f2bcbc49f0466c656d",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/IBMPlexMono-OFL.txt",
+          "sha256": "5294ce778857e1eb02e830b6ab06435537d38f43055327e73d03a2d4d57d5123",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/InstrumentSans-OFL.txt",
+          "sha256": "bf4dc6d13a8cccd4807133c77a1ee9619a16b92cb23322258725ab6731c2f6e5",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Italiana-OFL.txt",
+          "sha256": "8373b11312ace78c4cec2e8f9f6aa9f2330601107dac7bcf899c6f2dbd40c5a5",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/JetBrainsMono-OFL.txt",
+          "sha256": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Jura-OFL.txt",
+          "sha256": "eaf9bdb675f6d87e5feb88199ab3ea581d3bd2082f426e384fa9c394576d7260",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/LibreBaskerville-OFL.txt",
+          "sha256": "55959eef5b0c3b2e3c1c7631b8ff0f9447d75de20f29cfa7db5bcfb026763343",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Lora-OFL.txt",
+          "sha256": "62e37a82d3f1ef2a70712885fa8b3144b65fd144d8e748d6196b690a354d792c",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/NationalPark-OFL.txt",
+          "sha256": "81c6c71d83b5b45d7344f96df12bb4a2477a5b092a9144757ee1d0f50f855175",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/NothingYouCouldDo-OFL.txt",
+          "sha256": "7c2a6970584ddad04919816163746f83b378078015899b18468b40f05e9ce128",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Outfit-OFL.txt",
+          "sha256": "1945b62cd76da9a3051a1660dde72afaa64ffc2666d30e7a78356d651653ba2f",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/PixelifySans-OFL.txt",
+          "sha256": "7f54d1d9f1ae1ba9f2722f978145f90324fea34ca3c2304b3a29cfa96ac6037e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/PoiretOne-OFL.txt",
+          "sha256": "2eaf541f7eb8b512e4c757a5212060abf5b6edfef230e9d7640bf736b315c33a",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/RedHatMono-OFL.txt",
+          "sha256": "435fbfb7e66988b2a06686a4cb966faec733f35d8fe100a1601573c27f3e0bb8",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Silkscreen-OFL.txt",
+          "sha256": "6b849745119bbe85ec01fd080c9cd50234da9f52ac6e48b55d1a424a0c4d7ca9",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/SmoochSans-OFL.txt",
+          "sha256": "74c9c4eb88e891483e1b7bc54780b452cbf4f4df66d4e71881d7569aa2130749",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/Tektur-OFL.txt",
+          "sha256": "3f1466cb5438f31782eeb6e895f3a655bc4d090e24263e331f555357d1cb734e",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/WorkSans-OFL.txt",
+          "sha256": "ace8c22a3326318b54e67c3691857929634205533f454a70ef5a3473ddb2e2ba",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/canvas-fonts/YoungSerif-OFL.txt",
+          "sha256": "cdcb8039606b40a027a6d24586ec62d5fe29c701343d82a048c829cb28a3dd28",
+          "classification": "OFL-1.1"
+        },
+        {
+          "path": "skills/canvas-design/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/canvas-design/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/canvas-design/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/canvas-design.sha256.json",
+      "installed_tree_sha256": "0c043bf06107fba2ca5bb8b1fafd25aa6a5ca5dc52971dac44b02ae9b500133b",
+      "installed_file_count": 87
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/claude-api",
+      "source_name": "claude-api",
+      "registered_name": "claude-api",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/claude-api",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/claude-api/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/claude-api",
+      "path": "C:/Users/elaza/.codex/skills/claude-api",
+      "original_skill_sha256": "001abd67b06d9aa18f7f7c1a221200a51394f2cfb45cb583f4931bf77fd4b70f",
+      "installed_skill_sha256": "001abd67b06d9aa18f7f7c1a221200a51394f2cfb45cb583f4931bf77fd4b70f",
+      "source_file_count": 70,
+      "source_tree_sha256": "20b3c60c98a2960fd75bac21b6965857ebddc7215cf4e9791861ed805466025a",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/claude-api/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/claude-api/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/claude-api/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/claude-api.sha256.json",
+      "installed_tree_sha256": "1a3bc5525f35403f8245dc275a7455aa9baa08b07d5c968346faea909931cdce",
+      "installed_file_count": 74
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/discernment-nudge",
+      "source_name": "discernment-nudge",
+      "registered_name": "discernment-nudge",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/discernment-nudge",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/discernment-nudge/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/discernment-nudge",
+      "path": "C:/Users/elaza/.codex/skills/discernment-nudge",
+      "original_skill_sha256": "9191177c4a8ef11a20dace786d708506b22d43e748c71287bb823de0dc812dad",
+      "installed_skill_sha256": "9191177c4a8ef11a20dace786d708506b22d43e748c71287bb823de0dc812dad",
+      "source_file_count": 2,
+      "source_tree_sha256": "1f984ce1745b1de3f7cbbcb0e1d575aecd7e7da12ad638eeb801db339bdba0de",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/discernment-nudge/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/discernment-nudge/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/discernment-nudge/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/discernment-nudge.sha256.json",
+      "installed_tree_sha256": "27ed0cef955837a9f5040b53ee598c94d4292e5ddd78840bc9bd4b6cf5c488fc",
+      "installed_file_count": 6
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/doc-coauthoring",
+      "source_name": "doc-coauthoring",
+      "registered_name": "doc-coauthoring",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/doc-coauthoring",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/doc-coauthoring/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/doc-coauthoring",
+      "path": "C:/Users/elaza/.codex/skills/doc-coauthoring",
+      "original_skill_sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4",
+      "installed_skill_sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4",
+      "source_file_count": 1,
+      "source_tree_sha256": "cc7ab0806e7a328bff46f03c297d8735c115ca6a38ab8787dbd4ff88d1730927",
+      "license": "not separately specified; see source notices",
+      "declared_license": null,
+      "licenses": [
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/doc-coauthoring.sha256.json",
+      "installed_tree_sha256": "d47a02753fabc96d7ef936b9b3933b11db2db7edf676b86bb29c1544dc4fe951",
+      "installed_file_count": 5
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/docx",
+      "source_name": "docx",
+      "registered_name": "docx",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/docx",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/docx/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/docx",
+      "path": "C:/Users/elaza/.codex/skills/docx",
+      "original_skill_sha256": "8017469ea95fb7d28225c62daf8e2f3492a7b516fc64c18c28977cbf8980b7fe",
+      "installed_skill_sha256": "8017469ea95fb7d28225c62daf8e2f3492a7b516fc64c18c28977cbf8980b7fe",
+      "source_file_count": 61,
+      "source_tree_sha256": "f76e7463a897b300c6923aa07565b1e891d8ac1946a2716c365c2757e3e5f3ba",
+      "license": "LicenseRef-Anthropic-Proprietary",
+      "declared_license": "Proprietary. LICENSE.txt has complete terms",
+      "licenses": [
+        {
+          "path": "skills/docx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/docx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/docx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/docx.sha256.json",
+      "installed_tree_sha256": "f588c0adff1f8351792e18202555cf9f571c6d7796a52115f8ba6d0bd193c8bd",
+      "installed_file_count": 65
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/frontend-design",
+      "source_name": "frontend-design",
+      "registered_name": "anthropic-frontend-design",
+      "namespace_reason": "canonical claude-code frontend-design reserved",
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/frontend-design",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/frontend-design/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/frontend-design",
+      "path": "C:/Users/elaza/.codex/skills/anthropic-frontend-design",
+      "original_skill_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd",
+      "installed_skill_sha256": "590ccd0f739107dd190bb5d96b860c62b2ed12b203145784e3bdfd50cac1cd69",
+      "source_file_count": 2,
+      "source_tree_sha256": "6766a53bdf70935b5a70bc3315e90c295866ff1798256272f15859e474267862",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/frontend-design/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/frontend-design/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/frontend-design/LICENSE.txt",
+          "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [
+        {
+          "type": "frontmatter-name",
+          "source_path": "SKILL.md",
+          "installed_path": "SKILL.md",
+          "from": "frontend-design",
+          "to": "anthropic-frontend-design",
+          "original_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd",
+          "installed_sha256": "590ccd0f739107dd190bb5d96b860c62b2ed12b203145784e3bdfd50cac1cd69",
+          "body_unchanged": true
+        }
+      ],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/anthropic-frontend-design.sha256.json",
+      "installed_tree_sha256": "a4ec41dd847b7f4aab5d43057fc8fab6e1eee473f91d589f73562bbe21bd0bec",
+      "installed_file_count": 6
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/internal-comms",
+      "source_name": "internal-comms",
+      "registered_name": "internal-comms",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/internal-comms",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/internal-comms/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/internal-comms",
+      "path": "C:/Users/elaza/.codex/skills/internal-comms",
+      "original_skill_sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475",
+      "installed_skill_sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475",
+      "source_file_count": 6,
+      "source_tree_sha256": "bca92de00373c05a32fa55647025f313c765e807e897e8a6b5b98db2d6ec0d19",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/internal-comms/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/internal-comms/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/internal-comms/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/internal-comms.sha256.json",
+      "installed_tree_sha256": "165796ef2666796c93c01b78125e455ab94998299f64594e5f0934d495a55048",
+      "installed_file_count": 10
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/mcp-builder",
+      "source_name": "mcp-builder",
+      "registered_name": "mcp-builder",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/mcp-builder",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/mcp-builder/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/mcp-builder",
+      "path": "C:/Users/elaza/.codex/skills/mcp-builder",
+      "original_skill_sha256": "0f4592dcb53cf2b5d6b7febee6b4152018b565551a1c29e3c612f57b218ab295",
+      "installed_skill_sha256": "0f4592dcb53cf2b5d6b7febee6b4152018b565551a1c29e3c612f57b218ab295",
+      "source_file_count": 10,
+      "source_tree_sha256": "67835b66aa171d3bd23b7b8621c2c63867f2800fea5b8f619f8e28255203e165",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/mcp-builder/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/mcp-builder/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/mcp-builder/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/mcp-builder.sha256.json",
+      "installed_tree_sha256": "2473162c8aa3cea05a5bec8c3a62c7e83d46420d4c25fadaa882b04e67f075bd",
+      "installed_file_count": 14
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/pdf",
+      "source_name": "pdf",
+      "registered_name": "anthropic-pdf",
+      "namespace_reason": "existing name/directory",
+      "collisions": [
+        {
+          "name": "pdf",
+          "directory": "pdf",
+          "path": "C:/Users/elaza/.codex/plugins/cache/openai-primary-runtime/pdf/26.826.12353/skills/pdf/SKILL.md",
+          "sha256": "9e429bfc5ada20ccf25a531484e3dcc5da59811d936a7cc5dfd23dbf2dfadd31"
+        }
+      ],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/pdf",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pdf/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pdf",
+      "path": "C:/Users/elaza/.codex/skills/anthropic-pdf",
+      "original_skill_sha256": "9f78b8359fbd4943ad260a7a1e436e5a96503406d6c34e99f69223d647d85b9c",
+      "installed_skill_sha256": "771c54d85a2fb960d510f4cc43e6962bf58ac50a35d3e5c4f7317c18b1cd60d0",
+      "source_file_count": 12,
+      "source_tree_sha256": "f34e0baf624be35aa6d41a07c7fdb901abaa08d593e58cc68a804c33d6484f2c",
+      "license": "LicenseRef-Anthropic-Proprietary",
+      "declared_license": "Proprietary. LICENSE.txt has complete terms",
+      "licenses": [
+        {
+          "path": "skills/pdf/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pdf/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pdf/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [
+        {
+          "type": "frontmatter-name",
+          "source_path": "SKILL.md",
+          "installed_path": "SKILL.md",
+          "from": "pdf",
+          "to": "anthropic-pdf",
+          "original_sha256": "9f78b8359fbd4943ad260a7a1e436e5a96503406d6c34e99f69223d647d85b9c",
+          "installed_sha256": "771c54d85a2fb960d510f4cc43e6962bf58ac50a35d3e5c4f7317c18b1cd60d0",
+          "body_unchanged": true
+        }
+      ],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/anthropic-pdf.sha256.json",
+      "installed_tree_sha256": "c50a273bdd0ae490bcf8fa8027b999e5a7158979be27a1653db27a1dcad75ae7",
+      "installed_file_count": 16
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/pptx",
+      "source_name": "pptx",
+      "registered_name": "pptx",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/pptx",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pptx/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pptx",
+      "path": "C:/Users/elaza/.codex/skills/pptx",
+      "original_skill_sha256": "a7ff03e2c85b636f55232a6b1555f5dd90216b7a1a359ab289d8364e6acbc6a0",
+      "installed_skill_sha256": "a7ff03e2c85b636f55232a6b1555f5dd90216b7a1a359ab289d8364e6acbc6a0",
+      "source_file_count": 56,
+      "source_tree_sha256": "074a921844c02662c82917178b363c9ae7c24ee279fbb79cffcc9536faf3ee30",
+      "license": "LicenseRef-Anthropic-Proprietary",
+      "declared_license": "Proprietary. LICENSE.txt has complete terms",
+      "licenses": [
+        {
+          "path": "skills/pptx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/pptx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/pptx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/pptx.sha256.json",
+      "installed_tree_sha256": "c69e6bf9a42a681fab44c66e99f4d42ba44049aa28837e8f71729794f48623de",
+      "installed_file_count": 60
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/skill-creator",
+      "source_name": "skill-creator",
+      "registered_name": "anthropic-skill-creator",
+      "namespace_reason": "existing name/directory",
+      "collisions": [
+        {
+          "name": "skill-creator",
+          "directory": "skill-creator",
+          "path": "C:/Users/elaza/.codex/skills/.system/skill-creator/SKILL.md",
+          "sha256": "cccd291077ec57c6f50ca6529f0f3fb93212da09473effb2fcec808e81b21288"
+        }
+      ],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/skill-creator",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/skill-creator/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/skill-creator",
+      "path": "C:/Users/elaza/.codex/skills/anthropic-skill-creator",
+      "original_skill_sha256": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+      "installed_skill_sha256": "127509d15e662fa862ed430b68bfcd4b68ff873528700b9f6447bcb992ecbe94",
+      "source_file_count": 18,
+      "source_tree_sha256": "93f87f5cc232f663134f6268499a2b0f5936fadc3f06ad00a5ec6c0930403146",
+      "license": "Apache-2.0",
+      "declared_license": null,
+      "licenses": [
+        {
+          "path": "skills/skill-creator/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/skill-creator/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/skill-creator/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [
+        {
+          "type": "frontmatter-name",
+          "source_path": "SKILL.md",
+          "installed_path": "SKILL.md",
+          "from": "skill-creator",
+          "to": "anthropic-skill-creator",
+          "original_sha256": "dcd4803e61e913e6fc27294184cd3a71f09f5e924ff20c8a9a20173e7b3c2bcf",
+          "installed_sha256": "127509d15e662fa862ed430b68bfcd4b68ff873528700b9f6447bcb992ecbe94",
+          "body_unchanged": true
+        }
+      ],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/anthropic-skill-creator.sha256.json",
+      "installed_tree_sha256": "0b565a05f210589a9204f2def03b0f43d50e78993ccc8f56ed1f16b63ffe6095",
+      "installed_file_count": 22
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/slack-gif-creator",
+      "source_name": "slack-gif-creator",
+      "registered_name": "slack-gif-creator",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/slack-gif-creator",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/slack-gif-creator/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/slack-gif-creator",
+      "path": "C:/Users/elaza/.codex/skills/slack-gif-creator",
+      "original_skill_sha256": "2efca615ce55a3edd8fc05c779068a8085816617991987e446606403cd3abb22",
+      "installed_skill_sha256": "2efca615ce55a3edd8fc05c779068a8085816617991987e446606403cd3abb22",
+      "source_file_count": 7,
+      "source_tree_sha256": "5b25f7ee83ba521b5fa29054f373cf1658606a1513bec5412e365be129f60844",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/slack-gif-creator/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/slack-gif-creator/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/slack-gif-creator/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/slack-gif-creator.sha256.json",
+      "installed_tree_sha256": "f544dc1bb8eae6d4a864f26ebb416aeb348f3f0f3c0ad841e50838c7dfc5ce16",
+      "installed_file_count": 11
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/theme-factory",
+      "source_name": "theme-factory",
+      "registered_name": "theme-factory",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/theme-factory",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/theme-factory/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/theme-factory",
+      "path": "C:/Users/elaza/.codex/skills/theme-factory",
+      "original_skill_sha256": "c35893e221e28895c52143cc11bf30e41a44817796b39d4b15727dadc9796552",
+      "installed_skill_sha256": "c35893e221e28895c52143cc11bf30e41a44817796b39d4b15727dadc9796552",
+      "source_file_count": 13,
+      "source_tree_sha256": "51eabd32d2ec1b5aaa67cc0e8581c2d6604fc072b26d6caed8a6ffae1b575e16",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/theme-factory/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/theme-factory/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/theme-factory/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/theme-factory.sha256.json",
+      "installed_tree_sha256": "6c86a2c7487241f7871a43dcaee2cc8ff8f99bbfac72f62480ba2ca0fc7e5191",
+      "installed_file_count": 17
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/web-artifacts-builder",
+      "source_name": "web-artifacts-builder",
+      "registered_name": "web-artifacts-builder",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/web-artifacts-builder",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/web-artifacts-builder/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/web-artifacts-builder",
+      "path": "C:/Users/elaza/.codex/skills/web-artifacts-builder",
+      "original_skill_sha256": "81c5002c6643b0de7b8710b00e7a9038daa6fb9b68d59870ee6adb12da8d10f8",
+      "installed_skill_sha256": "81c5002c6643b0de7b8710b00e7a9038daa6fb9b68d59870ee6adb12da8d10f8",
+      "source_file_count": 5,
+      "source_tree_sha256": "628acb960ff670f06dee370cd7f61fd136540635a45f17f8946ca449009aca4f",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/web-artifacts-builder/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/web-artifacts-builder/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/web-artifacts-builder/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/web-artifacts-builder.sha256.json",
+      "installed_tree_sha256": "387cc3b4845d9321e27017c963dadb040d0013afa03352260ba289ae435cf1d6",
+      "installed_file_count": 9
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/webapp-testing",
+      "source_name": "webapp-testing",
+      "registered_name": "webapp-testing",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/webapp-testing",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/webapp-testing/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/webapp-testing",
+      "path": "C:/Users/elaza/.codex/skills/webapp-testing",
+      "original_skill_sha256": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2",
+      "installed_skill_sha256": "51b7349e77ec63b7744a6f63647e7566a0b4d2e301121cc10e8c2113af6556a2",
+      "source_file_count": 6,
+      "source_tree_sha256": "bc1118b73ac37deda9b644a81b1b73d09cbc670b1f3d6e2a367ca50d654f6e74",
+      "license": "Apache-2.0",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "skills/webapp-testing/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/webapp-testing/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/webapp-testing/LICENSE.txt",
+          "sha256": "bc6b3af2f331cbc7fb0da1344efb2cbe5877a31498b4d70dbc7000f3405a1362",
+          "classification": "Apache-2.0"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/webapp-testing.sha256.json",
+      "installed_tree_sha256": "e1e0c09cb4cb6ec5be10b7e9ac2a5361c21b60dd89b623ac14792e037a56ce27",
+      "installed_file_count": 10
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "skills/xlsx",
+      "source_name": "xlsx",
+      "registered_name": "xlsx",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/skills/xlsx",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/xlsx/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/xlsx",
+      "path": "C:/Users/elaza/.codex/skills/xlsx",
+      "original_skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "installed_skill_sha256": "6712b39718fe815054abca9c3ee72f989613e6f771c8a5c58f30a65a6c905622",
+      "source_file_count": 53,
+      "source_tree_sha256": "d29ec8f8f7730666c050664bca71875ff2febc9b3e9454482b4b4bbd95cabaa2",
+      "license": "LicenseRef-Anthropic-Proprietary",
+      "declared_license": "Proprietary. LICENSE.txt has complete terms",
+      "licenses": [
+        {
+          "path": "skills/xlsx/LICENSE.txt",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/skills/xlsx/LICENSE.txt",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/skills/xlsx/LICENSE.txt",
+          "sha256": "79f6d8f5b427252fa3b1c11ecdbdb6bf610b944f7530b4de78f770f38741cfaa",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        },
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/xlsx.sha256.json",
+      "installed_tree_sha256": "bc92c220a5eac94d76978113dcdffdfde88ed19e82f35dd5e1c876ed50f29822",
+      "installed_file_count": 57
+    },
+    {
+      "repo": "anthropics/skills",
+      "source_path": "template",
+      "source_name": "template-skill",
+      "registered_name": "template-skill",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "53048666b05b4799081517d00e09e0a2dd688678",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/skills/tree/53048666b05b4799081517d00e09e0a2dd688678/template",
+      "source_skill_url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/template/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/template",
+      "path": "C:/Users/elaza/.codex/skills/template-skill",
+      "original_skill_sha256": "eb685d91de039ed864fbd790cddf31684b017fd4a34ee1a55760d8d7cdbadefa",
+      "installed_skill_sha256": "eb685d91de039ed864fbd790cddf31684b017fd4a34ee1a55760d8d7cdbadefa",
+      "source_file_count": 1,
+      "source_tree_sha256": "06e60ba01fd226805618f1aa3f4ff69f34fbe55db5106965f49dc845df5440d8",
+      "license": "not separately specified; see source notices",
+      "declared_license": null,
+      "licenses": [
+        {
+          "path": "THIRD_PARTY_NOTICES.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678/snapshot/THIRD_PARTY_NOTICES.md",
+          "url": "https://github.com/anthropics/skills/blob/53048666b05b4799081517d00e09e0a2dd688678/THIRD_PARTY_NOTICES.md",
+          "sha256": "a8ff7a84dee9dfb42ab448de281784387ceafdf63881b7c070ee2de7f6ed865c",
+          "classification": "OFL-1.1"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "THIRD_PARTY_NOTICES.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--skills/53048666b05b4799081517d00e09e0a2dd688678.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/template-skill.sha256.json",
+      "installed_tree_sha256": "a7891b76e18e2502fd3cd3423a0be69e3721206b9a90008e555e781d4c47681a",
+      "installed_file_count": 5
+    },
+    {
+      "repo": "anthropics/claude-code",
+      "source_path": "plugins/frontend-design/skills/frontend-design",
+      "source_name": "frontend-design",
+      "registered_name": "frontend-design",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "aef74afe01f65b602258d6102b0da9730ac6f0aa",
+      "observed_ref": "main",
+      "source_url": "https://github.com/anthropics/claude-code/tree/aef74afe01f65b602258d6102b0da9730ac6f0aa/plugins/frontend-design/skills/frontend-design",
+      "source_skill_url": "https://github.com/anthropics/claude-code/blob/aef74afe01f65b602258d6102b0da9730ac6f0aa/plugins/frontend-design/skills/frontend-design/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/snapshot/plugins/frontend-design/skills/frontend-design",
+      "path": "C:/Users/elaza/.codex/skills/frontend-design",
+      "original_skill_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd",
+      "installed_skill_sha256": "1608ea77fbb6fc30d13a97d12cfa8ebf31358d40f0dd97beed24829d6b3f45dd",
+      "source_file_count": 1,
+      "source_tree_sha256": "04b4046372d6596336e1432997d51343f27a3fde8530315a28a771f2232151bc",
+      "license": "LicenseRef-Anthropic-Proprietary",
+      "declared_license": "Complete terms in LICENSE.txt",
+      "licenses": [
+        {
+          "path": "LICENSE.md",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa/snapshot/LICENSE.md",
+          "url": "https://github.com/anthropics/claude-code/blob/aef74afe01f65b602258d6102b0da9730ac6f0aa/LICENSE.md",
+          "sha256": "728158fd1037143fad6907e8fa34804177e598b7326519503fe83cafdef849e6",
+          "classification": "LicenseRef-Anthropic-Proprietary"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "LICENSE.md"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/anthropics--claude-code/aef74afe01f65b602258d6102b0da9730ac6f0aa.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/frontend-design.sha256.json",
+      "installed_tree_sha256": "b2247a03f34ec207acd14337a84a2dadbd3bd02f690709314215d9b9947273f1",
+      "installed_file_count": 5
+    },
+    {
+      "repo": "blader/humanizer",
+      "source_path": ".",
+      "source_name": "humanizer",
+      "registered_name": "humanizer",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "observed_ref": "main",
+      "source_url": "https://github.com/blader/humanizer/tree/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/.",
+      "source_skill_url": "https://github.com/blader/humanizer/blob/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/snapshot",
+      "path": "C:/Users/elaza/.codex/skills/humanizer",
+      "original_skill_sha256": "14fc8a965b6e0a8dc100ba4dffeab55cb94bbac112abbde7e014d5c15a35c202",
+      "installed_skill_sha256": "14fc8a965b6e0a8dc100ba4dffeab55cb94bbac112abbde7e014d5c15a35c202",
+      "source_file_count": 9,
+      "source_tree_sha256": "2437fe67296517ea84a31e93ffbedd625432919472ffacbf7142bd04aaea9804",
+      "license": "MIT",
+      "declared_license": "MIT",
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/snapshot/LICENSE",
+          "url": "https://github.com/blader/humanizer/blob/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/LICENSE",
+          "sha256": "4ac4810254ab36d45419141aeb8e69bf50652cfafe5b2dab947d06d44e5cbf96",
+          "classification": "MIT"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "LICENSE"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/blader--humanizer/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/humanizer.sha256.json",
+      "installed_tree_sha256": "8f93f28fe6e821c26fee6cd8263820e807ddb200fda2751ae63533c2051d0e8b",
+      "installed_file_count": 13
+    },
+    {
+      "repo": "Vladimir-Human/humanizer-ru",
+      "source_path": ".",
+      "source_name": "humanizer-ru",
+      "registered_name": "humanizer-ru",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "df918c383731c6063b064fd18cb243c05f4c1a9d",
+      "observed_ref": "main",
+      "source_url": "https://github.com/Vladimir-Human/humanizer-ru/tree/df918c383731c6063b064fd18cb243c05f4c1a9d/.",
+      "source_skill_url": "https://github.com/Vladimir-Human/humanizer-ru/blob/df918c383731c6063b064fd18cb243c05f4c1a9d/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/snapshot",
+      "path": "C:/Users/elaza/.codex/skills/humanizer-ru",
+      "original_skill_sha256": "8d6f08707d866ecf0fe7495e3f7754dba37a2574e0de22935a49466789fb3958",
+      "installed_skill_sha256": "8d6f08707d866ecf0fe7495e3f7754dba37a2574e0de22935a49466789fb3958",
+      "source_file_count": 747,
+      "source_tree_sha256": "dc6fa9533a1804341be097ae3bdadd797e313d025f8028c4d3ef414f7c7b5449",
+      "license": "MIT",
+      "declared_license": "MIT",
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d/snapshot/LICENSE",
+          "url": "https://github.com/Vladimir-Human/humanizer-ru/blob/df918c383731c6063b064fd18cb243c05f4c1a9d/LICENSE",
+          "sha256": "b0057afb49cd823e36f2188bd58650978e523ee69388a2edbd0bbbabd924ef5d",
+          "classification": "MIT"
+        }
+      ],
+      "transformations": [
+        {
+          "type": "inactive-nested-distribution",
+          "source_path": "dsh/skills/humanizer-ru/SKILL.md",
+          "installed_path": "dsh/skills/humanizer-ru/SKILL.upstream.md",
+          "original_sha256": "8d6f08707d866ecf0fe7495e3f7754dba37a2574e0de22935a49466789fb3958",
+          "installed_sha256": "8d6f08707d866ecf0fe7495e3f7754dba37a2574e0de22935a49466789fb3958"
+        }
+      ],
+      "repository_context_files": [
+        "README.md",
+        "LICENSE"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/Vladimir-Human--humanizer-ru/df918c383731c6063b064fd18cb243c05f4c1a9d.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/humanizer-ru.sha256.json",
+      "installed_tree_sha256": "c61f53130872eb3a1ebfbc4f9fb97cffe2d040823ce73bb7a51a0aeb68b62aca",
+      "installed_file_count": 751
+    },
+    {
+      "repo": "Nutlope/hallmark",
+      "source_path": "skills/hallmark",
+      "source_name": "hallmark",
+      "registered_name": "hallmark",
+      "namespace_reason": null,
+      "collisions": [],
+      "kind": "github-skill",
+      "commit": "13ac0ec7e148655948100b6396439e481361d690",
+      "observed_ref": "main",
+      "source_url": "https://github.com/Nutlope/hallmark/tree/13ac0ec7e148655948100b6396439e481361d690/skills/hallmark",
+      "source_skill_url": "https://github.com/Nutlope/hallmark/blob/13ac0ec7e148655948100b6396439e481361d690/skills/hallmark/SKILL.md",
+      "original_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/snapshot/skills/hallmark",
+      "path": "C:/Users/elaza/.codex/skills/hallmark",
+      "original_skill_sha256": "59469635bbbd21acddbc664d95e8d97147f454b2d8f4a0a89c7d2c5afbe67577",
+      "installed_skill_sha256": "59469635bbbd21acddbc664d95e8d97147f454b2d8f4a0a89c7d2c5afbe67577",
+      "source_file_count": 107,
+      "source_tree_sha256": "9089769bfcca3ac494cc1048212ffb2802bd256f714f4e48675fcb0a14965419",
+      "license": "MIT",
+      "declared_license": null,
+      "licenses": [
+        {
+          "path": "LICENSE",
+          "local_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690/snapshot/LICENSE",
+          "url": "https://github.com/Nutlope/hallmark/blob/13ac0ec7e148655948100b6396439e481361d690/LICENSE",
+          "sha256": "06088a8b94598626f27612dea42300154bf7be967c85d9d3eee4490cb056af7d",
+          "classification": "MIT"
+        }
+      ],
+      "transformations": [],
+      "repository_context_files": [
+        "README.md",
+        "LICENSE"
+      ],
+      "installer_evidence_path": "C:/Users/elaza/.codex/references/pager-sources/installer-staging/Nutlope--hallmark/13ac0ec7e148655948100b6396439e481361d690.helper.json",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/hallmark.sha256.json",
+      "installed_tree_sha256": "70eb876f7ffa4cd84c469d7d9fab12efb07534c51b92e4955c1b9394743ba0b2",
+      "installed_file_count": 111
+    },
+    {
+      "kind": "local-reference-index",
+      "registered_name": "public-apis",
+      "path": "C:/Users/elaza/.codex/skills/public-apis",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/public-apis.sha256.json",
+      "installed_tree_sha256": "78e2cb2268a29b9ffb5d32a485637297694fa6e6e18c3aed1269981305be9783",
+      "installed_file_count": 2,
+      "repo": "public-apis/public-apis",
+      "commit": "9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "observed_ref": "master",
+      "source_url": "https://github.com/public-apis/public-apis/commit/9d0426870ee7edc9ffedf21cc5b2e87604819549",
+      "snapshot_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/snapshot",
+      "license": "MIT",
+      "license_path": "C:/Users/elaza/.codex/references/pager-sources/repositories/public-apis--public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/snapshot/LICENSE",
+      "index_path": "C:/Users/elaza/.codex/references/pager-sources/indexes/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/index.json",
+      "index_sha256": "c8df871aceb4911c158fc2e743483ffa86ec0a324382da4527b36fff77e09c1f",
+      "index_markdown_path": "C:/Users/elaza/.codex/references/pager-sources/indexes/public-apis/9d0426870ee7edc9ffedf21cc5b2e87604819549/INDEX.md",
+      "index_markdown_sha256": "0896f901e3cd2de641e9c87e3063f8b0a673054469bc81d6502dd7530ab8dd2c",
+      "entry_count": 1737,
+      "category_count": 51,
+      "integration_status": "offline reference only"
+    },
+    {
+      "kind": "local-application-bridge",
+      "registered_name": "open-design",
+      "path": "C:/Users/elaza/.codex/skills/open-design",
+      "installed_manifest_path": "C:/Users/elaza/.codex/references/pager-sources/installed-manifests/open-design.sha256.json",
+      "installed_tree_sha256": "1271675c2233eca3f6ec8e2739e37d69b04818a5230d7ed75df952e18b082ac1",
+      "installed_file_count": 2,
+      "version": "0.19.2",
+      "package_path": "C:/Users/elaza/AppData/Local/Programs/Open Design/resources/app/package.json",
+      "package_sha256": "b8ac460cc691b2aa492081ffea14454bd1e9608c06f239855f4b7dd808a2e9eb",
+      "manifest_path": "C:/Users/elaza/.codex/references/pager-sources/open-design-before.sha256.json",
+      "tree_sha256": "ac489b2e35e7df2b5568e952006e0ce553c5505a1a62bbc8449c2289997f38af",
+      "file_count": 6866,
+      "source_url": null,
+      "upstream_commit": null,
+      "kind_of_revision": "local resource SHA-256 manifest",
+      "target_path": "C:/Users/elaza/AppData/Local/Programs/Open Design/resources/open-design",
+      "index_path": "C:/Users/elaza/.codex/references/pager-sources/indexes/open-design/ac489b2e35e7df2b/skills-index.json",
+      "index_sha256": "4a32d7527955be6d0b10f156d38437ea6d5fecf63770287dcf0d8fcbe6ef92ab",
+      "indexed_skill_count": 162,
+      "license": "per installed resource; skills README declares Apache-2.0 with per-skill exceptions",
+      "license_evidence_path": "C:/Users/elaza/AppData/Local/Programs/Open Design/resources/open-design/skills/README.md",
+      "bridge_mode": "read-only path and resource index; no junction, runtime installation or launch",
+      "integration_status": "local reference bridge; application runtime not exercised"
+    }
+  ],
+  "policy": {
+    "existing_skills": "inspect and never overwrite",
+    "canonical_frontend_design": "anthropics/claude-code",
+    "anthropic_conflict_prefix": "anthropic-",
+    "source_fidelity": "unaltered complete snapshots, Git blob checks and SHA-256 manifests",
+    "registration_adaptations": "only explicit frontmatter renames and inactive nested SKILL filename recorded per skill",
+    "app_runtime": "not changed or launched",
+    "updates": "check-updates is read-only; install is pinned and non-overwriting"
+  }
+}

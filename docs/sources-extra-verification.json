@@ -1,0 +1,36 @@
+{
+  "independent_public_api_row_coverage": {
+    "status": "passed",
+    "candidate_rows": 1737,
+    "indexed_rows": 1737,
+    "categories": 51,
+    "rows_with_extra_columns": [
+      1152
+    ],
+    "url_whitespace_rows": [
+      669,
+      739,
+      2048
+    ]
+  },
+  "source_file_count": 1713,
+  "source_bytes": 47231513,
+  "installer_collision_refusal": {
+    "status": "passed",
+    "existing_directory": "C:/Users/elaza/.codex/skills/frontend-design",
+    "files_unchanged": true
+  },
+  "installer_archive_traversal_refusal": {
+    "status": "passed",
+    "fixture_path": "C:/Users/elaza/.codex/references/pager-sources/verification-fixtures/unsafe-path.zip",
+    "no_escape_written": true
+  },
+  "idempotent_install": {
+    "status": "passed",
+    "lock_unchanged": true,
+    "all_global_skill_files_unchanged": true,
+    "stdout": "Verification passed: 6 checks, 26 registrations.\nExisting locked installation verified; nothing overwritten."
+  },
+  "setup_script_sha256": "fac1ee477fec4ebeacaa38516c8921110555a6fa7efd18d8b7a9dc65d95fddb9",
+  "verified_at": "2026-09-02T18:04:22.632358+00:00"
+}

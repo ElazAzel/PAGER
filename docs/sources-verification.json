@@ -1,0 +1,15 @@
+{
+  "verified_at": "2026-09-02T18:02:56.058962+00:00",
+  "status": "passed",
+  "registration_count": 26,
+  "github_skill_count": 24,
+  "checks": [
+    "All complete source snapshots and archives match pinned SHA-256 manifests.",
+    "All installed files, licenses and referenced repository materials preserved; only recorded registration adaptations differ.",
+    "Every anthropics/skills SKILL.md installed (20 including template); canonical frontend-design is from the requested plugin.",
+    "New names are unique across global/plugin catalogs; 217 existing SKILL files and all original global materials unchanged.",
+    "Public API index regenerates exactly: 1737 entries in 51 categories.",
+    "Exact Open Design path, package and all 6866 original resource files unchanged."
+  ],
+  "scope": "source setup only; app access/payment/inventory tests and production build remain with the app owners"
+}
