@@ -1,0 +1,160 @@
+import { mkdtemp, rm } from "node:fs/promises";
+import os from "node:os";
+import path from "node:path";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import type { Block, Page } from "../src/lib/types";
+const context = vi.hoisted(() => ({ values: new Map<string, string>() }));
+vi.mock("next/headers", () => ({ headers: async () => new Headers({ host: "127.0.0.1:3100" }), cookies: async () => ({ get: (name: string) => context.values.has(name) ? { value: context.values.get(name)! } : undefined, set: (name: string, value: string) => context.values.set(name, value), delete: (name: string) => context.values.delete(name), getAll: () => [...context.values.entries()].map(([name, value]) => ({ name, value })) }) }));
+import { GET as session } from "../src/app/api/session/route";
+import { POST as demoSession } from "../src/app/api/demo/session/route";
+import { POST as logout } from "../src/app/api/auth/logout/route";
+import { GET as dashboard } from "../src/app/api/dashboard/route";
+import { GET as publicPage } from "../src/app/api/public/[slug]/route";
+import { GET as publicItem } from "../src/app/api/public/[slug]/items/[id]/route";
+import { PUT as pagePut } from "../src/app/api/page/route";
+import { POST as publish } from "../src/app/api/page/publish/route";
+import { POST as leads } from "../src/app/api/leads/route";
+import { POST as analytics } from "../src/app/api/analytics/route";
+import { GET as purchases } from "../src/app/api/purchases/route";
+import { GET as csv } from "../src/app/api/contacts/export/route";
+import { PATCH as contactPatch } from "../src/app/api/contacts/[id]/route";
+import { POST as itemPost } from "../src/app/api/items/route";
+import { POST as upload } from "../src/app/api/assets/route";
+import { GET as assetGet } from "../src/app/api/assets/[id]/route";
+import { readState, mutateState } from "../src/lib/server/store";
+import { createOpportunity } from "../src/lib/server/crm";
+
+const origin = "http://127.0.0.1:3100";
+const request = (url: string, method = "GET", body?: unknown): Request => new Request(origin + url, { method, headers: { origin, ...(body === undefined ? {} : { "content-type": "application/json" }) }, ...(body === undefined ? {} : { body: JSON.stringify(body) }) });
+const params = (id: string) => ({ params: Promise.resolve({ id }) });
+const anna = () => ({ params: Promise.resolve({ slug: "anna" }) });
+let dir: string;
+beforeEach(async () => { dir = await mkdtemp(path.join(os.tmpdir(), "pager-core-routes-")); vi.stubEnv("PAGER_DEMO", "true"); vi.stubEnv("PAGER_DATA_DIR", dir); vi.stubEnv("PAGER_APP_URL", origin); context.values.clear(); });
+afterEach(async () => { context.values.clear(); vi.unstubAllEnvs(); await rm(dir, { recursive: true, force: true }); });
+async function login(role: "creator" | "buyer", identity: "primary" | "secondary" = "primary") { expect((await demoSession(request("/api/demo/session", "POST", { role, identity }))).status).toBe(200); }
+
+describe("core routes with real file transactions and signed session auth", () => {
+  it("keeps visitors anonymous and enforces creator/buyer/tenant boundaries", async () => {
+    expect(await (await session(request("/api/session"))).json()).toEqual({ user: null, demo: true });
+    expect((await dashboard(request("/api/dashboard"))).status).toBe(401);
+    expect((await purchases(request("/api/purchases"))).status).toBe(401);
+    const publicResponse = await publicPage(request("/api/public/anna"), anna());
+    expect(publicResponse.headers.get("cache-control")).toContain("no-store");
+    const data = await publicResponse.json(); expect(data.page.blocks).toHaveLength(8);
+    expect(data.page.blocks.find((b: { id: string }) => b.id === "anna-library").data).toBeUndefined();
+    expect(JSON.stringify(data)).not.toContain("anna-workbook-file");
+    expect(context.values.size).toBe(0);
+    await login("creator"); const own = await (await dashboard(request("/api/dashboard"))).json();
+    expect(own.user.id).toBe("creator-anna"); expect(own.contacts.every((c: { ownerId: string }) => c.ownerId === "creator-anna")).toBe(true);
+    expect((await contactPatch(request("/api/contacts/seed-contact-1", "PATCH", { notes: "leak" }), params("seed-contact-1"))).status).toBe(404);
+    await login("creator", "secondary");
+    expect((await pagePut(request("/api/page", "PUT", { page: own.page }))).status).toBe(403);
+    await login("buyer"); expect((await dashboard(request("/api/dashboard"))).status).toBe(403);
+    await logout(request("/api/auth/logout", "POST"));
+    expect((await (await session(request("/api/session"))).json()).user).toBeNull();
+  });
+  it("keeps draft content out of publication and direct URLs; validates currency and contact export", async () => {
+    await login("creator"); const data = await (await dashboard(request("/api/dashboard"))).json(); const page: Page = data.page;
+    page.blocks[1].data.text = "PRIVATE_DRAFT_SENTINEL";
+    expect((await pagePut(request("/api/page", "PUT", { page }))).status).toBe(200);
+    context.values.clear();
+    expect(await (await publicPage(request("/api/public/anna"), anna())).text()).not.toContain("PRIVATE_DRAFT_SENTINEL");
+    const itemContext = { params: Promise.resolve({ slug: "anna", id: "anna-workbook" }) };
+    expect((await publicItem(request("/api/public/anna/items/anna-workbook?blockId=anna-library"), itemContext)).status).toBe(403);
+    expect((await publicItem(request("/api/public/anna/items/anna-workbook?blockId=anna-catalog"), itemContext)).status).toBe(200);
+    await login("creator"); expect((await publish(request("/api/page/publish", "POST"))).status).toBe(200);
+    const item = structuredClone(data.items[0]); item.currency = "JPY";
+    expect((await itemPost(request("/api/items", "POST", { item }))).status).toBe(400);
+    await contactPatch(request("/api/contacts/seed-contact-0", "PATCH", { notes: '=HYPERLINK("https://evil.test")' }), params("seed-contact-0"));
+    const exported = await (await csv(request("/api/contacts/export"))).text();
+    expect(exported).toContain("'=HYPERLINK"); expect(exported).not.toContain("Приватные заметки другого");
+  });
+  it("accepts free event registrations, retains block origin, deduplicates attendees and enforces capacity", async () => {
+    const state = await readState(); const event: Block = { ...state.pages[0].blocks[0], id: "event-anna", type: "event", data: { title: "Встреча", capacity: 1 } };
+    await mutateState(s => { s.pages[0].blocks.push(event); s.publishedPages[0].blocks.push(structuredClone(event)); });
+    const registration = { pageId: "page-anna", blockId: "event-anna", name: "Guest", email: "guest@example.com", message: "" };
+    expect((await leads(request("/api/leads", "POST", registration))).status).toBe(200);
+    expect((await leads(request("/api/leads", "POST", registration))).status).toBe(200);
+    expect((await leads(request("/api/leads", "POST", { ...registration, email: "other@example.com" }))).status).toBe(409);
+    const after = await readState(); expect(after.opportunities.filter(o => (o as typeof o & { blockId?: string }).blockId === event.id)).toHaveLength(1);
+    expect(after.timeline[0]).toMatchObject({ kind: "event_registration", referenceId: after.opportunities[0].id });
+  });
+  it("applies public form gates, persistent rate limits and demo metrics exclusion", async () => {
+    const input = { pageId: "page-anna", blockId: "anna-form", name: "Guest", email: "guest@example.com", message: "Hello" };
+    expect((await leads(request("/api/leads", "POST", { ...input, blockId: "anna-library" }))).status).toBe(403);
+    expect((await leads(request("/api/leads", "POST", input))).status).toBe(200);
+    for (let i = 0; i < 4; i++) await leads(request("/api/leads", "POST", input));
+    expect((await leads(request("/api/leads", "POST", input))).status).toBe(429);
+    expect((await analytics(request("/api/analytics", "POST", { pageId: "page-anna", kind: "view", visitorId: "visitor-123" }))).status).toBe(200);
+    await login("creator"); const data = await (await dashboard(request("/api/dashboard"))).json();
+    expect(data.metrics.views).toBe(0); expect(data.opportunities.every((o: { test: boolean }) => o.test)).toBe(true);
+  });
+  it("returns hidden purchased content and protected file bytes only to the entitled buyer", async () => {
+    await login("creator");
+    const form = new FormData(); form.set("pageId", "page-anna"); form.set("file", new File(["RETAINED_FILE_BYTES"], "material.txt", { type: "text/plain" }));
+    const uploaded = await upload(new Request(origin + "/api/assets", { method: "POST", headers: { origin }, body: form }));
+    expect(uploaded.status).toBe(200); const { asset } = await uploaded.json();
+    await mutateState(state => {
+      for (const page of [state.pages[0], state.publishedPages[0]]) {
+        const block = page.blocks.find(b => b.id === "anna-library")!;
+        block.hidden = true; block.data = { text: "RETAINED_BLOCK_BODY", fileId: asset.id };
+      }
+      state.entitlements.push({ id: "retained-grant", ownerId: "creator-anna", buyerId: "buyer-primary", pageId: "page-anna", scope: "block", blockId: "anna-library", orderId: "retained-order", status: "active", expiresAt: null, createdAt: new Date().toISOString() });
+    });
+    context.values.clear();
+    expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(404);
+    await login("buyer");
+    const library = await purchases(request("/api/purchases"));
+    expect(library.status).toBe(200); expect(library.headers.get("cache-control")).toContain("no-store");
+    expect(await library.text()).toContain("RETAINED_BLOCK_BODY");
+    expect(await (await publicPage(request("/api/public/anna"), anna())).text()).not.toMatch(/anna-library|RETAINED_BLOCK_BODY/);
+    const download = await assetGet(request(`/api/assets/${asset.id}`), params(asset.id));
+    expect(download.status).toBe(200); expect(download.headers.get("cache-control")).toContain("no-store");
+    expect(await download.text()).toBe("RETAINED_FILE_BYTES");
+    await login("buyer", "secondary");
+    expect(await (await purchases(request("/api/purchases"))).text()).not.toContain("RETAINED_BLOCK_BODY");
+    expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(404);
+    await mutateState(state => { state.entitlements[0].status = "revoked"; });
+    await login("buyer");
+    expect(await (await purchases(request("/api/purchases"))).text()).not.toContain("RETAINED_BLOCK_BODY");
+    expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(404);
+  });
+  it("claims matching demo bookings and creates their pending service order once on purchase-library reads", async () => {
+    await mutateState(state => {
+      const op = createOpportunity(state, { ownerId: "creator-anna", pageId: "page-anna", contactId: "seed-contact-0", source: "booking", test: true });
+      const now = new Date().toISOString();
+      const booking = { id: "claim-demo", ownerId: "creator-anna", pageId: "page-anna", contactId: "seed-contact-0", opportunityId: op.id, itemId: "anna-session", title: "Demo service", startAt: now, endAt: now, timezone: "UTC", status: "confirmed" as const, version: 1, createdAt: now, test: true, commerce: { sourceBlockId: "anna-booking" } };
+      state.bookings.push(booking, { ...booking, id: "claim-live", test: false });
+    });
+    await login("buyer", "secondary");
+    const other = await (await purchases(request("/api/purchases"))).json();
+    expect(other.bookings).toHaveLength(0); expect(other.orders).toHaveLength(0);
+    await login("buyer");
+    const response = await purchases(request("/api/purchases")); expect(response.status).toBe(200);
+    const data = await response.json();
+    expect(data.bookings).toHaveLength(1); expect(data.bookings[0]).toMatchObject({ id: "claim-demo", buyerId: "buyer-primary" });
+    expect(data.bookings[0].commerce).toBeUndefined();
+    expect(data.orders).toHaveLength(1); expect(data.orders[0]).toMatchObject({ bookingId: "claim-demo", status: "pending", amount: 15000, test: true });
+    expect(data.entitlements).toHaveLength(0);
+    expect((await (await purchases(request("/api/purchases"))).json()).orders).toHaveLength(1);
+    const state = await readState();
+    expect(state.bookings.find(b => b.id === "claim-live")?.buyerId).toBeUndefined();
+    expect(state.bookings[0]).toMatchObject({ commerce: { sourceBlockId: "anna-booking" } });
+    expect(state.orders).toHaveLength(1);
+  });
+  it("streams uploaded images only after publication/reference authorization and keeps digital delivery private", async () => {
+    await login("creator");
+    const bytes = Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+j3uoAAAAASUVORK5CYII=", "base64");
+    const form = new FormData(); form.set("pageId", "page-anna"); form.set("file", new File([bytes], "avatar.png", { type: "image/png" }));
+    const response = await upload(new Request(origin + "/api/assets", { method: "POST", headers: { origin }, body: form })); expect(response.status).toBe(200);
+    const { asset } = await response.json();
+    expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(200);
+    context.values.clear(); expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(404);
+    await mutateState(s => { s.pages[0].blocks[0].data.avatar = `/api/assets/${asset.id}`; });
+    expect((await assetGet(request(`/api/assets/${asset.id}`), params(asset.id))).status).toBe(404);
+    await login("creator"); await publish(request("/api/page/publish", "POST")); context.values.clear();
+    const rendered = await assetGet(request(`/api/assets/${asset.id}`), params(asset.id)); expect(rendered.status).toBe(200); expect(rendered.headers.get("content-type")).toBe("image/png");
+    expect((await assetGet(request("/api/assets/anna-workbook-file"), params("anna-workbook-file"))).status).toBe(404);
+    await login("buyer", "secondary"); expect((await assetGet(request("/api/assets/anna-workbook-file"), params("anna-workbook-file"))).status).toBe(404);
+  });
+});

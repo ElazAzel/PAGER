@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="{{ if eq .Data.locale "en" }}en{{ else }}ru{{ end }}">
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"></head>
+  <body style="margin:0;padding:24px;background:#f6f7fb;color:#18212f;font-family:Arial,sans-serif;line-height:1.6">
+    <main style="max-width:480px;margin:0 auto;padding:28px;background:#ffffff;border-radius:16px">
+      <p style="margin:0;color:#3563E9;font-size:18px;font-weight:700">PAGER</p>
+      {{ if eq .Data.locale "en" }}
+      <h1 style="font-size:24px">Your sign-in code</h1>
+      <p>Enter this code in the PAGER window where you requested it:</p>
+      {{ else }}
+      <h1 style="font-size:24px">Ваш код входа</h1>
+      <p>Введите этот код в окне PAGER, где вы его запросили:</p>
+      {{ end }}
+      <p style="padding:16px;background:#eef2ff;color:#234bc5;font-size:32px;font-weight:700;letter-spacing:6px;text-align:center">{{ .Token }}</p>
+      {{ if eq .Data.locale "en" }}
+      <p>The code expires in 10 minutes. Keep it private.</p>
+      <p>If you did not request this code, you can ignore this email.</p>
+      {{ else }}
+      <p>Код действует 10 минут. Никому его не сообщайте.</p>
+      <p>Если вы не запрашивали код, просто проигнорируйте письмо.</p>
+      {{ end }}
+    </main>
+  </body>
+</html>

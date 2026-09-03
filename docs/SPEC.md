@@ -6,6 +6,10 @@ Approved by the user on 2026-09-02. Implement a working modular Next.js 16 / Rea
 
 First audience: independent consultants/coaches selling 1:1 time. RU/EN UI and system emails. Light professional bento design. First 10 creators pay no PAGER subscription or commission, no mandatory branding. One page per creator for pilot.
 
+2026-09-03 user correction: mobile is the primary surface. The original three desktop mockups were rejected. Design the editor and creator workspace as a polished mobile application with touch-sized controls, bottom navigation, focused screens and contextual sheets. Desktop adapts the same product language. Keep the approved Next.js web stack; this is an app-like mobile web/PWA experience, not a separate native rewrite. New mobile concepts replace the rejected selection set.
+
+User repository: https://github.com/ElazAzel/PAGER (private, initially empty; connected as origin on 2026-09-03).
+
 Editor: block list, live canvas, properties, mobile drawer; drag reorder, half/full width, duplicate, hide, archive, autosave draft, explicit atomic publish. Public /{slug} sees only last publication. Product detail /{slug}/items/{id} applies the originating block access policy. Main CTA is booking.
 
 25 types: profile,text,image,separator,link,socials,video,carousel,before_after,testimonial,faq,map,messenger,download,pricing,catalog,product,countdown,scratch,shoutout,community,event,custom_code,form,booking.
