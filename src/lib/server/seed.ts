@@ -7,7 +7,7 @@ export function emptyState(): DatabaseState {
 export const DEMO_IDENTITIES = { creator: { primary: "creator-anna", secondary: "creator-other" }, buyer: { primary: "buyer-primary", secondary: "buyer-secondary" } } as const;
 export function starterPage(user: User): Page {
   const now = new Date().toISOString();
-  return { id: `page-${user.id}`, ownerId: user.id, slug: `p-${user.id.slice(0, 12)}`, title: user.name || "Моя страница", description: "", locale: user.locale, accent: "#3563E9", blocks: [], paid: false, teaser: "", pricing: { currency: "USD" }, publishedAt: null, updatedAt: now, revision: 1 };
+  return { id: `page-${user.id}`, ownerId: user.id, slug: `p-${user.id.slice(0, 12)}`, title: user.name || "Моя страница", description: "", locale: user.locale, accent: "#D56A4A", blocks: [], paid: false, teaser: "", pricing: { currency: "USD" }, publishedAt: null, updatedAt: now, revision: 1 };
 }
 export function createDemoState(): DatabaseState {
   const state = emptyState(); const now = new Date().toISOString();
@@ -19,7 +19,7 @@ export function createDemoState(): DatabaseState {
   ];
   const block = (id: string, type: Block["type"], data: Block["data"], width: Block["width"] = "full"): Block => ({ id, type, data, width, hidden: false, archived: false, paid: false, teaser: "", pricing: { currency: "USD" } });
   const page: Page = {
-    id: "page-anna", ownerId: "creator-anna", slug: "anna", title: "Анна Волкова — ясность в карьере и бизнесе", description: "Карьерный консультант. Помогаю найти свой следующий шаг и превратить его в понятный план.", locale: "ru", accent: "#3563E9", paid: false,
+    id: "page-anna", ownerId: "creator-anna", slug: "anna", title: "Анна Волкова — ясность в карьере и бизнесе", description: "Карьерный консультант. Помогаю найти свой следующий шаг и превратить его в понятный план.", locale: "ru", accent: "#D56A4A", paid: false,
     teaser: "Все материалы Анны, включая будущие дополнения. Консультации и товары приобретаются отдельно.", pricing: { currency: "USD", oneTime: 12900, monthly: 1900 }, publishedAt: now, updatedAt: now, revision: 1,
     blocks: [
       block("anna-profile", "profile", { name: "Анна Волкова", profession: "Карьерный консультант · стратег", text: "<p>Спокойно разберёмся, что для вас важно, и найдём следующий шаг.</p>", subtitle: "Демонстрационный профиль вымышленного консультанта" }),
