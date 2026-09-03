@@ -57,6 +57,7 @@ pnpm test:api
 - `docs/VERIFICATION.md` — фактически выполненные проверки и открытые ограничения.
 - `docs/METRICS.md` — определения конверсий и North Star.
 - `docs/sources-report.md` — установленные навыки, версии, лицензии и обновление.
+- `docs/SOURCE-DECISIONS.md` — решение по присланным источникам и runtime-интеграциям.
 - `docs/CI.md` — подготовленный workflow GitHub Actions.
 
 Supabase, Stripe Connect, Cal.com, Resend и Inngest требуют отдельной настройки и проверки на HTTPS-стенде. Внешние подключения не подтверждены демонстрационными данными.
