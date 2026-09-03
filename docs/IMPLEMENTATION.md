@@ -4,17 +4,16 @@ Spec: docs/SPEC.md
 Branch: feat/pager-mvp
 
 - [x] Global sources and skills
-- [ ] New mobile concepts and selection (original desktop set rejected 2026-09-03)
+- [x] Mobile concept selected: Page Studio (mobile-first bento workspace, 2026-09-03)
 - [x] Shared typed domain contracts (docs/CONTRACTS.md and src/lib/types.ts)
 - [x] Database schema, RLS, repository, auth, secure page projection (local code/tests; live Supabase gate remains)
 - [x] Checkout, webhooks, inventory, Cal, email and optional Telegram adapters (local code/tests; provider validation remains)
-- [ ] Editor, public renderer (25 types), detail, CRM, orders, library, settings
-- [ ] Integration, build, access/security review and browser verification
+- [x] Editor, public renderer (25 types), detail, CRM, orders, library, settings
+- [x] Local integration, build, access/security review and mobile browser verification
 - [x] Runtime guide and integration readiness reports (README, supabase/README, CORE-REPORT, INTEGRATIONS)
 
 Ruling: Create a new feature branch in the empty user-specified PAGER directory; a second worktree provides no isolation benefit for an empty repository.
 Ruling: Core UI and styles remain coordinator-owned; independent agents may install skills or implement server modules with disjoint ownership.
-Ruling: User-approved explicit visual selection is asynchronous; source setup and backend groundwork can continue while awaiting it. No UI implementation until choice.
 Ruling: Secret-dependent real integrations cannot be verified without credentials; implement adapters, fixtures and sandbox tests, report exact missing configuration without representing simulations as live results.
 
 ## Active agents
@@ -38,7 +37,9 @@ Ruling: Secret-dependent real integrations cannot be verified without credential
 - CI workflow added with pinned action revisions; no remote run claimed.
 - Before interruption: 69 tests passed across14files, typecheck passed, API-only production build passed with a demo tracing warning; lint one postcss warning then fixed. HTTP smoke passed54checks; extended booking scenario has not yet been rerun. None of this certifies a UI or live provider integration.
 - 2026-09-03: user rejected all desktop designs, requested mobile application quality, and supplied private empty GitHub repository. Connected origin; new mobile ideation is coordinator's immediate work.
-- New mobile concepts generated independently and displayed in order: 1 Page Studio, 2 Context Sheets, 3 Pocket Editor. Files/mapping in docs/design/mobile. No selection received yet; no React UI built.
+- New mobile concepts generated independently and displayed in order: 1 Page Studio, 2 Context Sheets, 3 Pocket Editor. The user selected Page Studio. Its mobile-first direction is implemented in the creator workspace, public page, Checkout and buyer library.
+- 2026-09-03: local browser verification at 390x844 confirmed the creator app shell, four-item bottom navigation with More menu, bottom property panel, all 25 block types in the add sheet, public page rendering, lead submission, buyer auth continuation, block purchase, page-wide paid access, Checkout, buyer library and creator CRM. The paid-page scenario was restored to the open demo state after verification.
+- 2026-09-03: a publish race was fixed by flushing the current draft before publishing; the mobile style panel now has a close action and can be toggled from the toolbar. Demo role changes on an already-open dashboard now remount the authenticated workspace.
 - Fresh extended development HTTP smoke passed 63 successful response assertions plus denial/state checks for book-first/pay-later, rescheduling, cancellation, independent grants, last-unit inventory, shipping and archived material. Local demo only.
 - Follow-up script now includes hidden sold material continuity. A production build passed, but launching its local HTTP server (`pnpm start --port 3015`) was rejected by automatic approval review with only `blocked by policy`, no detailed rationale. No bypass attempted; this production HTTP run and the latest extended smoke script are not claimed as passed. Existing hidden-material handler/unit tests do pass.
 - Supabase CLI 2.116.0 pinned; `--version` and `pnpm db:migrate --help` passed. Supabase migrations own SQL/RLS; no independent Drizzle history. No live migration applied.

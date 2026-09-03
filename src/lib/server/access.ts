@@ -25,9 +25,10 @@ export function projectPage(page: Page, userId: string | undefined, entitlements
 }
 function projectPageContent(page: Page, userId: string | undefined, entitlements: Entitlement[], demo: boolean, includePurchasedHidden: boolean): PublicPage {
   const owner = userId === page.ownerId;
+  const pageAccess = owner || !page.paid || entitlements.some(e => e.scope === "page" && validGrant(e, page, userId));
   const canRead = includePurchasedHidden ? canReadBlockMaterial : canAccessBlock;
   // Explicit allowlist: Page may later acquire server-only properties.
-  return { id: page.id, slug: page.slug, title: page.title, description: page.paid && !owner && !entitlements.some(e => e.scope === "page" && validGrant(e, page, userId)) ? page.teaser : page.description, locale: page.locale, accent: page.accent, paid: page.paid, teaser: page.teaser, pricing: { ...page.pricing }, publishedAt: page.publishedAt, updatedAt: page.updatedAt, revision: page.revision, owner, demo,
+  return { id: page.id, slug: page.slug, title: page.title, description: pageAccess ? page.description : page.teaser, locale: page.locale, accent: page.accent, paid: page.paid, teaser: page.teaser, pricing: { ...page.pricing }, publishedAt: page.publishedAt, updatedAt: page.updatedAt, revision: page.revision, owner, demo, locked: !pageAccess,
     blocks: page.blocks.filter(b => owner || (b.hidden ? includePurchasedHidden && canRead(page, b, userId, entitlements) : !b.archived || canRead(page, b, userId, entitlements))).map(b => {
       const accessible = canRead(page, b, userId, entitlements);
       return { id: b.id, type: b.type, width: b.width, hidden: b.hidden, archived: b.archived, paid: b.paid, teaser: b.teaser, pricing: { ...b.pricing }, locked: !accessible, ...(accessible ? { data: sanitizeBlockData(b.data, b.type === "custom_code") } : {}) };
