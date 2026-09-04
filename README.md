@@ -28,6 +28,15 @@ pnpm test
 pnpm build
 ```
 
+Для проверки настроенного HTTPS pilot в real mode используйте отдельный smoke:
+
+```powershell
+$env:PAGER_REAL_URL = 'https://your-staging-domain.example'
+pnpm test:real
+```
+
+Он проверяет только real mode, HTTPS, доступность health endpoint и готовность core-конфигурации; он не заменяет sandbox-проверки Stripe, Cal.com, Supabase Auth/Storage или доставку уведомлений.
+
 `pnpm test` включает проверку SQL/RLS в PostgreSQL WASM (PGlite). Это не заменяет проверку Supabase Auth, Storage и PostgREST. На текущем компьютере Docker не запускается из-за отсутствия WSL; проверка локального Supabase остаётся отдельным шагом.
 
 HTTP-сценарий `pnpm test:api` запускается против **свежего изолированного демо**. В первом терминале:
@@ -60,5 +69,7 @@ pnpm test:api
 - `docs/SOURCE-DECISIONS.md` — решение по присланным источникам и runtime-интеграциям.
 - `design.md` — зафиксированное мобильное визуальное направление и anti-slop правила.
 - `docs/CI.md` — подготовленный workflow GitHub Actions.
+- `docs/DEPLOYMENT-CHECKLIST.md` — порядок настройки и release gates для pilot.
+- `docs/YC-APPLICATION.md` и `docs/DEMO-SCRIPT.md` — честный пакет для YC и конкурсов.
 
 Supabase, Stripe Connect, Cal.com, Resend и Inngest требуют отдельной настройки и проверки на HTTPS-стенде. Внешние подключения не подтверждены демонстрационными данными.

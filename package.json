@@ -11,6 +11,8 @@
     "lint": "eslint .",
     "test": "vitest run",
     "test:api": "node scripts/smoke-api.mjs",
+    "test:discovery": "node scripts/smoke-discovery.mjs",
+    "test:real": "node scripts/smoke-real.mjs",
     "test:watch": "vitest",
     "db:generate": "supabase migration new",
     "db:migrate": "supabase db push"

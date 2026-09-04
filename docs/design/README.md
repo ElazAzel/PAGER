@@ -9,6 +9,6 @@ Their order is the order displayed to the user:
 2. `02-outline.png`: outline with inline properties and large preview.
 3. `03-canvas.png`: top navigation and direct contextual editing.
 
-All use the approved light professional bento direction. User selection is pending; coordinator sent an asynchronous choice question. Generated names, prices and prose are fictional demonstration content, not actual user claims. Any fictional experience/success assertions introduced by image generation must not be copied into production demo copy.
+All use the earlier light professional bento direction. The user later rejected this desktop set and selected the mobile Page Studio direction; no visual selection is pending. Generated names, prices and prose are fictional demonstration content, not actual user claims. Any fictional experience/success assertions introduced by image generation must not be copied into production demo copy.
 
 Common generation constraints: one 1440x1024 desktop screen, no device chrome or collage; warm white, graphite, cobalt accent, readable RU typography, generous space, consultant Анна Волкова, one booking CTA, service and locked-resource cards. No metrics or fake testimonials. Original images retained in Codex generated_images; these are project-owned copies.

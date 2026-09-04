@@ -2,13 +2,17 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
-import type { Block, CatalogItem, DashboardData, Page, BlockType, Locale } from "@/lib/types";
-import { BLOCK_TYPES } from "@/lib/types";
-import { BLOCK_GROUPS, BLOCK_META, createBlock, formatMoney } from "@/lib/blocks";
+import Link from "next/link";
+import { AnalyticsPanel } from "./analytics-panel";
+import { PageReadiness } from "./page-readiness";
+import type { CatalogItem, DashboardData, Page, Locale } from "@/lib/types";
+import { formatMoney } from "@/lib/blocks";
 import { t, type MessageKey } from "@/lib/i18n";
-import { BlockRenderer } from "./block-renderer";
 import { Icon } from "./pager-icon";
-import { apiJson, toErrorMessage } from "./api";
+import { ApiClientError, apiJson, toErrorMessage } from "./api";
+import { EditorDialog, PageView as EditorPageView, SaveStatus } from "./page-editor";
+import { DraftWriter, navigateAfterDraftSave, type DraftState } from "./editor-draft";
+import { usePlatformLocale } from "./platform-preferences";
 
 type View = "page" | "clients" | "orders" | "analytics" | "catalog" | "settings";
 const navItems: Array<{ view: View; icon: string; label: MessageKey }> = [
@@ -25,7 +29,7 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
 
 function Loading({ label = "Загружаем…" }: { label?: string }) { return <div className="empty-state"><Icon name="Activity" size={18} /> <span>{label}</span></div>; }
 
-function DemoGate({ role }: { role: "creator" | "buyer" }) {
+function DemoGate({ role, demoEnabled = false, creatorSignup = false }: { role: "creator" | "buyer"; demoEnabled?: boolean; creatorSignup?: boolean }) {
   const router = useRouter();
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
@@ -34,57 +38,48 @@ function DemoGate({ role }: { role: "creator" | "buyer" }) {
     try { await apiJson("/api/demo/session", { method: "POST", body: JSON.stringify({ role, identity: "primary" }) }); if (role === "creator" && window.location.pathname === "/dashboard") window.location.reload(); else router.push(role === "creator" ? "/dashboard" : "/anna"); }
     catch (err) { setError(toErrorMessage(err, "Демо доступно только в локальном режиме.")); } finally { setBusy(false); }
   };
-  return <main className="start-page app-background"><div className="page-width"><div className="start-card"><div className="start-copy"><div className="wordmark">PAGER<span>.</span></div><div className="eyebrow" style={{ marginTop: 42 }}>PAGER / PRIVATE BETA</div><h1>Ваша страница. Следующий разговор — здесь.</h1><p>Одна ссылка для записи, материалов и спокойной работы с клиентами.</p><div className="start-actions"><button className="button button-primary" onClick={enter} disabled={busy}><Icon name="Pencil" size={16} />{role === "creator" ? "Открыть кабинет автора" : "Смотреть страницу"}</button>{role === "creator" && <button className="button button-secondary" onClick={() => router.push("/login")}><Icon name="Mail" size={16} />Войти по email</button>}</div>{error && <div className="notice"><Icon name="Info" size={16} />{error}</div>}<div className="start-proof"><span className="proof-dot" /> Первые 10 авторов — без комиссии PAGER</div></div><div className="start-preview"><div className="phone-preview"><div className="phone-preview-top"><div className="wordmark">PAGER<span>.</span></div><div className="avatar">AB</div></div><div className="phone-preview-body"><div className="preview-profile"><div className="avatar avatar-lg">AB</div><div><div className="preview-name">Анна Волкова</div><div className="preview-role">Карьерный консультант</div></div></div><div className="preview-card"><div className="preview-card-icon"><Icon name="CalendarClock" size={18} /></div><div><strong>Личная консультация</strong><span>60 минут · $150</span></div><Icon name="ArrowRight" size={17} /></div><div className="preview-card"><div className="preview-card-icon"><Icon name="FileText" size={18} /></div><div><strong>План на 30 дней</strong><span>Материал для клиентов</span></div><Icon name="LockKeyhole" size={16} /></div></div></div></div></div></div></main>;
+  const demoAction = demoEnabled && <button type="button" className="button button-primary" onClick={enter} disabled={busy}><Icon name="Pencil" size={16} />{role === "creator" ? "Открыть локальную демонстрацию" : "Смотреть локальную демонстрацию"}</button>;
+  return <main className="start-page app-background"><div className="page-width"><div className="start-card"><div className="start-copy"><div className="wordmark">PAGER<span>.</span></div><div className="eyebrow" style={{ marginTop: 42 }}>PAGER / PRIVATE BETA</div><h1>Ваша страница. Следующий разговор — здесь.</h1><p>Одна ссылка для записи, материалов и спокойной работы с клиентами.</p><div className="start-actions">{demoAction}<button className={`button ${demoEnabled ? "button-secondary" : "button-primary"}`} onClick={() => router.push("/login")}><Icon name="Mail" size={16} />{role === "creator" && creatorSignup ? "Подать заявку автора" : "Войти по email"}</button></div>{error && <div className="notice error-notice" role="alert"><Icon name="Info" size={16} />{error}</div>}<div className="start-proof"><span className="proof-dot" /> Первые 10 авторов — без комиссии PAGER</div></div><div className="start-preview"><div className="phone-preview"><div className="phone-preview-top"><div className="wordmark">PAGER<span>.</span></div><div className="avatar">AB</div></div><div className="phone-preview-body"><div className="preview-profile"><div className="avatar avatar-lg">AB</div><div><div className="preview-name">Анна Волкова</div><div className="preview-role">Карьерный консультант</div></div></div><div className="preview-card"><div className="preview-card-icon"><Icon name="CalendarClock" size={18} /></div><div><strong>Личная консультация</strong><span>60 минут · $150</span></div><Icon name="ArrowRight" size={17} /></div><div className="preview-card"><div className="preview-card-icon"><Icon name="FileText" size={18} /></div><div><strong>План на 30 дней</strong><span>Материал для клиентов</span></div><Icon name="LockKeyhole" size={16} /></div></div></div></div></div></div></main>;
 }
 
-function ShellNav({ locale, active, onNavigate, onSignOut }: { locale: Locale; active: View; onNavigate: (view: View) => void; onSignOut: () => void }) {
+function WorkspaceError({ message }: { message: string }) {
+  return <main className="start-page app-background"><div className="page-width"><div className="start-card"><div className="start-copy"><div className="wordmark">PAGER<span>.</span></div><div className="eyebrow" style={{ marginTop: 42 }}>PAGER / WORKSPACE</div><h1>Не удалось загрузить кабинет</h1><p>{message}</p><button type="button" className="button button-primary" onClick={() => window.location.reload()}><Icon name="Activity" size={16} />Повторить</button></div></div></div></main>;
+}
+function ShellNav({ locale, active, onNavigate, onSignOut, onOpenAdmin, canAdmin }: { locale: Locale; active: View; onNavigate: (view: View) => void; onSignOut: () => void; onOpenAdmin: () => void; canAdmin: boolean }) {
   const [moreOpen, setMoreOpen] = useState(false);
-  const mobileItems = navItems.filter(item => item.view !== "analytics");
-  const navigateFromMore = (view: View) => { setMoreOpen(false); onNavigate(view); };
-  return <><aside className="desktop-sidebar"><div className="sidebar-brand"><div className="wordmark">PAGER<span>.</span></div></div><div className="sidebar-caption">Workspace</div><nav className="side-nav" aria-label="Main navigation">{navItems.map(item => <button key={item.view} className={`nav-link ${active === item.view ? "active" : ""}`} onClick={() => onNavigate(item.view)}><Icon name={item.icon} size={17} />{t(locale, item.label)}</button>)}<button className={`nav-link ${active === "catalog" ? "active" : ""}`} onClick={() => onNavigate("catalog")}><Icon name="ShoppingBag" size={17} />{t(locale, "tabCatalog")}</button><button className={`nav-link ${active === "settings" ? "active" : ""}`} onClick={() => onNavigate("settings")}><Icon name="Settings" size={17} />{t(locale, "settings")}</button></nav><div className="sidebar-bottom"><button className="nav-link" onClick={onSignOut}><Icon name="LogOut" size={17} />{t(locale, "signOut")}</button></div></aside><nav className="mobile-nav" aria-label="Mobile navigation">{mobileItems.map(item => <button key={item.view} className={`nav-link ${active === item.view ? "active" : ""}`} onClick={() => onNavigate(item.view)}><Icon name={item.icon} size={18} />{t(locale, item.label)}</button>)}<button className={`nav-link ${moreOpen || active === "analytics" || active === "settings" ? "active" : ""}`} onClick={() => setMoreOpen(open => !open)} aria-expanded={moreOpen}><Icon name="MoreHorizontal" size={18} /><span>{locale === "ru" ? "Ещё" : "More"}</span></button>{moreOpen && <div className="mobile-more-menu"><button className={`nav-link ${active === "analytics" ? "active" : ""}`} onClick={() => navigateFromMore("analytics")}><Icon name="BarChart3" size={17} />{t(locale, "analytics")}</button><button className={`nav-link ${active === "settings" ? "active" : ""}`} onClick={() => navigateFromMore("settings")}><Icon name="Settings" size={17} />{t(locale, "settings")}</button><button className="nav-link" onClick={onSignOut}><Icon name="LogOut" size={17} />{t(locale, "signOut")}</button></div>}</nav></>;
+  const navigate = (view: View) => { setMoreOpen(false); onNavigate(view); };
+  const adminLink = canAdmin && <Link className="nav-link" href="/admin" onClick={event => {
+    if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey || event.button !== 0) return;
+    event.preventDefault(); onOpenAdmin();
+  }}><Icon name="Shield" size={17} />{locale === "ru" ? "Администрирование" : "Administration"}</Link>;
+  const extraItems: Array<{ view: View; icon: string; label: MessageKey }> = [
+    { view: "catalog", icon: "ShoppingBag", label: "tabCatalog" },
+    { view: "settings", icon: "Settings", label: "settings" },
+  ];
+  const navButton = (item: typeof navItems[number]) => <button key={item.view} className={`nav-link ${active === item.view ? "active" : ""}`} onClick={() => navigate(item.view)} aria-current={active === item.view ? "page" : undefined}><Icon name={item.icon} size={18} /><span>{t(locale, item.label)}</span></button>;
+  return <>
+    <aside className="desktop-sidebar">
+      <div className="sidebar-brand"><div className="wordmark">PAGER<span>.</span></div></div>
+      <div className="sidebar-caption">{locale === "ru" ? "Мой кабинет" : "Workspace"}</div>
+      <nav className="side-nav" aria-label={locale === "ru" ? "Основная навигация" : "Main navigation"}>{navItems.map(navButton)}{extraItems.map(navButton)}{adminLink}</nav>
+      <div className="sidebar-bottom"><button className="nav-link" onClick={onSignOut}><Icon name="LogOut" size={17} />{t(locale, "signOut")}</button></div>
+    </aside>
+    <nav className="mobile-nav" aria-label={locale === "ru" ? "Мобильная навигация" : "Mobile navigation"}>
+      {navItems.map(navButton)}
+      <button className={`nav-link ${moreOpen || active === "catalog" || active === "settings" ? "active" : ""}`} onClick={() => setMoreOpen(open => !open)} aria-expanded={moreOpen} aria-controls="workspace-more"><Icon name="MoreHorizontal" size={18} /><span>{locale === "ru" ? "Ещё" : "More"}</span></button>
+      {moreOpen && <div id="workspace-more" className="mobile-more-menu">{extraItems.map(navButton)}{adminLink}<button className="nav-link" onClick={onSignOut}><Icon name="LogOut" size={17} />{t(locale, "signOut")}</button></div>}
+    </nav>
+  </>;
 }
-
 function TopBar({ data, locale, onOpenPage, onSignOut }: { data: DashboardData; locale: Locale; onOpenPage: () => void; onSignOut: () => void }) {
-  const statusLabel = data.demo ? (locale === "ru" ? "Демо" : "Demo") : t(locale, "published");
+  const statusLabel = data.demo ? (locale === "ru" ? "Демо" : "Demo") : data.page.publishedAt ? t(locale, "published") : t(locale, "notPublished");
   return <header className="topbar"><div className="phone-only"><div className="wordmark">PAGER<span>.</span></div></div><div className="topbar-actions"><span className="demo-pill"><span className="proof-dot" />{statusLabel}</span><button className="icon-button" onClick={onOpenPage} aria-label={t(locale, "openPage")}><Icon name="ExternalLink" size={18} /></button><button className="icon-button" onClick={onSignOut} aria-label={t(locale, "signOut")}><div className="avatar" style={{ width: 32, height: 32, fontSize: 11 }}>{data.user.name.split(/\s+/).map(part => part[0]).slice(0, 2).join("")}</div></button></div></header>;
-}
-
-function EditorPanel({ page, block, locale, onClose, onUpdate, onUpdatePage, onDuplicate, onDelete }: { page: Page; block: Block | null; locale: Locale; onClose: () => void; onUpdate: (block: Block) => void; onUpdatePage: (page: Page) => void; onDuplicate: (block: Block) => void; onDelete: (block: Block) => void }) {
-  if (!block) return <div className="editor-side"><div className="side-title"><h3>{t(locale, "style")}</h3><button className="icon-button phone-only" onClick={onClose} aria-label={t(locale, "close")}><Icon name="X" size={18} /></button></div><PageSettings page={page} locale={locale} onUpdate={onUpdatePage} /></div>;
-  const meta = BLOCK_META[block.type];
-  const updateData = (key: keyof Block["data"], value: string | number | undefined) => onUpdate({ ...block, data: { ...block.data, [key]: value } });
-  const price = (key: "oneTime" | "monthly", raw: string) => { const numeric = raw === "" ? undefined : Math.round(Number(raw) * 100); onUpdate({ ...block, pricing: { ...block.pricing, [key]: Number.isFinite(numeric) ? numeric : undefined } }); };
-  return <div className="editor-side"><div className="modal-handle" /><div className="side-title"><div><h3>{meta[locale]}</h3><div className="small muted" style={{ marginTop: 4 }}>{meta[locale === "ru" ? "descriptionRu" : "descriptionEn"]}</div></div><button className="icon-button phone-only" onClick={onClose} aria-label={t(locale, "close")}><Icon name="X" size={18} /></button></div><div className="side-section"><label className="field"><span className="side-label">{t(locale, "title")}</span><input value={block.data.title ?? ""} onChange={event => updateData("title", event.target.value)} /></label>{block.type === "profile" && <><label className="field"><span className="side-label">{t(locale, "name")}</span><input value={block.data.name ?? ""} onChange={event => updateData("name", event.target.value)} /></label><label className="field"><span className="side-label">{locale === "ru" ? "Специализация" : "Specialty"}</span><input value={block.data.profession ?? ""} onChange={event => updateData("profession", event.target.value)} /></label></>}{["text", "profile", "testimonial", "faq", "messenger", "download", "community", "form", "booking", "event", "countdown", "shoutout"].includes(block.type) && <label className="field"><span className="side-label">{t(locale, "description")}</span><textarea value={block.data.text ?? ""} onChange={event => updateData("text", event.target.value)} /></label>}{["link", "messenger", "community", "map", "shoutout", "booking"].includes(block.type) && <label className="field"><span className="side-label">{t(locale, "link")}</span><input value={block.data.url ?? block.data.calLink ?? ""} onChange={event => updateData(block.type === "booking" ? "calLink" : "url", event.target.value)} placeholder="https://…" /></label>}</div><div className="side-section"><label className="field"><span className="side-label">{t(locale, "width")}</span><select value={block.width} onChange={event => onUpdate({ ...block, width: event.target.value as Block["width"] })}><option value="half">{t(locale, "half")}</option><option value="full">{t(locale, "full")}</option></select></label><div className="switch-row"><span>{t(locale, "paidAccess")}</span><button className={`switch ${block.paid ? "on" : ""}`} onClick={() => onUpdate({ ...block, paid: !block.paid })} aria-pressed={block.paid} aria-label={t(locale, "paidAccess")} /></div>{block.paid && <><div className="field-row"><label className="field"><span className="side-label">{t(locale, "oneTime")} · {block.pricing.currency}</span><input type="number" min="0" step="0.01" value={block.pricing.oneTime ? block.pricing.oneTime / 100 : ""} onChange={event => price("oneTime", event.target.value)} /></label><label className="field"><span className="side-label">{t(locale, "monthly")}</span><input type="number" min="0" step="0.01" value={block.pricing.monthly ? block.pricing.monthly / 100 : ""} onChange={event => price("monthly", event.target.value)} /></label></div><label className="field"><span className="side-label">{t(locale, "teaser")}</span><textarea value={block.teaser} onChange={event => onUpdate({ ...block, teaser: event.target.value })} /></label></>}</div><div className="side-actions"><button className="button button-secondary" onClick={() => onDuplicate(block)}><Icon name="Copy" size={14} />{t(locale, "duplicate")}</button><button className="button button-danger" onClick={() => onDelete(block)}><Icon name="Trash2" size={14} />{t(locale, "delete")}</button></div></div>;
 }
 
 function PageSettings({ page, locale, onUpdate }: { page: Page; locale: Locale; onUpdate: (page: Page) => void }) {
   const update = (patch: Partial<Page>) => onUpdate({ ...page, ...patch });
   const price = (key: "oneTime" | "monthly", raw: string) => update({ pricing: { ...page.pricing, [key]: raw ? Math.round(Number(raw) * 100) : undefined } });
   return <><div className="side-section"><label className="field"><span className="side-label">{t(locale, "pageTitle")}</span><input value={page.title} onChange={event => update({ title: event.target.value })} /></label><label className="field"><span className="side-label">{t(locale, "description")}</span><textarea value={page.description} onChange={event => update({ description: event.target.value })} /></label><label className="field"><span className="side-label">{t(locale, "pageAddress")}</span><input value={page.slug} onChange={event => update({ slug: event.target.value.toLowerCase().replace(/[^a-z0-9-]/g, "-") })} /></label></div><div className="side-section"><label className="field"><span className="side-label">{t(locale, "accent")}</span><input type="color" value={page.accent} onChange={event => update({ accent: event.target.value })} /></label><label className="field"><span className="side-label">{t(locale, "language")}</span><select value={page.locale} onChange={event => update({ locale: event.target.value as Locale })}><option value="ru">Русский</option><option value="en">English</option></select></label><div className="switch-row"><span>{t(locale, "wholePage")}</span><button className={`switch ${page.paid ? "on" : ""}`} onClick={() => update({ paid: !page.paid })} aria-pressed={page.paid} aria-label={t(locale, "wholePage")} /></div>{page.paid && <div className="field-row"><label className="field"><span className="side-label">{t(locale, "oneTime")}</span><input type="number" min="0" step="0.01" value={page.pricing.oneTime ? page.pricing.oneTime / 100 : ""} onChange={event => price("oneTime", event.target.value)} /></label><label className="field"><span className="side-label">{t(locale, "monthly")}</span><input type="number" min="0" step="0.01" value={page.pricing.monthly ? page.pricing.monthly / 100 : ""} onChange={event => price("monthly", event.target.value)} /></label></div>}</div></>;
-}
-
-function AddBlockSheet({ locale, onAdd, onClose }: { locale: Locale; onAdd: (type: BlockType) => void; onClose: () => void }) {
-  return <div className="modal-backdrop" role="presentation" onMouseDown={event => { if (event.target === event.currentTarget) onClose(); }}><div className="modal modal-wide"><div className="modal-handle" /><div className="modal-heading"><div><h2>{t(locale, "addBlock")}</h2><p>{locale === "ru" ? "Выберите основу. Содержание и доступ можно настроить после добавления." : "Choose a starting point. You can edit content and access after adding it."}</p></div><button className="icon-button" onClick={onClose} aria-label={t(locale, "close")}><Icon name="X" /></button></div><div className="block-type-grid">{BLOCK_GROUPS[locale].map((group, groupIndex) => <div key={group} style={{ display: "contents" }}><div className="eyebrow" style={{ gridColumn: "1 / -1", padding: "8px 2px 0" }}>{group}</div>{BLOCK_TYPES.filter(type => BLOCK_META[type].group === groupIndex).map(type => <button className="block-type-button" key={type} onClick={() => onAdd(type)}><Icon name={BLOCK_META[type].icon} size={17} /><span>{BLOCK_META[type][locale]}</span></button>)}</div>)}</div></div></div>;
-}
-
-function PageCanvas({ data, locale, preview, selected, panelOpen, onSelect, onClosePanel, onAdd, onPublish, onUpdate, onUpdatePage, onDuplicate, onToggleHidden, onDelete }: { data: DashboardData; locale: Locale; preview: boolean; selected: Block | null; panelOpen: boolean; onSelect: (block: Block | null) => void; onClosePanel: () => void; onAdd: () => void; onPublish: () => void; onUpdate: (block: Block) => void; onUpdatePage: (page: Page) => void; onDuplicate: (block: Block) => void; onToggleHidden: (block: Block) => void; onDelete: (block: Block) => void }) {
-  const page = data.page;
-  return <div className="editor-grid"><section className="canvas-panel"><div className="canvas-inner"><div className="canvas-page-head"><div><div className="eyebrow">{preview ? t(locale, "preview") : t(locale, "draft")}</div><h2>{page.title}</h2><p>{page.description || t(locale, "firstSteps")}</p></div><span className="save-state"><Icon name="Check" size={14} />{t(locale, "saved")}</span></div>{preview ? <div className="public-blocks">{page.blocks.filter(block => !block.archived).map(block => <BlockRenderer key={block.id} block={block} locale={locale} items={data.items} editor={false} slug={page.slug} />)}</div> : <><div className="editor-block-grid">{page.blocks.map(block => <BlockRenderer key={block.id} block={block} locale={locale} items={data.items} editor onSelect={block => { onSelect(block); }} onDuplicate={onDuplicate} onToggleHidden={onToggleHidden} onDelete={onDelete} />)}</div>{!page.blocks.length && <div className="empty-state">{t(locale, "nothingSelected")}</div>}<button className="editor-add" onClick={onAdd}><Icon name="CirclePlus" size={20} />{t(locale, "addBlock")}</button><button className="button button-primary canvas-publish" onClick={onPublish}><Icon name="Globe2" size={16} />{t(locale, "publish")}</button></>}</div></section><aside className={`editor-side-wrap ${panelOpen ? "" : "panel-closed"}`}><EditorPanel page={page} block={selected} locale={locale} onClose={onClosePanel} onUpdate={onUpdate} onUpdatePage={onUpdatePage} onDuplicate={onDuplicate} onDelete={onDelete} /></aside></div>;
-}
-
-function PageView({ data, locale, onData, onPublished, flushDraft, toast }: { data: DashboardData; locale: Locale; onData: (data: DashboardData) => void; onPublished: (data: DashboardData) => void; flushDraft: (data: DashboardData) => Promise<boolean>; toast: (message: string) => void }) {
-  const [preview, setPreview] = useState(false);
-  const [selectedId, setSelectedId] = useState<string | null>(null);
-  const [panelOpen, setPanelOpen] = useState(false);
-  const [addOpen, setAddOpen] = useState(false);
-  const selected = data.page.blocks.find(block => block.id === selectedId) ?? null;
-  const update = (nextPage: Page) => onData({ ...data, page: nextPage });
-  const updateBlock = (block: Block) => update({ ...data.page, blocks: data.page.blocks.map(item => item.id === block.id ? block : item) });
-  const add = (type: BlockType) => { const block = createBlock(type, locale); update({ ...data.page, blocks: [...data.page.blocks, block] }); setSelectedId(block.id); setAddOpen(false); toast(locale === "ru" ? "Блок добавлен" : "Block added"); };
-  const duplicate = (block: Block) => { const copy = structuredClone(block); copy.id = crypto.randomUUID(); update({ ...data.page, blocks: data.page.blocks.flatMap(item => item.id === block.id ? [item, copy] : [item]) }); setSelectedId(copy.id); };
-  const remove = (block: Block) => { update({ ...data.page, blocks: data.page.blocks.filter(item => item.id !== block.id) }); setSelectedId(null); toast(locale === "ru" ? "Блок удалён. Купленный материал сохранится у клиентов." : "Block removed. Purchased material stays with clients."); };
-  const publish = async () => { try { if (!(await flushDraft(data))) return; const result = await apiJson<{ page: Page; url: string }>("/api/page/publish", { method: "POST" }); onPublished({ ...data, page: result.page }); toast(t(locale, "publishSuccess")); } catch (error) { toast(toErrorMessage(error, t(locale, "saveError"))); } };
-  return <><div className="dashboard-heading"><div><div className="eyebrow">{t(locale, "page")}</div><h1>{t(locale, "page")}</h1><p>{data.page.publishedAt ? `${t(locale, "published")} · /${data.page.slug}` : t(locale, "notPublished")}</p></div><div className="dashboard-heading-actions"><div className="editor-tabs"><button className={`editor-tab ${!preview ? "active" : ""}`} onClick={() => setPreview(false)}>{t(locale, "tabPage")}</button><button className={`editor-tab ${preview ? "active" : ""}`} onClick={() => setPreview(true)}>{t(locale, "preview")}</button></div><button className="button button-secondary" onClick={() => { setSelectedId(null); setPanelOpen(open => !open); }}><Icon name="Settings" size={15} />{t(locale, "style")}</button></div></div><PageCanvas data={data} locale={locale} preview={preview} selected={selected} panelOpen={panelOpen} onSelect={block => { setSelectedId(block?.id ?? null); setPanelOpen(Boolean(block)); }} onClosePanel={() => { setSelectedId(null); setPanelOpen(false); }} onAdd={() => setAddOpen(true)} onPublish={publish} onUpdate={updateBlock} onUpdatePage={update} onDuplicate={duplicate} onToggleHidden={block => updateBlock({ ...block, hidden: !block.hidden })} onDelete={remove} />{addOpen && <AddBlockSheet locale={locale} onAdd={add} onClose={() => setAddOpen(false)} />}</>;
 }
 
 function ClientsView({ data, locale, toast }: { data: DashboardData; locale: Locale; toast: (message: string) => void }) {
@@ -98,65 +93,183 @@ function OrdersView({ data, locale, onData, toast }: { data: DashboardData; loca
   return <SubpageHeading locale={locale} title="orders" subtitle={locale === "ru" ? "Оплаты, товары и отправка в одном списке." : "Payments, products and fulfillment in one place."}><div className="data-card"><div className="data-card-head"><h2>{t(locale, "orders")}</h2><span className="status-chip">{data.orders.length}</span></div><div className="data-list">{data.orders.length ? data.orders.map(order => <div className="data-row" key={order.id}><div className="data-row-title"><strong>{order.title}</strong><span>{formatMoney(order.amount + order.shippingAmount, order.currency, locale)} · {new Date(order.createdAt).toLocaleDateString(locale === "ru" ? "ru-RU" : "en-US")}</span></div><select className="status-select" value={order.fulfillment} onChange={event => updateOrder(order.id, event.target.value)}><option value="unfulfilled">{t(locale, "unfulfilled")}</option><option value="processing">{t(locale, "processing")}</option><option value="shipped">{t(locale, "shipped")}</option><option value="delivered">{t(locale, "delivered")}</option></select></div>) : <div className="empty-state">{t(locale, "noData")}</div>}</div></div></SubpageHeading>;
 }
 
-function AnalyticsView({ data, locale }: { data: DashboardData; locale: Locale }) {
-  return <SubpageHeading locale={locale} title="analytics" subtitle={locale === "ru" ? "Смотрите на путь от внимания к действию." : "See the path from attention to action."}><div className="stats-grid"><Stat label={t(locale, "views")} value={data.metrics.views} /><Stat label={t(locale, "conversions")} value={data.metrics.conversions} /><Stat label={t(locale, "repeat")} value={data.metrics.repeatContacts} /><Stat label={locale === "ru" ? "Активные страницы" : "Active pages"} value={data.metrics.activePages} /></div><div className="data-card"><div className="data-card-head"><h2>{locale === "ru" ? "Северная звезда" : "North star"}</h2><span className="status-chip green">{data.metrics.northStar.toFixed(1)}</span></div><div className="empty-state">{locale === "ru" ? "Уникальные обращения, которые дошли до записи или оплаты, на активную страницу за неделю." : "Unique inquiries that reached a booking or payment, per active page each week."}</div></div></SubpageHeading>;
-}
-function Stat({ label, value }: { label: string; value: number | string }) { return <div className="stat-card"><span>{label}</span><strong>{value}</strong></div>; }
 
 function CatalogView({ data, locale, onData, toast }: { data: DashboardData; locale: Locale; onData: (data: DashboardData) => void; toast: (message: string) => void }) {
-  const [adding, setAdding] = useState(false); const [title, setTitle] = useState(""); const [price, setPrice] = useState("19"); const [kind, setKind] = useState<CatalogItem["kind"]>("digital");
-  const create = async () => { try { const item: CatalogItem = { id: crypto.randomUUID(), ownerId: data.user.id, pageId: data.page.id, title: title.trim() || (locale === "ru" ? "Новый материал" : "New resource"), description: "", kind, price: Math.round(Number(price || 0) * 100), currency: "USD", stock: kind === "physical" ? 1 : null, reserved: 0, shipping: [], createdAt: new Date().toISOString() }; const result = await apiJson<{ item: CatalogItem }>("/api/items", { method: "POST", body: JSON.stringify({ item }) }); onData({ ...data, items: [...data.items, result.item] }); setAdding(false); setTitle(""); toast(locale === "ru" ? "Предложение добавлено" : "Offer added"); } catch (error) { toast(toErrorMessage(error)); } };
-  return <SubpageHeading locale={locale} title="catalog" subtitle={locale === "ru" ? "Услуги, материалы и товары живут рядом со страницей." : "Services, resources and products live beside your page."}><div className="data-card"><div className="data-card-head"><h2>{t(locale, "tabCatalog")}</h2><button className="button button-primary" onClick={() => setAdding(true)}><Icon name="Plus" size={15} />{t(locale, "addItem")}</button></div><div className="data-list">{data.items.length ? data.items.map(item => <div className="data-row" key={item.id}><div className="data-row-title"><strong>{item.title}</strong><span>{t(locale, item.kind)} · {formatMoney(item.price, item.currency, locale)}{item.stock !== null ? ` · ${t(locale, "stock")}: ${item.stock}` : ""}</span></div><span className={`status-chip ${item.kind === "service" ? "green" : ""}`}>{item.kind === "service" ? t(locale, "booking") : t(locale, "published")}</span></div>) : <div className="empty-state">{t(locale, "emptyCatalog")}</div>}</div></div>{adding && <div className="modal-backdrop"><div className="modal"><div className="modal-handle" /><div className="modal-heading"><h2>{t(locale, "newItem")}</h2><button className="icon-button" onClick={() => setAdding(false)}><Icon name="X" /></button></div><div className="modal-form"><label className="field"><span className="side-label">{t(locale, "title")}</span><input value={title} onChange={event => setTitle(event.target.value)} /></label><label className="field"><span className="side-label">{t(locale, "type")}</span><select value={kind} onChange={event => setKind(event.target.value as CatalogItem["kind"])}><option value="service">{t(locale, "service")}</option><option value="digital">{t(locale, "digital")}</option><option value="physical">{t(locale, "physical")}</option><option value="ticket">{t(locale, "ticket")}</option></select></label><label className="field"><span className="side-label">{t(locale, "price")} · USD</span><input type="number" min="1" step="0.01" value={price} onChange={event => setPrice(event.target.value)} /></label><button className="button button-primary" onClick={create}>{t(locale, "save")}</button></div></div></div>}</SubpageHeading>;
+  const [draft, setDraft] = useState<CatalogItem | null>(null);
+  const [shippingText, setShippingText] = useState("");
+
+  const openNew = () => {
+    setShippingText("");
+    setDraft({ id: crypto.randomUUID(), ownerId: data.user.id, pageId: data.page.id, title: locale === "ru" ? "Новый материал" : "New resource", description: "", kind: "digital", price: 1900, currency: "USD", stock: null, reserved: 0, shipping: [], createdAt: new Date().toISOString() });
+  };
+  const openEdit = (item: CatalogItem) => { setShippingText(item.shipping.map(option => option.country + ": " + option.amount / 100).join(", ")); setDraft(structuredClone(item)); };
+  const update = (patch: Partial<CatalogItem>) => setDraft(current => current ? { ...current, ...patch } : current);
+  const parseShipping = (value: string) => value.split(",").map(part => {
+    const [countryRaw, amountRaw] = part.split(":");
+    const country = countryRaw?.trim().toUpperCase() ?? "";
+    const amount = Math.round(Number(amountRaw?.trim()) * 100);
+    return { country, amount };
+  }).filter(option => /^[A-Z]{2}$/.test(option.country) && Number.isSafeInteger(option.amount) && option.amount >= 0);
+  const save = async () => {
+    if (!draft) return;
+    const shipping = draft.kind === "physical" ? parseShipping(shippingText) : [];
+    if (!draft.title.trim() || !Number.isSafeInteger(draft.price) || draft.price <= 0 || (draft.kind === "physical" && !shipping.length)) {
+      toast(locale === "ru" ? "Заполните название, цену и страны доставки для физического товара." : "Add a title, price and shipping countries for a physical product.");
+      return;
+    }
+    try {
+      const item = { ...draft, title: draft.title.trim(), description: draft.description.trim(), stock: draft.kind === "physical" ? Math.max(draft.reserved, draft.stock ?? 1) : null, shipping };
+      const result = await apiJson<{ item: CatalogItem }>("/api/items", { method: "POST", body: JSON.stringify({ item }) });
+      const items = data.items.some(current => current.id === result.item.id) ? data.items.map(current => current.id === result.item.id ? result.item : current) : [...data.items, result.item];
+      onData({ ...data, items });
+      setDraft(null);
+      toast(locale === "ru" ? "Предложение сохранено" : "Offer saved");
+    } catch (error) { toast(toErrorMessage(error)); }
+  };
+
+  return <SubpageHeading locale={locale} title="catalog" subtitle={locale === "ru" ? "Услуги, материалы и товары живут рядом со страницей." : "Services, resources and products live beside your page."}><div className="data-card"><div className="data-card-head"><h2>{t(locale, "tabCatalog")}</h2><button type="button" className="button button-primary" onClick={openNew}><Icon name="Plus" size={15} />{t(locale, "addItem")}</button></div><div className="data-list">{data.items.length ? data.items.map(item => <div className="data-row" key={item.id}><div className="data-row-title"><strong>{item.title}</strong><span>{t(locale, item.kind)} · {formatMoney(item.price, item.currency, locale)}{item.stock !== null ? " · " + t(locale, "stock") + ": " + item.stock : ""}</span></div><div className="data-row-actions"><span className={"status-chip " + (item.kind === "service" ? "green" : "")}>{item.kind === "service" ? t(locale, "bookings") : item.kind === "physical" && !item.shipping.length ? t(locale, "requiresSetup") : t(locale, "published")}</span><button type="button" className="button button-quiet" onClick={() => openEdit(item)} aria-label={(locale === "ru" ? "Изменить " : "Edit ") + item.title}><Icon name="Pencil" size={14} />{t(locale, "change")}</button></div></div>) : <div className="empty-state">{t(locale, "emptyCatalog")}</div>}</div></div>{draft && <EditorDialog title={data.items.some(item => item.id === draft.id) ? (locale === "ru" ? "Изменить предложение" : "Edit offer") : t(locale, "newItem")} description={locale === "ru" ? "Настройте содержание, цену и условия, которые увидит покупатель." : "Set the content, price and terms buyers will see."} closeLabel={t(locale, "close")} onClose={() => setDraft(null)}><div className="modal-form"><label className="field"><span className="side-label">{t(locale, "title")}</span><input maxLength={200} value={draft.title} onChange={event => update({ title: event.target.value })} autoFocus /></label><label className="field"><span className="side-label">{t(locale, "description")}</span><textarea maxLength={20000} value={draft.description} onChange={event => update({ description: event.target.value })} /></label><label className="field"><span className="side-label">{t(locale, "type")}</span><select value={draft.kind} onChange={event => { const kind = event.target.value as CatalogItem["kind"]; update({ kind, stock: kind === "physical" ? draft.stock ?? 1 : null, shipping: kind === "physical" ? draft.shipping : [] }); if (kind !== "physical") setShippingText(""); }}><option value="service">{t(locale, "service")}</option><option value="digital">{t(locale, "digital")}</option><option value="physical">{t(locale, "physical")}</option><option value="ticket">{t(locale, "ticket")}</option></select></label><div className="form-grid"><label className="field"><span className="side-label">{t(locale, "price")} · {draft.currency}</span><input type="number" min="0.01" step="0.01" value={draft.price / 100} onChange={event => update({ price: Math.round(Number(event.target.value || 0) * 100) })} /></label>{draft.kind === "physical" && <label className="field"><span className="side-label">{t(locale, "stock")}</span><input type="number" min={draft.reserved} step="1" value={draft.stock ?? 1} onChange={event => update({ stock: Math.max(draft.reserved, Math.floor(Number(event.target.value || 0))) })} /></label>}</div>{draft.kind === "physical" && <label className="field"><span className="side-label">{t(locale, "shipping")}</span><input value={shippingText} onChange={event => setShippingText(event.target.value)} placeholder={locale === "ru" ? "KZ: 0, RU: 5" : "KZ: 0, RU: 5"} aria-describedby="shipping-help" /><span id="shipping-help" className="small muted">{locale === "ru" ? "Коды ISO через запятую; сумма доставки — в валюте товара." : "ISO country codes separated by commas; amounts use the item currency."}</span></label>}{draft.kind === "digital" && <label className="field"><span className="side-label">File ID</span><input value={draft.fileId ?? ""} onChange={event => update({ fileId: event.target.value || undefined })} placeholder={locale === "ru" ? "Идентификатор загруженного файла" : "Uploaded file identifier"} /></label>}{draft.kind === "physical" && !parseShipping(shippingText).length && <div className="notice error-notice" role="alert"><Icon name="Info" size={16} />{t(locale, "noShipping")}</div>}<div className="modal-actions"><button type="button" className="button button-secondary" onClick={() => setDraft(null)}>{t(locale, "cancel")}</button><button type="button" className="button button-primary" onClick={() => void save()}>{t(locale, "save")}</button></div></div></EditorDialog>}</SubpageHeading>;
 }
 
-function SettingsView({ data, locale, onData, toast }: { data: DashboardData; locale: Locale; onData: (data: DashboardData) => void; toast: (message: string) => void }) {
-  const [telegram, setTelegram] = useState<{ configured: boolean; connected: boolean } | null>(null); const [pairUrl, setPairUrl] = useState(""); const [calLink, setCalLink] = useState(data.integration.calLink); const [calKey, setCalKey] = useState("");
+function SettingsView({ data, locale, onData, onPage, toast }: { data: DashboardData; locale: Locale; onData: (data: DashboardData) => void; onPage: (page: Page) => void; toast: (message: string) => void }) {
+  const [telegram, setTelegram] = useState<{ configured: boolean; connected: boolean } | null>(null);
+  const [pairUrl, setPairUrl] = useState("");
+  const [calLink, setCalLink] = useState(data.integration.calLink);
+  const [calKey, setCalKey] = useState("");
+  const [stripeBusy, setStripeBusy] = useState(false);
+
   useEffect(() => { apiJson<{ configured: boolean; connected: boolean }>("/api/integrations/telegram").then(setTelegram).catch(() => setTelegram({ configured: false, connected: false })); }, []);
-  const savePage = async (page: Page) => { try { const result = await apiJson<{ page: Page }>("/api/page", { method: "PUT", body: JSON.stringify({ page }) }); onData({ ...data, page: result.page }); toast(t(locale, "saved")); } catch (error) { toast(toErrorMessage(error)); } };
-  const pair = async () => { try { const result = await apiJson<{ url: string }>("/api/integrations/telegram", { method: "POST", body: "{}" }); setPairUrl(result.url); toast(locale === "ru" ? "Ссылка для подключения готова" : "Pairing link ready"); } catch (error) { toast(toErrorMessage(error, t(locale, "requiresSetup"))); } };
-  const connectCal = async () => { try { const result = await apiJson<{ connected: boolean; calLink: string }>("/api/integrations/cal", { method: "POST", body: JSON.stringify({ apiKey: calKey, calLink }) }); onData({ ...data, integration: { ...data.integration, calConnected: result.connected, calLink: result.calLink } }); toast(result.connected ? t(locale, "connected") : t(locale, "requiresSetup")); } catch (error) { toast(toErrorMessage(error)); } };
-  return <SubpageHeading locale={locale} title="settings" subtitle={locale === "ru" ? "Настройте страницу и каналы, когда будете готовы." : "Set up your page and channels when you're ready."}><div className="settings-grid"><div className="settings-card"><h2>{locale === "ru" ? "Страница" : "Page"}</h2><p>{t(locale, "wholePageHelp")}</p><PageSettings page={data.page} locale={locale} onUpdate={savePage} /></div><div className="settings-card"><h2>{t(locale, "tabConnections")}</h2><p>{locale === "ru" ? "Подключения остаются на стороне сервера. Демо ничего не отправляет наружу." : "Connections stay server-side. Demo never sends anything externally."}</p><div className="integration-row"><div><strong>Stripe Connect</strong><span>{data.integration.stripeReady ? t(locale, "paymentReady") : t(locale, "requiresSetup")}</span></div><span className={`status-chip ${data.integration.stripeReady ? "green" : ""}`}>{data.integration.stripeReady ? t(locale, "connected") : t(locale, "notConnected")}</span></div><div className="integration-row"><div><strong>Cal.com</strong><span>{data.integration.calConnected ? data.integration.calLink : t(locale, "bookingUnavailable")}</span></div><span className={`status-chip ${data.integration.calConnected ? "green" : ""}`}>{data.integration.calConnected ? t(locale, "connected") : t(locale, "notConnected")}</span></div><div className="side-section"><label className="field"><span className="side-label">Cal.com link</span><input value={calLink} onChange={event => setCalLink(event.target.value)} placeholder="https://cal.com/name/session" /></label><label className="field"><span className="side-label">API key {locale === "ru" ? "(резервный способ)" : "(fallback)"}</span><input type="password" value={calKey} onChange={event => setCalKey(event.target.value)} /></label><button className="button button-secondary" onClick={connectCal}>{t(locale, "connect")}</button></div><div className="integration-row"><div><strong>Telegram</strong><span>{telegram?.connected ? t(locale, "connected") : t(locale, "notConnected")}</span></div><button className="button button-secondary" onClick={pair}>{telegram?.connected ? t(locale, "connected") : t(locale, "connect")}</button></div>{pairUrl && <div className="notice"><Icon name="MessageCircle" size={16} /><span>{locale === "ru" ? "Откройте ссылку в Telegram на этом устройстве:" : "Open this link in Telegram on this device:"}<br /><a href={pairUrl} target="_blank" rel="noreferrer">{pairUrl}</a></span></div>}</div></div></SubpageHeading>;
+
+  const pair = async () => {
+    try { const result = await apiJson<{ url: string }>("/api/integrations/telegram", { method: "POST", body: "{}" }); setPairUrl(result.url); toast(locale === "ru" ? "Ссылка для подключения готова" : "Pairing link ready"); }
+    catch (error) { toast(toErrorMessage(error, t(locale, "requiresSetup"))); }
+  };
+  const connectCal = async () => {
+    try { const result = await apiJson<{ connected: boolean; calLink: string }>("/api/integrations/cal", { method: "POST", body: JSON.stringify({ apiKey: calKey, calLink }) }); onData({ ...data, integration: { ...data.integration, calConnected: result.connected, calLink: result.calLink } }); toast(result.connected ? t(locale, "connected") : t(locale, "requiresSetup")); }
+    catch (error) { toast(toErrorMessage(error)); }
+  };
+  const connectStripe = async () => {
+    if (data.demo) { toast(locale === "ru" ? "Stripe подключается только в рабочем режиме." : "Stripe connects only in live workspace mode."); return; }
+    setStripeBusy(true);
+    try { const result = await apiJson<{ url: string }>("/api/integrations/stripe/connect", { method: "POST", body: "{}" }); window.location.assign(result.url); }
+    catch (error) { setStripeBusy(false); toast(toErrorMessage(error, t(locale, "requiresSetup"))); }
+  };
+
+  return <SubpageHeading locale={locale} title="settings" subtitle={locale === "ru" ? "Настройте страницу и каналы, когда будете готовы." : "Set up your page and channels when you're ready."}><div className="settings-grid"><div className="settings-card"><h2>{locale === "ru" ? "Страница" : "Page"}</h2><p>{t(locale, "wholePageHelp")}</p><PageSettings page={data.page} locale={locale} onUpdate={onPage} /></div><div className="settings-card"><h2>{t(locale, "tabConnections")}</h2><p>{locale === "ru" ? "Подключения остаются на стороне сервера. Демо ничего не отправляет наружу." : "Connections stay server-side. Demo never sends anything externally."}</p><div className="integration-row"><div><strong>Stripe Connect</strong><span>{data.integration.stripeReady ? t(locale, "paymentReady") : t(locale, "requiresSetup")}</span></div><button type="button" className="button button-secondary" onClick={() => void connectStripe()} disabled={stripeBusy || data.integration.stripeReady}>{data.integration.stripeReady ? t(locale, "connected") : t(locale, "connect")}</button></div><div className="integration-row"><div><strong>Cal.com</strong><span>{data.integration.calConnected ? data.integration.calLink : t(locale, "bookingUnavailable")}</span></div><span className={"status-chip " + (data.integration.calConnected ? "green" : "")}>{data.integration.calConnected ? t(locale, "connected") : t(locale, "notConnected")}</span></div><div className="side-section"><label className="field"><span className="side-label">{locale === "ru" ? "Ссылка Cal.com" : "Cal.com link"}</span><input value={calLink} onChange={event => setCalLink(event.target.value)} placeholder="https://cal.com/name/session" /></label><label className="field"><span className="side-label">API key {locale === "ru" ? "(резервный способ)" : "(fallback)"}</span><input type="password" value={calKey} onChange={event => setCalKey(event.target.value)} autoComplete="off" /></label><button type="button" className="button button-secondary" onClick={() => void connectCal()}>{t(locale, "connect")}</button></div><div className="integration-row"><div><strong>Telegram</strong><span>{telegram?.connected ? t(locale, "connected") : t(locale, "notConnected")}</span></div><button type="button" className="button button-secondary" onClick={() => void pair()}>{telegram?.connected ? t(locale, "connected") : t(locale, "connect")}</button></div>{pairUrl && <div className="notice"><Icon name="MessageCircle" size={16} /><span>{locale === "ru" ? "Откройте ссылку в Telegram на этом устройстве:" : "Open this link in Telegram on this device:"}<br /><a href={pairUrl} target="_blank" rel="noreferrer">{pairUrl}</a></span></div>}</div></div></SubpageHeading>;
 }
 
 function SubpageHeading({ locale, title, subtitle, children }: { locale: Locale; title: MessageKey | "catalog"; subtitle: string; children: React.ReactNode }) { return <div className="subpage"><div className="subpage-heading"><div><div className="eyebrow">PAGER workspace</div><h1>{t(locale, title)}</h1><p>{subtitle}</p></div></div>{children}</div>; }
 
-export function CreatorScreen() {
-  const router = useRouter(); const [data, setData] = useState<DashboardData | null>(null); const [loading, setLoading] = useState(true); const [view, setView] = useState<View>("page"); const [toastMessage, setToastMessage] = useState(""); const dirtyRef = useRef(false); const savingRef = useRef(false); const savePromiseRef = useRef<Promise<boolean> | null>(null); const saveTimer = useRef<number | undefined>(undefined);
-  useEffect(() => { apiJson<DashboardData>("/api/dashboard").then(setData).catch(() => setData(null)).finally(() => setLoading(false)); return () => { if (saveTimer.current) window.clearTimeout(saveTimer.current); }; }, []);
+export function CreatorScreen({ canAdmin = false, demoEnabled = false }: { canAdmin?: boolean; demoEnabled?: boolean }) {
+  const router = useRouter();
+  const [data, setData] = useState<DashboardData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [view, setView] = useState<View>("page");
+  const [toastMessage, setToastMessage] = useState("");
+  const [saveState, setSaveState] = useState<DraftState>({ status: "saved" });
+  const writerRef = useRef<DraftWriter | null>(null);
+  const saveTimer = useRef<number | undefined>(undefined);
+
+  useEffect(() => {
+    let active = true;
+    apiJson<DashboardData>("/api/dashboard").then(value => {
+      if (!active) return;
+      writerRef.current = new DraftWriter(
+        value.page,
+        async page => (await apiJson<{ page: Page }>("/api/page", { method: "PUT", body: JSON.stringify({ page }) })).page,
+        page => { if (active) setData(current => current ? { ...current, page } : current); },
+        state => { if (active) { setSaveState(state); if (state.error) setToastMessage(state.error); } },
+      );
+      setData(value);
+    }).catch(error => { if (!active) return; if (error instanceof ApiClientError && error.status === 401) { setData(null); setLoadError(""); } else { setData(null); setLoadError(toErrorMessage(error, "Не удалось загрузить кабинет. Повторите попытку.")); } }).finally(() => { if (active) setLoading(false); });
+    const protectDraft = (event: BeforeUnloadEvent) => {
+      if (writerRef.current?.dirty) { event.preventDefault(); event.returnValue = ""; }
+    };
+    window.addEventListener("beforeunload", protectDraft);
+    return () => {
+      active = false;
+      if (saveTimer.current) window.clearTimeout(saveTimer.current);
+      window.removeEventListener("beforeunload", protectDraft);
+      writerRef.current = null;
+    };
+  }, []);
+
   const locale = data?.page.locale ?? "ru";
-  const changeData = (next: DashboardData) => { dirtyRef.current = true; setData(next); if (saveTimer.current) window.clearTimeout(saveTimer.current); saveTimer.current = window.setTimeout(() => { void saveDraft(next); }, 850); };
-  const saveDraft = async (next = data, force = false): Promise<boolean> => {
-    if (!next || (!force && !dirtyRef.current)) return true;
-    if (savePromiseRef.current) {
-      await savePromiseRef.current;
-      if (!force && !dirtyRef.current) return true;
-    }
-    if (!next || (!force && !dirtyRef.current)) return true;
-    savingRef.current = true;
-    dirtyRef.current = false;
-    const request = (async () => {
-      try {
-        const result = await apiJson<{ page: Page }>("/api/page", { method: "PUT", body: JSON.stringify({ page: next.page }) });
-        setData(current => current ? { ...current, page: result.page } : current);
-        return true;
-      } catch (error) {
-        dirtyRef.current = true;
-        setToastMessage(toErrorMessage(error, t(locale, "saveError")));
-        return false;
-      } finally {
-        savingRef.current = false;
-      }
-    })();
-    savePromiseRef.current = request;
-    const result = await request;
-    if (savePromiseRef.current === request) savePromiseRef.current = null;
-    return result;
+  usePlatformLocale(locale);
+  const clearSaveTimer = () => {
+    if (saveTimer.current) { window.clearTimeout(saveTimer.current); saveTimer.current = undefined; }
   };
-  const flushDraft = async (next: DashboardData) => { if (saveTimer.current) { window.clearTimeout(saveTimer.current); saveTimer.current = undefined; } return saveDraft(next, true); };
-  const signOut = async () => { await apiJson("/api/auth/logout", { method: "POST" }).catch(() => undefined); router.push("/"); };
+  const editPage = (page: Page) => {
+    const writer = writerRef.current;
+    if (!writer) return;
+    writer.edit(page);
+    clearSaveTimer();
+    saveTimer.current = window.setTimeout(() => { saveTimer.current = undefined; void writer.flush(); }, 850);
+  };
+  const flushDraft = () => { clearSaveTimer(); return writerRef.current?.flush() ?? Promise.resolve(true); };
+  const retrySave = () => {
+    const writer = writerRef.current;
+    if (writer && !writer.dirty && writer.state.status === "error") writer.edit(writer.page);
+    void flushDraft();
+  };
+  // Catalog/integration responses may have captured an older page. Only the
+  // serialized writer is allowed to replace the current local page.
+  const updateResources = (next: DashboardData) => setData(current => current ? { ...next, page: current.page } : next);
+  const signOut = async () => {
+    const saved = await flushDraft();
+    if (!saved && !window.confirm(locale === "ru" ? "Черновик не сохранён. Всё равно выйти?" : "Your draft is not saved. Sign out anyway?")) return;
+    await apiJson("/api/auth/logout", { method: "POST" }).catch(() => undefined);
+    router.push("/");
+  };
+  const publish = async () => {
+    const writer = writerRef.current;
+    if (!writer) return;
+    clearSaveTimer();
+    const ok = await writer.publish(async revision => (await apiJson<{ page: Page }>("/api/page/publish", {
+      method: "POST", body: JSON.stringify({ expectedRevision: revision }),
+    })).page);
+    if (ok) setToastMessage(t(locale, "publishSuccess"));
+  };
+  const reloadDraft = async () => {
+    const writer = writerRef.current;
+    if (!writer) return;
+    if (writer.dirty && !window.confirm(locale === "ru" ? "Заменить несохранённый черновик версией сервера?" : "Replace your unsaved draft with the server version?")) return;
+    const local = writer.page;
+    try {
+      const value = await apiJson<DashboardData>("/api/dashboard");
+      if (writer.page !== local) {
+        setToastMessage(locale === "ru" ? "Вы продолжили редактирование. Новые изменения оставлены в этом окне." : "You continued editing. Your newer changes are kept in this window.");
+        return;
+      }
+      clearSaveTimer(); writer.replace(value.page); setData(value);
+    } catch (error) { setToastMessage(toErrorMessage(error)); }
+  };
+  const leaveWorkspace = (destination: () => string) => {
+    clearSaveTimer();
+    return navigateAfterDraftSave(writerRef.current, () => router.push(destination()));
+  };
+  const openPage = () => leaveWorkspace(() => "/" + (writerRef.current?.page.slug ?? data?.page.slug ?? ""));
+
   if (loading) return <div className="app-background screen"><Loading label="Загружаем кабинет…" /></div>;
-  if (!data) return <DemoGate role="creator" />;
-  return <div className="creator-layout app-background"><ShellNav locale={locale} active={view} onNavigate={setView} onSignOut={signOut} /><main className="creator-main"><TopBar data={data} locale={locale} onOpenPage={() => router.push(`/${data.page.slug}`)} onSignOut={signOut} />{data.demo && <div className="notice"><Icon name="Info" size={16} /><span><strong>{t(locale, "demo")}</strong> · {t(locale, "demoHelp")}</span></div>}{view === "page" && <PageView data={data} locale={locale} onData={changeData} onPublished={setData} flushDraft={flushDraft} toast={setToastMessage} />}{view === "clients" && <ClientsView data={data} locale={locale} toast={setToastMessage} />}{view === "orders" && <OrdersView data={data} locale={locale} onData={setData} toast={setToastMessage} />}{view === "analytics" && <AnalyticsView data={data} locale={locale} />}{view === "catalog" && <CatalogView data={data} locale={locale} onData={setData} toast={setToastMessage} />}{view === "settings" && <SettingsView data={data} locale={locale} onData={setData} toast={setToastMessage} />}</main>{toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage("")} />}</div>;
+  if (!data) return loadError ? <WorkspaceError message={loadError} /> : <DemoGate role="creator" demoEnabled={demoEnabled} />;
+  return <div lang={locale} className="creator-layout app-background">
+    <ShellNav locale={locale} active={view} onNavigate={setView} onSignOut={() => void signOut()} onOpenAdmin={() => { void leaveWorkspace(() => "/admin"); }} canAdmin={canAdmin} />
+    <main className="creator-main">
+      <TopBar data={data} locale={locale} onOpenPage={() => void openPage()} onSignOut={() => void signOut()} />
+      {data.demo && <div className="notice"><Icon name="Info" size={16} /><span><strong>{t(locale, "demo")}</strong> · {t(locale, "demoHelp")}</span></div>}
+      {view === "page" && <EditorPageView data={data} locale={locale} onPage={editPage} publish={publish} saveState={saveState} retry={retrySave} reload={() => void reloadDraft()} />}
+      {view === "clients" && <ClientsView data={data} locale={locale} toast={setToastMessage} />}
+      {view === "orders" && <OrdersView data={data} locale={locale} onData={updateResources} toast={setToastMessage} />}
+      {view === "analytics" && <AnalyticsPanel locale={locale} demo={data.demo} />}
+      {view === "catalog" && <CatalogView data={data} locale={locale} onData={updateResources} toast={setToastMessage} />}
+      {view === "settings" && <>
+        <SaveStatus state={saveState} locale={locale} retry={retrySave} reload={() => void reloadDraft()} />
+        <SettingsView data={data} locale={locale} onData={updateResources} onPage={editPage} toast={setToastMessage} />
+        <PageReadiness page={data.page} locale={locale} />
+      </>}
+    </main>
+    {toastMessage && <Toast message={toastMessage} onClose={() => setToastMessage("")} />}
+  </div>;
 }
 
-export function HomeScreen() { return <DemoGate role="creator" />; }
+export function HomeScreen({ demoEnabled = false, creatorSignup = false }: { demoEnabled?: boolean; creatorSignup?: boolean }) { return <DemoGate role="creator" demoEnabled={demoEnabled} creatorSignup={creatorSignup} />; }

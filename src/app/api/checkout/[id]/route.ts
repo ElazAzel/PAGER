@@ -7,8 +7,9 @@ import { markConverted, addTimeline } from "@/lib/server/crm";
 export const runtime = "nodejs";
 type Context = { params: Promise<{ id: string }> };
 export const GET = (request: Request, context: Context) => route(async () => {
-  const user = await authenticated(request, false); const { id } = await context.params;
-  return response({ order: publicOrder(ownedOrder(await readState(), id, user)), ...demoFields() });
+  const user = await authenticated(request, false); const { id } = await context.params; const state = await readState();
+  const order = ownedOrder(state, id, user); const locale = state.publishedPages.find(page => page.id === order.pageId)?.locale ?? state.pages.find(page => page.id === order.pageId)?.locale ?? "ru";
+  return response({ order: publicOrder(order), locale, ...demoFields() });
 });
 export const POST = (request: Request, context: Context) => route(async () => {
   assertDemoRequest(request, isDemoMode()); const user = await authenticated(request); const { id } = await context.params;

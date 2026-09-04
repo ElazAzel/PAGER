@@ -1,0 +1,202 @@
+/*
+ * Root layout integration: import this AFTER globals.css, then mount ONE
+ * <PlatformPreferences /> as a direct body child after {children}.
+ * Only allowlisted PAGER routes receive data-platform-theme. Every colour and
+ * interaction selector excludes .appearance-surface and its descendants;
+ * author roots own their tokens. Only reduced motion intentionally crosses it.
+ */
+body[data-platform-theme] {
+  --paper: #f3f0e9;
+  --surface: #fbfaf7;
+  --surface-soft: #ebe8e0;
+  --surface-2: var(--surface-soft);
+  --ink: #1c2923;
+  --muted: #626e66;
+  --faint: #7a867e;
+  --line: rgb(28 41 35 / 14%);
+  --blue: #d56a4a;
+  --blue-strong: #a6442d;
+  --blue-soft: #f2ddd4;
+  --accent: var(--blue);
+  --green: #356c59;
+  --mint: #dfece4;
+  --danger: #a33e3b;
+  --canvas: #e5e1d8;
+  --shadow: 0 18px 50px rgb(28 41 35 / 8%);
+  --platform-color-scheme: light;
+  --platform-notice-ink: #765135;
+  --platform-notice-surface: #f4e6d5;
+  --platform-danger-surface: #f5dfdc;
+  --platform-nav-surface: #1c2923;
+  --platform-nav-ink: #fbfaf7;
+  --platform-nav-muted: #b8c2ba;
+}
+
+body[data-platform-theme="dark"] {
+  --paper: #171e1a;
+  --surface: #222c26;
+  --surface-soft: #2c3830;
+  --ink: #f1eee6;
+  --muted: #b4bfb5;
+  --faint: #94a298;
+  --line: rgb(226 233 222 / 18%);
+  --blue: #e99a7e;
+  --blue-strong: #f2af94;
+  --blue-soft: #48342a;
+  --green: #a5cdb8;
+  --mint: #2b4237;
+  --danger: #f2a6a0;
+  --canvas: #121a15;
+  --shadow: 0 18px 50px rgb(0 0 0 / 22%);
+  --platform-color-scheme: dark;
+  --platform-notice-ink: #e3bf99;
+  --platform-notice-surface: #393126;
+  --platform-danger-surface: #442c2b;
+  --platform-nav-surface: #101813;
+}
+
+/* System colour follows OS changes even without a JavaScript media listener. */
+@media (prefers-color-scheme: dark) {
+  body[data-platform-theme="system"] {
+    --paper: #171e1a;
+    --surface: #222c26;
+    --surface-soft: #2c3830;
+    --ink: #f1eee6;
+    --muted: #b4bfb5;
+    --faint: #94a298;
+    --line: rgb(226 233 222 / 18%);
+    --blue: #e99a7e;
+    --blue-strong: #f2af94;
+    --blue-soft: #48342a;
+    --green: #a5cdb8;
+    --mint: #2b4237;
+    --danger: #f2a6a0;
+    --canvas: #121a15;
+    --shadow: 0 18px 50px rgb(0 0 0 / 22%);
+    --platform-color-scheme: dark;
+    --platform-notice-ink: #e3bf99;
+    --platform-notice-surface: #393126;
+    --platform-danger-surface: #442c2b;
+    --platform-nav-surface: #101813;
+  }
+}
+
+/* Native controls get the chosen scheme individually, so author previews do
+ * not inherit a platform colour-scheme from body or a containing shell. */
+body[data-platform-theme] :where(input, textarea, select):not(:where(.appearance-surface, .appearance-surface *)) {
+  color-scheme: var(--platform-color-scheme);
+}
+body[data-platform-theme] :where(.desktop-sidebar):not(:where(.appearance-surface, .appearance-surface *)) { background: var(--surface-soft); }
+body[data-platform-theme] :where(.canvas-inner, .stat-card, .data-card, .settings-card, .button-secondary):not(:where(.appearance-surface, .appearance-surface *)) {
+  color: var(--ink);
+  background: var(--surface);
+  border-color: var(--line);
+}
+body[data-platform-theme] :where(.client-note-input, .status-select):not(:where(.appearance-surface, .appearance-surface *)) { color: var(--ink); background: var(--surface-soft); }
+body[data-platform-theme] .editor-side:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--ink); background: var(--surface); }
+body[data-platform-theme] .field :is(input, textarea, select):not(:where(.appearance-surface, .appearance-surface *)),
+body[data-platform-theme] .block-type-button:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--ink); background: var(--surface-soft); border-color: var(--line); }
+body[data-platform-theme] .button-primary:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--surface); background: var(--ink); }
+body[data-platform-theme] .button-primary:hover:not(:where(.appearance-surface, .appearance-surface *)) { background: color-mix(in srgb, var(--ink) 88%, var(--surface)); }
+body[data-platform-theme] :where(.side-nav, .sidebar-bottom) .nav-link:hover:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--ink); background: var(--surface); }
+body[data-platform-theme] .side-nav .nav-link.active:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--surface); background: var(--ink); }
+body[data-platform-theme] .demo-pill:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--platform-notice-ink); }
+body[data-platform-theme] .notice:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--platform-notice-ink); background: var(--platform-notice-surface); border-color: var(--line); }
+body[data-platform-theme] :is(.error-notice, .button-danger):not(:where(.appearance-surface, .appearance-surface *)) { color: var(--danger); background: var(--platform-danger-surface); border-color: var(--line); }
+body[data-platform-theme] .status-chip.green:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--green); background: var(--mint); }
+body[data-platform-theme] .modal-handle:not(:where(.appearance-surface, .appearance-surface *)) { background: var(--line); }
+body[data-platform-theme] .editor-add:not(:where(.appearance-surface, .appearance-surface *)) { border-color: var(--muted); }
+
+/* The editor's Radix portal is a sibling of the shell, not a child of the
+ * backdrop. It needs explicit positioning, including on narrow screens. */
+.editor-overlay { z-index: 60; }
+.editor-dialog {
+  position: fixed; z-index: 61; inset-inline: 12px;
+  bottom: max(12px, env(safe-area-inset-bottom));
+  width: min(calc(100% - 24px), 540px); margin-inline: auto;
+  max-height: calc(100dvh - 24px - env(safe-area-inset-top) - env(safe-area-inset-bottom));
+  overflow-y: auto; overscroll-behavior: contain;
+}
+.editor-dialog.modal-wide { width: min(calc(100% - 24px), 720px); }
+.editor-dialog :is(input, select, button, summary):not(.sr-only) { min-height: 44px; }
+.editor-dialog .modal-heading .icon-button { min-width: 44px; }
+.sort-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin: -8px -8px 4px; }
+.sort-moves { display: flex; gap: 2px; }
+.sort-toolbar .icon-button { width: 44px; min-width: 44px; height: 44px; color: inherit; }
+.sort-handle { touch-action: none; cursor: grab; }
+.sort-handle:active { cursor: grabbing; }
+.block-edit-button { display: block; width: 100%; min-height: 94px; padding: 0; color: inherit; text-align: left; background: transparent; border: 0; border-radius: 8px; }
+.block-edit-button h3 { padding-right: 0; }
+.block-card-state { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-top: 16px; font-size: 11px; opacity: .8; }
+.draft-status { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; margin: -8px 0 20px; color: var(--muted); font-size: 12px; }
+.draft-status > span { display: inline-flex; align-items: center; gap: 6px; }
+.draft-status p { margin: 0; }
+.draft-status:is(.conflict, .error) { color: var(--danger); }
+.draft-status .button { min-height: 44px; }
+.sort-help { color: var(--muted); font-size: 12px; line-height: 1.6; margin: 0 0 16px; }
+.side-actions { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.side-actions .button { flex: 1 1 110px; }
+@media (min-width: 960px) {
+  .editor-side-wrap { position: sticky; top: 20px; align-self: start; }
+  .editor-side { max-height: calc(100dvh - 40px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; }
+  .editor-dialog { inset-block: 0; height: fit-content; margin-block: auto; }
+}
+@media (min-width: 1280px) { .editor-grid { grid-template-columns: minmax(0, 1fr) 330px; } }
+@media (max-width: 520px) {
+  .editor-dialog { padding: 18px; }
+  .sort-toolbar { gap: 0; }
+  .appearance-surface .editor-block-grid { grid-template-columns: minmax(0, 1fr); }
+}
+
+/* The analytics summary uses standalone articles with a value and caption.
+ * Their original fixed pale-green fill otherwise loses contrast in dark mode. */
+body[data-platform-theme] .creator-main article:has(> strong):has(> small):not(:where(.appearance-surface, .appearance-surface *)) {
+  background: var(--surface);
+  border-color: var(--line);
+}
+body[data-platform-theme] .creator-main article:has(> strong > span):has(> small):not(:where(.appearance-surface, .appearance-surface *)) { background: var(--mint); }
+
+@media (max-width: 959px) {
+  body[data-platform-theme] :where(.mobile-nav, .mobile-more-menu):not(:where(.appearance-surface, .appearance-surface *)) { background: var(--platform-nav-surface); }
+  body[data-platform-theme] .mobile-nav .nav-link:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--platform-nav-muted); }
+  body[data-platform-theme] .mobile-more-menu .nav-link:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--platform-nav-ink); }
+  body[data-platform-theme] .mobile-nav .nav-link:hover:not(:where(.appearance-surface, .appearance-surface *)) { color: var(--platform-nav-ink); background: rgb(251 250 247 / 8%); }
+  body[data-platform-theme] .mobile-nav .nav-link.active:not(:where(.appearance-surface, .appearance-surface *)) { color: #1c2923; background: var(--blue); }
+}
+
+/* Entry is a single short movement. Text has no hidden resting state or delay. */
+@media (prefers-reduced-motion: no-preference) {
+  body[data-platform-theme]:not([data-platform-motion="reduced"]) .start-copy:not(:where(.appearance-surface, .appearance-surface *)):not(:has(.appearance-surface)) { animation: pager-platform-entry 360ms ease-out; }
+  body[data-platform-theme]:not([data-platform-motion="reduced"]) .start-preview:not(:where(.appearance-surface, .appearance-surface *)):not(:has(.appearance-surface)) { animation: pager-platform-entry 400ms ease-out; }
+  body[data-platform-theme]:not([data-platform-motion="reduced"]) :where(.button, .preview-card, .stat-card, .data-card, .settings-card):not(:where(.appearance-surface, .appearance-surface *, .editor-block, .editor-block *)):not(:has(.appearance-surface)) {
+    transition: transform 180ms ease, opacity 180ms ease, background-color 180ms ease, border-color 180ms ease;
+  }
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  body[data-platform-theme]:not([data-platform-motion="reduced"]) :where(.preview-card, .stat-card, .data-card, .settings-card):hover:not(:where(.appearance-surface, .appearance-surface *)):not(:has(.appearance-surface)) { transform: translateY(-2px); }
+  body[data-platform-theme]:not([data-platform-motion="reduced"]) .button:hover:not(:disabled):not(:where(.appearance-surface, .appearance-surface *, .editor-block, .editor-block *)) { transform: translateY(-1px); }
+}
+@keyframes pager-platform-entry {
+  from { opacity: .88; transform: translateY(8px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* The accessibility preference is global, including author pages and portals.
+ * Important is limited to motion: no repaint or blanket transform reset (which
+ * would break drag positioning, switches, fixed sheets and layout transforms). */
+body[data-platform-motion="reduced"],
+body[data-platform-motion="reduced"] *,
+body[data-platform-motion="reduced"] *::before,
+body[data-platform-motion="reduced"] *::after {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
+html:has(> body[data-platform-motion="reduced"]) { scroll-behavior: auto !important; }
+@media (prefers-reduced-motion: reduce) {
+  html, body, body *, body *::before, body *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+}

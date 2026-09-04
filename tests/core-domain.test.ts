@@ -42,12 +42,12 @@ describe("draft and tenant transactions", () => {
   it("saves only a draft and atomically publishes a detached snapshot", () => {
     const state = createDemoState();
     const draft = structuredClone(state.pages[0]);
-    draft.title = "New title";
+    draft.title = "New title for the page";
     savePage(state, "creator-anna", draft);
     expect(state.publishedPages[0].title).not.toBe("New title");
     expect(() => savePage(state, "creator-anna", draft)).toThrow();
     publishPage(state, "creator-anna");
-    expect(state.publishedPages[0].title).toBe("New title");
+    expect(state.publishedPages[0].title).toBe("New title for the page");
     state.pages[0].blocks[0].data.text = "unpublished secret";
     expect(JSON.stringify(state.publishedPages)).not.toContain("unpublished secret");
   });

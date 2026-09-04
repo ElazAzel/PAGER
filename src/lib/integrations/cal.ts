@@ -9,10 +9,16 @@ import type { CommerceIntegration } from "./model";
 const API = "https://api.cal.com/v2";
 const tokenSchema = z.object({ access_token: z.string().min(1), refresh_token: z.string().min(1), expires_in: z.number().positive() });
 type Token = z.infer<typeof tokenSchema>;
+export class CalRequestError extends IntegrationError {
+  constructor(public providerStatus: number) { super(providerStatus === 409 ? 409 : [401, 403, 429].includes(providerStatus) ? 503 : 502, providerStatus === 409 ? "This time is no longer available / Это время уже занято" : "Cal request failed; retry or contact the creator / Не удалось связаться с Cal. Повторите запрос или свяжитесь с автором"); }
+  get safeToRetry() { return [400, 401, 403, 404, 409, 422, 429].includes(this.providerStatus); }
+}
 async function providerRequest(path: string, token?: string, method = "GET", data?: unknown): Promise<unknown> {
   if (isDemoMode()) throw new IntegrationError(409, "Cal is disabled in local demo mode");
-  const response = await fetch(`${API}${path}`, { method, headers: { "Content-Type": "application/json", "cal-api-version": "2026-02-25", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, ...(data ? { body: JSON.stringify(data) } : {}), signal: AbortSignal.timeout(20_000), cache: "no-store", redirect: "error" });
-  if (!response.ok) throw new IntegrationError(response.status === 401 ? 503 : 502, `Cal request failed (${response.status}); check provider configuration and retry`);
+  // Slots use their own documented version; bookings use the current booking version.
+  const version = path === "/slots" || path.startsWith("/slots?") || path.startsWith("/slots/") ? "2024-09-04" : "2026-02-25";
+  const response = await fetch(`${API}${path}`, { method, headers: { "Content-Type": "application/json", "cal-api-version": version, ...(token ? { Authorization: `Bearer ${token}` } : {}) }, ...(data ? { body: JSON.stringify(data) } : {}), signal: AbortSignal.timeout(20_000), cache: "no-store", redirect: "error" });
+  if (!response.ok) throw new CalRequestError(response.status);
   const result: unknown = await response.json(); return result;
 }
 function saveTokens(integration: CommerceIntegration, tokens: Token) {

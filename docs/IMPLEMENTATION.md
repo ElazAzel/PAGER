@@ -16,10 +16,10 @@ Ruling: Create a new feature branch in the empty user-specified PAGER directory;
 Ruling: Core UI and styles remain coordinator-owned; independent agents may install skills or implement server modules with disjoint ownership.
 Ruling: Secret-dependent real integrations cannot be verified without credentials; implement adapters, fixtures and sandbox tests, report exact missing configuration without representing simulations as live results.
 
-## Active agents
+## Agent history
 
 - Peirce (01a0633b-c228-78c0-ad5b-1e1b00294116): sources complete, independently verified, agent closed.
-- Newton and Hubble: interrupted by usage limit before final completion; their files retained.
+- Newton and Hubble: interrupted by usage limit before final completion; their retained files were integrated and covered by the current repository-wide checks.
 - Faraday: scoped review complete; agent closed. Publish/archive/file-lock fixes landed and verified.
 - Cicero (01a064be-fa9e-7d83-b2a6-a3fb707a3db4): core continuation complete; hidden sold material continuity, Telegram dashboard status, Supabase config, OTP templates and report delivered; agent closed.
 - Dewey (01a064be-fbab-7ee2-a329-7102ce994fdf): Telegram opt-in/delivery, signed Cal/booking-claim regressions and integration report delivered; agent closed.
@@ -30,19 +30,24 @@ Ruling: Secret-dependent real integrations cannot be verified without credential
 - All 25 block metadata/default generators and equal RU/EN message-key sets created. `pnpm exec vitest run tests/blocks.test.ts`: 5 passed.
 - Initial intentionally failing backend transition tests executed while agents implement their RED-to-GREEN cycles.
 - Docker launch attempted. WSL is not installed; local Supabase cannot run. No OS/virtualization changes authorized or performed. Add PGlite only as a dev test engine for SQL/RLS, not as production database or proof of live Supabase.
-- Design images generated and copied to docs/design. User selection pending; async question sent. request_user_input is unavailable in Default mode; no selection result exists.
+- Historical desktop design images were generated and copied to `docs/design`, then rejected by the user. No design selection is pending: the approved mobile concept is Page Studio and it is implemented in the current workspace/public/buyer surfaces.
 - Source installer independently rerun: 6 checks passed, 26 registrations. Registry, full revisions/licenses, update guide and verification retained in docs/sources*.
 - Production SQL executed in PGlite: `pnpm exec vitest run tests/rls.test.ts`, 6 passed. All16tables force RLS; 2creators/2buyers isolation, anonymous denial, mutation denial, payload/FK/inventory constraints checked. Supabase runtime remains unverified.
 - AccessOffer is a typed projection of saved page/block prices (src/lib/offers.ts); Order freezes accepted price. No separate mutable offer table required for pilot.
 - CI workflow added with pinned action revisions; no remote run claimed.
-- Before interruption: 69 tests passed across14files, typecheck passed, API-only production build passed with a demo tracing warning; lint one postcss warning then fixed. HTTP smoke passed54checks; extended booking scenario has not yet been rerun. None of this certifies a UI or live provider integration.
+- Before the final integration pass, the interrupted run had 69 tests across 14 files and partial HTTP evidence. Those numbers are historical only; current counts and fresh smoke results are recorded in `docs/VERIFICATION.md`.
 - 2026-09-03: user rejected all desktop designs, requested mobile application quality, and supplied private empty GitHub repository. Connected origin; new mobile ideation is coordinator's immediate work.
 - New mobile concepts generated independently and displayed in order: 1 Page Studio, 2 Context Sheets, 3 Pocket Editor. The user selected Page Studio. Its mobile-first direction is implemented in the creator workspace, public page, Checkout and buyer library.
 - 2026-09-03: local browser verification at 390x844 confirmed the creator app shell, four-item bottom navigation with More menu, bottom property panel, all 25 block types in the add sheet, public page rendering, lead submission, buyer auth continuation, block purchase, page-wide paid access, Checkout, buyer library and creator CRM. The paid-page scenario was restored to the open demo state after verification.
 - 2026-09-03: a publish race was fixed by flushing the current draft before publishing; the mobile style panel now has a close action and can be toggled from the toolbar. Demo role changes on an already-open dashboard now remount the authenticated workspace.
 - Fresh extended development HTTP smoke passed 63 successful response assertions plus denial/state checks for book-first/pay-later, rescheduling, cancellation, independent grants, last-unit inventory, shipping and archived material. Local demo only.
-- Follow-up script now includes hidden sold material continuity. A production build passed, but launching its local HTTP server (`pnpm start --port 3015`) was rejected by automatic approval review with only `blocked by policy`, no detailed rationale. No bypass attempted; this production HTTP run and the latest extended smoke script are not claimed as passed. Existing hidden-material handler/unit tests do pass.
+- Follow-up script includes hidden sold material continuity. The final fresh isolated HTTP rerun passed: discovery/admin/analytics 43 checks and API 69 assertions plus access, publication, inventory, booking and archival states. Local demo only.
+- 2026-09-04 final local gate: 270 tests in 32 files, lint, typecheck, production build and diff check passed. Fresh CUA review covered `/anna`, auth dialog, creator workspace, Page/Preview, all 25 block picker entries, Catalog and Settings. Provider, deployment and full accessibility gates remain external.
 - Supabase CLI 2.116.0 pinned; `--version` and `pnpm db:migrate --help` passed. Supabase migrations own SQL/RLS; no independent Drizzle history. No live migration applied.
+
+## Current status
+
+All local implementation items from the approved MVP and UX/UI remediation are present in the working tree. No agent is currently required for the local code path. The only remaining items are external release gates: real provider credentials/webhooks, HTTPS deployment, production Supabase validation, real pilot behavior and specialist accessibility checks.
 
 ## Interface compatibility scan
 

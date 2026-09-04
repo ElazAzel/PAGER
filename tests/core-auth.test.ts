@@ -13,6 +13,23 @@ describe("explicit local signed demo auth", () => {
     expect(() => assertDemoRequest(new Request("http://127.0.0.1/api/demo/session", { headers: { "x-forwarded-for": "203.0.113.1" } }))).toThrow();
     expect(() => assertDemoRequest(new Request("http://127.0.0.1/api/demo/session", { headers: { "x-forwarded-for": "127.0.0.1" } }))).not.toThrow();
   });
+  it("allows a same-origin browser request when the local app is behind a loopback-preserving dev proxy", () => {
+    vi.stubEnv("PAGER_DEMO", "true");
+    expect(() => assertDemoRequest(new Request("http://127.0.0.1:3000/api/demo/session", {
+      headers: {
+        host: "127.0.0.1:3000",
+        origin: "http://127.0.0.1:3000",
+        "x-forwarded-for": "10.0.0.8",
+      },
+    }))).not.toThrow();
+    expect(() => assertDemoRequest(new Request("http://127.0.0.1:3000/api/demo/session", {
+      headers: {
+        host: "127.0.0.1:3000",
+        origin: "https://evil.test",
+        "x-forwarded-for": "10.0.0.8",
+      },
+    }))).toThrow();
+  });
   it("rejects absent, forged, expired and non-demo identities", () => {
     const secret = "s".repeat(64); const now = 1_000_000;
     const cookie = signDemoSession("buyer-primary", secret, now);

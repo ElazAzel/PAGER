@@ -6,7 +6,7 @@ import { ApiError } from "./http";
 import { isDemoMode, mutateState, readState } from "./store";
 import { guardDemoContext } from "./demo";
 import { DEMO_COOKIE, demoSecret, verifyDemoSession } from "./demo-session";
-import { starterPage } from "./seed";
+import { enrollVerifiedUser } from "./enrollment";
 import { reconcileVerifiedBookings } from "./identity";
 
 export function assertSameOrigin(request: Request): void {
@@ -32,10 +32,8 @@ export async function currentUser(): Promise<User | null> {
   if (error || !data.user || !data.user.email || !data.user.email_confirmed_at) return null;
   const verified = data.user;
   return mutateState(state => {
-    const existing = state.users.find(u => u.id === verified.id);
-    if (existing) { existing.email = verified.email!.trim().toLowerCase(); reconcileVerifiedBookings(state, existing); return existing; }
-    const user: User = { id: verified.id, email: verified.email!.trim().toLowerCase(), name: typeof verified.user_metadata?.name === "string" ? verified.user_metadata.name.slice(0, 200) : verified.email!.split("@")[0], locale: verified.user_metadata?.locale === "en" ? "en" : "ru", role: verified.user_metadata?.role === "creator" ? "creator" : "buyer", createdAt: new Date().toISOString() };
-    state.users.push(user); if (user.role === "creator") state.pages.push(starterPage(user)); reconcileVerifiedBookings(state, user); return user;
+    const user = enrollVerifiedUser(state, { id: verified.id, email: verified.email!, name: typeof verified.user_metadata?.name === "string" ? verified.user_metadata.name.slice(0, 200) : verified.email!.split("@")[0], locale: verified.user_metadata?.locale === "en" ? "en" : "ru" }, verified.user_metadata?.role === "creator" ? "creator" : "buyer");
+    reconcileVerifiedBookings(state, user); return user;
   });
 }
 export async function requireUser(): Promise<User> { const user = await currentUser(); if (!user) throw new ApiError(401, "Sign in required / Войдите в аккаунт"); return user; }

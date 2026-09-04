@@ -9,6 +9,7 @@ import { applyCommerceEvent, reserveInventory } from "./transitions";
 import { orderMeta } from "./model";
 import { IntegrationError } from "./security";
 import { createStripeCheckout } from "./stripe";
+import { assertPageAvailable, assertPaymentsEnabled } from "../server/capabilities";
 
 const addressSchema = z.object({ name: z.string().trim().min(1).max(200), line1: z.string().trim().min(1).max(200), city: z.string().trim().min(1).max(100), postalCode: z.string().trim().min(1).max(32), country: z.string().regex(/^[A-Z]{2}$/) }).strict();
 export const checkoutSchema = z.object({ pageId: z.string().min(1).max(200), scope: z.enum(["page", "block", "item"]), blockId: z.string().max(200).optional(), itemId: z.string().max(200).optional(), bookingId: z.string().max(200).optional(), mode: z.enum(["one_time", "monthly"]), quantity: z.number().int().min(1).max(100).default(1), country: z.string().regex(/^[A-Z]{2}$/).optional(), shippingAddress: addressSchema.optional() }).strict();
@@ -21,6 +22,7 @@ export function prepareOrder(state: DatabaseState, user: User, input: CheckoutIn
   if (demo) for (const expired of state.orders.filter(o => o.test && o.status === "pending" && Date.parse(o.expiresAt) <= now.getTime())) applyCommerceEvent(state, { id: `expire:${expired.id}`, provider: "demo", orderId: expired.id, type: "expired", at: now.toISOString() });
   const page = state.publishedPages.find(p => p.id === input.pageId && p.publishedAt);
   if (!page) throw new IntegrationError(404, "Published page not found");
+  assertPageAvailable(page);
   if (page.ownerId === user.id) throw new IntegrationError(409, "Creators cannot purchase their own page");
   let title = page.title; let unitAmount: number | undefined; let currency = page.pricing.currency.toLowerCase(); let quantity = input.quantity ?? 1; let shippingAmount = 0;
   let itemId: string | undefined; let blockId: string | undefined;
@@ -78,6 +80,7 @@ export function prepareOrder(state: DatabaseState, user: User, input: CheckoutIn
   return order;
 }
 export async function checkout(user: User, input: CheckoutInput): Promise<{ url: string; orderId: string; demo: boolean }> {
+  assertPaymentsEnabled();
   const demo = isDemoMode(); const order = await mutateState(s => prepareOrder(s, user, input, demo));
   if (demo) return { url: `/checkout/${order.id}`, orderId: order.id, demo: true };
   if (orderMeta(order).checkoutUrl) return { url: orderMeta(order).checkoutUrl!, orderId: order.id, demo: false };

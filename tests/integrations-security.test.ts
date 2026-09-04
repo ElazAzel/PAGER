@@ -22,6 +22,22 @@ describe("provider security", () => {
     for (const request of [new Request("https://pager.example/api/checkout"), new Request("http://localhost:3000/api/checkout", { headers: { "x-forwarded-host": "pager.example" } }), new Request("http://localhost.evil.test/api/checkout")]) expect(() => assertDemoRequest(request, true)).toThrow();
     expect(() => assertDemoRequest(new Request("http://localhost:3000"), false)).toThrow();
   });
+  it("allows a same-origin browser request through a loopback-preserving dev proxy", () => {
+    expect(() => assertDemoRequest(new Request("http://127.0.0.1:3000/api/checkout", {
+      headers: {
+        host: "127.0.0.1:3000",
+        origin: "http://127.0.0.1:3000",
+        "x-forwarded-for": "10.0.0.8",
+      },
+    }), true)).not.toThrow();
+    expect(() => assertDemoRequest(new Request("http://127.0.0.1:3000/api/checkout", {
+      headers: {
+        host: "127.0.0.1:3000",
+        origin: "https://evil.test",
+        "x-forwarded-for": "10.0.0.8",
+      },
+    }), true)).toThrow();
+  });
   it("OAuth nonce is single-use, provider-bound, owner-bound and expires", () => {
     const pair = newOAuthState("owner", "cal", 1000);
     expect(() => consumeOAuthState(pair.record, pair.state, "other", "cal", 1001)).toThrow();

@@ -7,6 +7,9 @@ const config: NextConfig = {
     { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
     { key: "Permissions-Policy", value: "camera=(), microphone=(), geolocation=()" },
     { key: "X-Frame-Options", value: "SAMEORIGIN" }
-  ] }]; }
+  ] }, ...["/api/:path*", "/dashboard/:path*", "/admin/:path*", "/login/:path*", "/purchases/:path*", "/checkout/:path*"].map(source => ({ source, headers: [
+    { key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" },
+    { key: "Cache-Control", value: "private, no-store" }
+  ] }))]; }
 };
 export default config;

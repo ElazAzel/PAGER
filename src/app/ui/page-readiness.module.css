@@ -1,0 +1,15 @@
+.root { min-width: 0; margin-top: 24px; padding: clamp(18px, 3vw, 28px); border-radius: 22px; background: var(--surface); }
+.heading { display: flex; align-items: center; gap: 10px; }
+.heading h2 { margin: 0; font-size: 22px; letter-spacing: -.035em; }
+.root p { color: var(--muted); font-size: 14px; line-height: 1.6; }
+.preview { margin: 20px 0; padding: 18px; background: var(--surface-soft); border-radius: 14px; overflow-wrap: anywhere; }
+.preview > span { display: block; color: var(--muted); font-size: 12px; }
+.preview > strong { display: block; margin-top: 6px; color: var(--blue-strong); font-size: 19px; line-height: 1.35; }
+.preview p { margin: 7px 0 0; }
+.checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; padding: 0; list-style: none; }
+.checks li { display: flex; align-items: flex-start; gap: 10px; min-width: 0; }
+.checks li > svg { flex-shrink: 0; margin-top: 2px; color: var(--green); }
+.checks strong { display: block; font-size: 14px; }
+.checks span { display: block; margin-top: 5px; color: var(--muted); font-size: 13px; line-height: 1.5; }
+.note { margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--line); }
+@media (max-width: 620px) { .checks { grid-template-columns: 1fr; } .heading h2 { font-size: 20px; } }

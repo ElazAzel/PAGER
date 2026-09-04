@@ -7,6 +7,7 @@ import { ApiError, body, json } from "@/lib/server/http";
 import { route } from "@/lib/server/routes";
 import { emailSchema, idSchema } from "@/lib/server/validation";
 import { rateLimit, requestKey } from "@/lib/server/rate-limit";
+import { getCapabilities } from "@/lib/server/capabilities";
 export const runtime = "nodejs";
 export async function POST(request: Request) { return route(request, async () => {
   const input = z.object({ pageId: idSchema, blockId: idSchema, name: z.string().trim().min(1).max(200), email: emailSchema, message: z.string().max(5000).default("") }).strict().parse(await body(request));
@@ -15,7 +16,7 @@ export async function POST(request: Request) { return route(request, async () =>
   await mutateState(state => {
     const page = state.publishedPages.find(p => p.id === input.pageId && p.publishedAt); const block = page?.blocks.find(b => b.id === input.blockId && ["form", "event"].includes(b.type) && !b.hidden && !b.archived);
     if (!page || !block || !canAccessBlock(page, block, user?.id, state.entitlements)) throw new ApiError(403, "Form access denied");
-    if (block.type === "event" && state.items.some(i => i.ownerId === page.ownerId && i.pageId === page.id && i.kind === "ticket" && block.data.itemIds?.includes(i.id))) throw new ApiError(409, "This event requires a ticket purchase");
+    if (block.type === "event" && getCapabilities().payments && state.items.some(i => i.ownerId === page.ownerId && i.pageId === page.id && i.kind === "ticket" && block.data.itemIds?.includes(i.id))) throw new ApiError(409, "This event requires a ticket purchase");
     const contact = upsertContact(state, page.ownerId, input.email, input.name);
     if (block.type === "event") {
       const registrations = state.opportunities.filter(o => o.ownerId === page.ownerId && o.pageId === page.id && (o as typeof o & { blockId?: string }).blockId === block.id && o.status !== "closed");

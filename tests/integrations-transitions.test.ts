@@ -5,7 +5,7 @@ import { applyBookingUpdate, reminderAt, shouldDeliverBookingNotice } from "../s
 
 const now = "2026-09-02T12:00:00.000Z";
 function fixture() {
-  const state: DatabaseState = { users: [], pages: [], publishedPages: [], items: [], contacts: [], opportunities: [], bookings: [], orders: [], subscriptions: [], entitlements: [], timeline: [], integrations: [], analytics: [], assets: [], webhooks: [], notifications: [] };
+  const state: DatabaseState = { users: [], pages: [], publishedPages: [], items: [], contacts: [], opportunities: [], bookings: [], orders: [], subscriptions: [], entitlements: [], timeline: [], integrations: [], analytics: [], assets: [], webhooks: [], notifications: [], adminAudit: [], creatorInvites: [] };
   const order: Order = { id: "o1", ownerId: "c1", buyerId: "b1", pageId: "p1", contactId: "ct1", opportunityId: "opp1", scope: "block", blockId: "block1", title: "Access", mode: "one_time", quantity: 1, amount: 1200, shippingAmount: 0, currency: "usd", status: "pending", fulfillment: "unfulfilled", expiresAt: "2026-09-02T13:00:00.000Z", createdAt: now, stripeAccountId: "acct_1", test: false };
   state.orders.push(order);
   return { state, order };

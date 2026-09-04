@@ -18,7 +18,8 @@ generic dashboard.
 - **Composition:** the first screen has one clear next action. Content blocks
   may vary in density, width and surface, while the spacing rhythm remains
   predictable.
-- **Motion:** short transitions for state changes only. Respect reduced motion.
+- **Motion:** short state transitions by default. Author-selected entrances and
+  hover effects are optional, finite and restrained. Reduced motion always wins.
 
 ## Mobile product rules
 
@@ -43,6 +44,15 @@ generic dashboard.
 - Empty states explain the next useful action in the user's language.
 - Russian and English copy should sound like a person who does the work,
   rather than a feature catalogue.
+
+## Author appearance extension — 2026-09-03
+
+The user requested flexible visual customization and animation. Keep Paper as
+the default; offer Studio, Sage, Midnight and Rose as creator-selected variants.
+Use the same validated tokens for the editor preview and published page. Personal
+light/dark/system settings affect the PAGER shell only. Keep type readable,
+surfaces calm and motion subordinate to booking and purchase. See
+[the appearance guide](docs/APPEARANCE.md) for controls and verification gates.
 
 ## Reference sources
 

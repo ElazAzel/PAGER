@@ -1,0 +1,453 @@
+/*
+ * PAGER visual pass
+ *
+ * The product has two jobs that should feel related: a quiet, bookable public
+ * page and a focused creator workspace. This layer owns shared rhythm and
+ * hierarchy while leaving creator-selected page colours, surfaces and motion
+ * tokens in page-appearance.css.
+ */
+
+:root {
+  --pager-public-max: 760px;
+  --pager-workspace-max: 1120px;
+}
+
+/* Public page: give the editorial layout enough room to breathe on desktop. */
+.public-wrap .public-top,
+.public-wrap .public-page {
+  width: min(100%, var(--pager-public-max));
+  max-width: var(--pager-public-max);
+}
+
+.public-wrap .public-top {
+  padding-inline: 0;
+  padding-bottom: 26px;
+}
+
+.public-wrap .public-page {
+  padding: clamp(28px, 4vw, 48px) 0 78px;
+}
+
+.public-wrap .public-profile {
+  padding: 18px 0 38px;
+}
+
+.public-wrap .public-profile .avatar {
+  width: 78px;
+  height: 78px;
+  margin-bottom: 22px;
+}
+
+.public-wrap .public-profile h1 {
+  max-width: 720px;
+  font-size: clamp(42px, 6.6vw, 64px);
+  line-height: .94;
+}
+
+.public-wrap .public-profile p {
+  max-width: 640px;
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+.public-wrap .public-profile::after {
+  width: 64px;
+  height: 5px;
+  margin-top: 32px;
+}
+
+.public-wrap .public-blocks {
+  gap: 16px;
+}
+
+.public-wrap .public-block {
+  border-radius: min(var(--appearance-radius, 24px), 24px);
+}
+
+.public-wrap .public-block-content,
+.public-wrap .lock-content,
+.public-wrap .public-profile-block {
+  padding: var(--appearance-padding, 24px);
+}
+
+.public-wrap .public-footer {
+  margin-top: 34px;
+  padding-top: 18px;
+}
+
+.public-wrap .appearance-action-dock {
+  width: min(calc(100% - 32px), var(--pager-public-max));
+  padding: 12px 14px;
+  border-radius: min(var(--appearance-radius, 24px), 18px);
+}
+
+/* Creator workspace: one deliberate column, one clear working surface. */
+.creator-layout {
+  grid-template-columns: 240px minmax(0, 1fr);
+}
+
+.desktop-sidebar {
+  padding: 32px 20px;
+  gap: 30px;
+}
+
+.sidebar-brand {
+  padding: 6px 12px 24px;
+  border-bottom: 1px solid var(--line);
+}
+
+.sidebar-caption {
+  padding-inline: 12px;
+}
+
+.side-nav {
+  gap: 6px;
+}
+
+.nav-link {
+  min-height: 48px;
+  border-radius: 14px;
+}
+
+.nav-link.active {
+  box-shadow: inset 3px 0 0 var(--blue);
+}
+
+.creator-main {
+  width: min(100%, 1320px);
+  padding: 26px clamp(24px, 5vw, 72px) 128px;
+}
+
+.topbar {
+  max-width: var(--pager-workspace-max);
+  min-height: 50px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--line);
+}
+
+.creator-main > .notice {
+  max-width: var(--pager-workspace-max);
+  margin-top: 18px;
+}
+
+.dashboard-heading {
+  max-width: var(--pager-workspace-max);
+  margin: 54px 0 30px;
+}
+
+.dashboard-heading h1 {
+  max-width: 900px;
+  font-size: clamp(40px, 4.2vw, 58px);
+  line-height: .94;
+}
+
+.dashboard-heading-actions {
+  align-items: end;
+}
+
+.editor-grid {
+  max-width: var(--pager-workspace-max);
+  grid-template-columns: minmax(0, 1fr) 330px;
+  gap: 18px;
+}
+
+.canvas-panel {
+  padding: 11px;
+  border: 1px solid var(--line);
+  border-radius: 30px;
+}
+
+.canvas-inner {
+  padding: 30px 26px 26px;
+  border: 1px solid var(--line);
+  box-shadow: 0 18px 44px rgb(28 41 35 / 6%);
+}
+
+.canvas-page-head {
+  padding-bottom: 26px;
+}
+
+.canvas-page-head h2 {
+  font-size: 30px;
+  line-height: .98;
+}
+
+.editor-block-grid {
+  gap: 14px;
+}
+
+.editor-block {
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.editor-block .block-card-state {
+  padding-top: 12px;
+  border-top: 1px solid color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.editor-side {
+  padding: 22px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.editor-side .side-title {
+  margin-bottom: 20px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--line);
+}
+
+.editor-side .side-title h3 {
+  font-size: 25px;
+}
+
+.block-type-button {
+  min-height: 78px;
+  align-content: start;
+}
+
+.block-type-copy {
+  display: grid;
+  gap: 3px;
+}
+
+.block-type-copy strong {
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+.block-type-copy small {
+  color: var(--muted);
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+/* The secondary creator surfaces use the same editorial hierarchy. */
+.subpage {
+  max-width: var(--pager-workspace-max);
+  padding-inline: 24px;
+}
+
+.subpage-heading {
+  margin: 54px 0 30px;
+}
+
+.subpage-heading h1 {
+  font-size: clamp(40px, 4.8vw, 64px);
+  line-height: .94;
+}
+
+.data-card,
+.settings-card,
+.stat-card {
+  border: 1px solid var(--line);
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.data-card-head {
+  padding: 20px 22px;
+}
+
+.data-row {
+  padding: 19px 22px;
+}
+
+.data-row-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.settings-card {
+  padding: 24px;
+}
+
+.settings-card h2 {
+  font-size: 24px;
+}
+
+.integration-row {
+  min-height: 72px;
+}
+
+@media (min-width: 960px) {
+  .dashboard-heading {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+
+  .dashboard-heading > :first-child {
+    grid-column: 1 / -1;
+  }
+
+  .dashboard-heading-actions {
+    grid-column: 1 / -1;
+    justify-content: flex-end;
+    margin-top: 20px;
+  }
+}
+
+/* Responsive rhythm keeps the same hierarchy without turning controls into
+ * tiny desktop leftovers. */
+@media (max-width: 959px) {
+  .creator-main {
+    padding: 14px 14px 124px;
+  }
+
+  .topbar {
+    min-height: 46px;
+    padding-bottom: 11px;
+  }
+
+  .creator-main > .notice {
+    margin-top: 14px;
+  }
+
+  .dashboard-heading {
+    margin: 34px 0 22px;
+  }
+
+  .dashboard-heading h1 {
+    font-size: clamp(38px, 11vw, 50px);
+    line-height: .96;
+  }
+
+  .editor-grid {
+    max-width: none;
+  }
+
+  .canvas-panel {
+    padding: 7px;
+    border-radius: 26px;
+  }
+
+  .canvas-inner {
+    padding: 22px 14px 18px;
+    border-radius: 21px;
+  }
+
+  .canvas-page-head h2 {
+    font-size: 26px;
+  }
+
+  .editor-block-grid {
+    gap: 10px;
+  }
+
+  .editor-block {
+    padding: 16px;
+  }
+
+  .editor-side {
+    border: 0;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-nav {
+    border: 1px solid rgb(251 250 247 / 12%);
+  }
+
+  .mobile-nav .nav-link {
+    min-height: 52px;
+  }
+
+  .subpage {
+    padding: 18px 14px 124px;
+  }
+
+  .subpage-heading {
+    margin: 34px 0 22px;
+  }
+
+  .subpage-heading h1 {
+    font-size: clamp(38px, 11vw, 50px);
+  }
+
+  .data-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .data-row-actions {
+    justify-content: flex-start;
+  }
+
+  .status-select {
+    width: 100%;
+  }
+
+  .settings-card {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 620px) {
+  .public-wrap .public-top,
+  .public-wrap .public-page {
+    width: calc(100% - 28px);
+  }
+
+  .public-wrap .public-top {
+    padding-bottom: 14px;
+  }
+
+  .public-wrap .public-page {
+    padding: 20px 0 54px;
+  }
+
+  .public-wrap .public-profile {
+    padding: 12px 0 30px;
+  }
+
+  .public-wrap .public-profile .avatar {
+    width: 72px;
+    height: 72px;
+    margin-bottom: 18px;
+  }
+
+  .public-wrap .public-profile h1 {
+    font-size: clamp(36px, 10.4vw, 44px);
+    line-height: 1;
+  }
+
+  .public-wrap .public-profile p {
+    font-size: 14px;
+  }
+
+  .public-wrap .public-blocks {
+    gap: 12px;
+  }
+
+  .public-wrap .public-block-content,
+  .public-wrap .lock-content,
+  .public-wrap .public-profile-block {
+    padding: 20px;
+  }
+
+  .public-wrap .appearance-action-dock {
+    width: calc(100% - 20px);
+    bottom: max(10px, env(safe-area-inset-bottom));
+    gap: 8px;
+    padding: 10px;
+    border-radius: 16px;
+  }
+
+  .public-wrap .appearance-action-dock strong {
+    font-size: 12px;
+  }
+
+  .public-wrap .appearance-action-dock span {
+    font-size: 11px;
+  }
+
+  .public-wrap .appearance-action-dock > .button {
+    max-width: 56%;
+    min-height: 46px;
+    padding-inline: 12px;
+  }
+}

@@ -22,7 +22,7 @@ export function appOrigin(): string {
 }
 export async function authenticated(request: Request, write = true): Promise<User> {
   if (isDemoMode()) assertDemoRequest(request, true);
-  if (write) assertSameOrigin(request);
+  if (write && !isDemoMode()) assertSameOrigin(request);
   return requireUser();
 }
 export async function creator(request: Request, write = true): Promise<User> { const user = await authenticated(request, write); if (user.role !== "creator") throw new IntegrationError(403, "Creator account required"); return user; }

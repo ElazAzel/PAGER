@@ -6,6 +6,7 @@ import { applyBookingUpdate } from "./booking-transitions";
 import type { CommerceBooking } from "./model";
 import { canAccessBlock } from "../server/access";
 import { upsertContact, createOpportunity, markConverted, addTimeline } from "../server/crm";
+import { assertPageAvailable } from "../server/capabilities";
 export type CalBookingEvent = { uid: string; previousUid?: string; eventTypeId: number; kind: "BOOKING_CREATED" | "BOOKING_RESCHEDULED" | "BOOKING_CANCELLED"; at: string; startAt: string; endAt: string; timezone: string; email: string; name: string; title: string };
 export function authorizeBooking(state: DatabaseState, id: string, user: User): Booking {
   const booking = state.bookings.find(b => b.id === id);
@@ -33,6 +34,7 @@ export function applyCalBookingEvent(state: DatabaseState, ownerId: string, even
     const matches = state.publishedPages.filter(p => p.ownerId === ownerId && p.publishedAt).flatMap(page => page.blocks.filter(block => block.type === "booking" && !block.hidden && !block.archived && (block.data.eventTypeId === event.eventTypeId || state.items.some(i => block.data.itemIds?.includes(i.id) && i.ownerId === ownerId && i.kind === "service" && i.eventTypeId === event.eventTypeId))).map(block => ({ page, block })));
     if (matches.length !== 1) throw new IntegrationError(409, "Cal event type must map to exactly one published booking block");
     const { page, block } = matches[0];
+    assertPageAvailable(page);
     if (!canAccessBlock(page, block, buyer?.id, state.entitlements)) throw new IntegrationError(403, "Booking block access is required");
     const item = state.items.find(i => i.ownerId === ownerId && i.pageId === page.id && i.kind === "service" && block.data.itemIds?.includes(i.id) && i.eventTypeId === event.eventTypeId);
     const contact = upsertContact(state, ownerId, event.email, event.name);
@@ -52,10 +54,11 @@ export function applyCalBookingEvent(state: DatabaseState, ownerId: string, even
   return booking;
 }
 
-export const bookingInputSchema = z.object({ pageId: z.string().max(200), blockId: z.string().max(200), itemId: z.string().max(200).optional(), startAt: iso.optional(), name: z.string().trim().min(1).max(200), email: z.string().email(), timezone: timezoneSchema }).strict();
+export const bookingInputSchema = z.object({ pageId: z.string().min(1).max(200), blockId: z.string().min(1).max(200), itemId: z.string().min(1).max(200).optional(), startAt: iso.optional(), name: z.string().trim().min(1).max(200), email: z.string().email(), timezone: timezoneSchema, idempotencyKey: z.string().uuid().optional() }).strict();
 export function createDemoBooking(state: DatabaseState, user: User, input: z.infer<typeof bookingInputSchema>): Booking {
   const page = state.publishedPages.find(p => p.id === input.pageId && p.publishedAt); const block = page?.blocks.find(b => b.id === input.blockId && b.type === "booking" && !b.hidden && !b.archived);
   if (!page || !block || !canAccessBlock(page, block, user.id, state.entitlements)) throw new IntegrationError(403, "Booking block is unavailable");
+  assertPageAvailable(page);
   if (input.email.toLowerCase() !== user.email.toLowerCase()) throw new IntegrationError(403, "Use the verified buyer email");
   if (page.ownerId === user.id) throw new IntegrationError(409, "Creators cannot book their own service");
   if (!input.startAt || Date.parse(input.startAt) < Date.now() + 60_000 || Date.parse(input.startAt) > Date.now() + 180 * 86400_000) throw new IntegrationError(400, "Select a future demo slot within 180 days");

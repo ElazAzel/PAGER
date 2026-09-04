@@ -3,22 +3,22 @@
 import {
   Activity, ArrowLeft, ArrowRight, ArrowUpRight, AtSign, BarChart3, Bell, BookOpen, Calendar,
   CalendarClock, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight,
-  CircleHelp, CirclePlus, ClipboardList, Code2, Columns2, Copy, Download,
+  Circle, CircleCheck, CircleHelp, CirclePlus, ClipboardList, Clock3, Code2, Columns2, Copy, Download,
   ExternalLink, Eye, EyeOff, FileText, Gift, Globe2, Grid2X2, HeartHandshake, Image as ImageIcon,
   Inbox, Info, LayoutGrid, Link as LinkIcon, LockKeyhole, LogOut, Mail, MapPin, Menu,
-  MessageCircle, Minus, MoreHorizontal, Pencil, Plus, Quote, Send, Settings,
+  MessageCircle, Minus, MoreHorizontal, Pencil, Plus, Quote, Search, Send, Settings, Shield,
   Share2, ShoppingBag, Sparkles, Tag, Timer, Trash2, Type, Upload, UserRound,
-  UsersRound, WalletCards, X, type LucideIcon,
+  Truck, UsersRound, WalletCards, X, type LucideIcon,
 } from "lucide-react";
 
 const icons: Record<string, LucideIcon> = {
   Activity, ArrowLeft, ArrowRight, ArrowUpRight, AtSign, BarChart3, Bell, BookOpen, Calendar,
   CalendarClock, CalendarDays, Check, ChevronDown, ChevronLeft, ChevronRight,
-  CircleHelp, CirclePlus, ClipboardList, Code2, Columns2, Copy, Download,
+  Circle, CircleCheck, CircleHelp, CirclePlus, ClipboardList, Clock3, Code2, Columns2, Copy, Download,
   ExternalLink, Eye, EyeOff, FileText, Gift, Globe2, Grid2X2, HeartHandshake, Image: ImageIcon,
   Inbox, Info, LayoutGrid, Link: LinkIcon, LockKeyhole, LogOut, Mail, MapPin, Menu,
-  MessageCircle, Minus, MoreHorizontal, Pencil, Plus, Quote, Send, Settings,
-  Share2, ShoppingBag, Sparkles, Tag, Timer, Trash2, Type, Upload, UserRound,
+  MessageCircle, Minus, MoreHorizontal, Pencil, Plus, Quote, Search, Send, Settings, Shield,
+  Share2, ShoppingBag, Sparkles, Tag, Timer, Trash2, Truck, Type, Upload, UserRound,
   UsersRound, WalletCards, X,
 };
 

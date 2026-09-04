@@ -1,0 +1,158 @@
+.panel {
+  --settings-paper: var(--surface, #fbfaf7);
+  --settings-tonal: var(--surface-soft, #ebe8e0);
+  --settings-ink: var(--ink, #1c2923);
+  --settings-muted: var(--muted, #6d7971);
+  --settings-line: var(--line, rgba(28, 41, 35, .12));
+  display: grid;
+  min-width: 0;
+  gap: 18px;
+  padding-block: 22px;
+  color: var(--settings-ink);
+  border-top: 1px solid var(--settings-line);
+  font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+}
+
+.panel *, .panel *::before, .panel *::after { box-sizing: border-box; }
+.heading h3 { margin: 0; color: inherit; font: 600 22px/1.2 Georgia, "Times New Roman", serif; letter-spacing: -.025em; }
+.heading p, .note { margin: 7px 0 0; color: var(--settings-muted); font-size: 12px; line-height: 1.6; overflow-wrap: anywhere; }
+.panel > .note { margin: 0; }
+.presetField { min-width: 0; margin: 0; padding: 0; border: 0; }
+.presetField legend { margin-bottom: 7px; padding: 0; font-size: 12px; font-weight: 650; }
+.presets {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(84px, 1fr));
+  gap: 6px;
+  padding: 4px 4px 9px;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-padding-inline: 4px;
+  scroll-snap-type: x proximity;
+  scrollbar-width: thin;
+  scrollbar-color: var(--settings-line) transparent;
+}
+.preset {
+  display: grid;
+  align-content: start;
+  min-width: 0;
+  min-height: 44px;
+  gap: 7px;
+  padding: 5px;
+  color: var(--settings-ink);
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  text-align: left;
+  scroll-snap-align: start;
+  cursor: pointer;
+}
+.preset[aria-pressed="true"] { border-color: var(--settings-ink); }
+.presetName { padding: 0 2px 2px; font-size: 12px; line-height: 1.3; font-weight: 600; overflow-wrap: anywhere; }
+.swatch { position: relative; display: grid; place-items: center; width: 100%; height: 65px; padding: 12px; overflow: hidden; border-radius: 7px; }
+.swatchCard { display: grid; align-content: center; gap: 5px; width: 100%; height: 43px; padding: 8px; }
+.swatchCard > span { display: block; width: 85%; height: 2px; background: currentColor; opacity: .55; }
+.swatchCard > span + span { width: 58%; opacity: .25; }
+.swatchCard i { display: block; width: 17px; height: 6px; border-radius: 2px; }
+.selectedMark { position: absolute; right: 4px; bottom: 4px; display: grid; place-items: center; width: 19px; height: 19px; color: var(--settings-paper); background: var(--settings-ink); border: 1px solid var(--settings-paper); border-radius: 50%; font-size: 11px; font-weight: 700; }
+.preview { min-width: 0; margin: 0; }
+.previewHeading { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0 8px; margin-bottom: 5px; color: var(--settings-muted); font-size: 12px; }
+.replay { display: inline-flex; align-items: center; justify-content: center; gap: 6px; min-width: 44px; min-height: 44px; padding: 7px 5px; color: var(--settings-ink); background: transparent; border: 0; border-radius: 8px; font-size: 12px; font-weight: 600; cursor: pointer; }
+.replay > span { font-size: 19px; line-height: 1; }
+.sample { position: relative; isolation: isolate; min-width: 0; padding: 22px; overflow: hidden; border: 1px solid var(--settings-line); border-radius: 16px; }
+.sampleMotion { position: relative; z-index: 1; }
+.sampleCard { display: grid; min-width: 0; }
+.sampleTitle { display: block; font-size: 24px; font-weight: 500; line-height: 1.1; letter-spacing: -.025em; overflow-wrap: anywhere; }
+.sampleCard p { margin: 0; font-size: 12px; line-height: 1.5; }
+.sampleButton { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 44px; padding: 10px 12px; font-size: 12px; font-weight: 650; line-height: 1.4; }
+.sampleButton > span { font-size: 17px; }
+.fields { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 144px), 1fr)); align-items: end; gap: 15px 12px; }
+.field { display: grid; min-width: 0; gap: 6px; margin: 0; color: var(--settings-ink); font-size: 12px; font-weight: 600; }
+.field select { width: 100%; min-width: 0; min-height: 44px; padding: 9px 24px 9px 10px; color: var(--settings-ink); background: var(--settings-paper); border: 1px solid var(--settings-line); border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: 400; line-height: 1.4; }
+.colorControl { display: flex; align-items: center; min-height: 44px; gap: 10px; }
+.colorControl input { flex: 0 0 44px; width: 44px; height: 44px; min-height: 44px; padding: 4px; background: var(--settings-paper); border: 1px solid var(--settings-line); border-radius: 10px; cursor: pointer; }
+.colorControl input::-webkit-color-swatch-wrapper { padding: 0; }
+.colorControl input::-webkit-color-swatch { border: 0; border-radius: 6px; }
+.colorControl input::-moz-color-swatch { border: 0; border-radius: 6px; }
+.colorControl > span { font-family: ui-monospace, SFMono-Regular, Consolas, monospace; font-size: 12px; font-weight: 400; }
+.details { min-width: 0; border-top: 1px solid var(--settings-line); }
+.details summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; gap: 12px; padding-block: 10px; border-radius: 4px; font-size: 13px; font-weight: 650; list-style: none; cursor: pointer; }
+.details summary::-webkit-details-marker { display: none; }
+.details summary > span { flex: 0 0 20px; font-size: 21px; line-height: 1; text-align: center; font-weight: 400; }
+.details[open] summary > span { transform: rotate(45deg); }
+.details > .fields { padding-block: 6px 4px; }
+.resetRow { padding-top: 5px; border-top: 1px solid var(--settings-line); }
+.reset { min-width: 44px; min-height: 44px; padding: 8px 0; color: var(--settings-ink); background: transparent; border: 0; border-radius: 4px; font-size: 12px; text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+.resetRow .note { margin-top: 0; }
+.panel :is(button, select, input, summary):focus-visible { outline: 3px solid var(--settings-ink); outline-offset: 2px; }
+.blockPanel { gap: 14px; }
+.blockPanel .heading h3 { font-size: 20px; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+.swatch, .sample {
+  color: var(--ink);
+  background: var(--appearance-background);
+  font-family: var(--appearance-body-font);
+}
+.swatch::before, .sample::before { position: absolute; z-index: 0; inset: 0; pointer-events: none; content: ""; }
+.swatch[data-page-pattern="dots"]::before, .sample[data-page-pattern="dots"]::before {
+  background-image: radial-gradient(circle, var(--appearance-pattern-color) 1px, transparent 1.5px);
+  background-size: 12px 12px;
+}
+.swatch[data-page-pattern="grid"]::before, .sample[data-page-pattern="grid"]::before {
+  background-image: linear-gradient(var(--appearance-pattern-color) 1px, transparent 1px), linear-gradient(90deg, var(--appearance-pattern-color) 1px, transparent 1px);
+  background-size: 16px 16px;
+}
+.swatchCard, .sampleCard {
+  position: relative;
+  border: 1px solid var(--line);
+  border-radius: var(--appearance-radius);
+  background: var(--appearance-card);
+  box-shadow: var(--appearance-shadow);
+}
+.swatchCard { border-radius: calc(var(--appearance-radius) * .4); }
+.swatchCard i { background: var(--page-accent); }
+.swatchCard, .selectedMark { z-index: 1; }
+.sampleCard { gap: calc(var(--appearance-gap) * .65); padding: calc(var(--appearance-padding) * .75); }
+.sampleTitle { font-family: var(--appearance-heading-font); }
+.sampleCard p { color: var(--muted); }
+.sampleButton { color: var(--appearance-on-accent); background: var(--page-accent); border: 1px solid transparent; border-radius: var(--appearance-button-radius); }
+.swatch[data-page-surface="outline"] .swatchCard, .sample[data-page-surface="outline"] .sampleCard { background: transparent; }
+.swatch[data-page-surface="glass"] .swatchCard, .sample[data-page-surface="glass"] .sampleCard { -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.sample[data-page-button="outline"] .sampleButton { color: var(--appearance-link); background: transparent; border-color: currentColor; }
+.swatch[data-page-button="outline"] .swatchCard i { background: transparent; border: 1px solid var(--appearance-link); }
+.swatch[data-page-button="pill"] .swatchCard i { border-radius: 999px; }
+
+@media (prefers-reduced-motion: no-preference) {
+  :global(body[data-platform-motion="standard"]) .sampleMotion { animation-duration: var(--appearance-duration); animation-timing-function: cubic-bezier(.22, .61, .36, 1); animation-fill-mode: both; }
+  :global(body[data-platform-motion="standard"]) .sample[data-page-entrance="fade"] .sampleMotion { animation-name: sampleFade; }
+  :global(body[data-platform-motion="standard"]) .sample[data-page-entrance="rise"] .sampleMotion { animation-name: sampleRise; }
+  :global(body[data-platform-motion="standard"]) .sample[data-page-entrance="scale"] .sampleMotion { animation-name: sampleScale; }
+}
+
+@keyframes sampleFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes sampleRise { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes sampleScale { from { opacity: 0; transform: scale(.95); } to { opacity: 1; transform: scale(1); } }
+
+@media (hover: hover) and (pointer: fine) {
+  .preset:hover, .replay:hover { background: var(--settings-tonal); }
+  .reset:hover { text-decoration-thickness: 2px; }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  :global(body[data-platform-motion="standard"]) .sampleCard { transition: transform var(--appearance-duration) ease, box-shadow var(--appearance-duration) ease; }
+  :global(body[data-platform-motion="standard"]) .sample[data-page-hover="lift"]:hover .sampleCard { transform: translateY(-3px); }
+  :global(body[data-platform-motion="standard"]) .sample[data-page-hover="glow"]:hover .sampleCard { box-shadow: 0 0 0 2px var(--appearance-accent-glow), 0 8px 22px var(--appearance-accent-wash); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel *, .panel *::before, .panel *::after { animation: none !important; transition: none !important; }
+}
+:global(body[data-platform-motion="reduced"]) .sampleCard { transform: none !important; }
+
+@media (forced-colors: active) {
+  .preset[aria-pressed="true"] { border: 2px solid Highlight; }
+  .selectedMark { color: HighlightText; background: Highlight; }
+  .panel :is(button, select, input, summary):focus-visible { outline-color: Highlight; }
+}

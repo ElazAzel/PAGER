@@ -1,6 +1,6 @@
 import "server-only";
 import { index, jsonb, pgTable, text, uniqueIndex } from "drizzle-orm/pg-core";
-import type { Asset, AnalyticsEvent, Booking, CatalogItem, Contact, Entitlement, Integration, Notification, Opportunity, Order, Page, Subscription, TimelineEvent, User, WebhookEvent } from "../types";
+import type { AdminAuditEvent, CreatorInvite, Asset, AnalyticsEvent, Booking, CatalogItem, Contact, Entitlement, Integration, Notification, Opportunity, Order, Page, Subscription, TimelineEvent, User, WebhookEvent } from "../types";
 
 // Full payload retains integration-owned commerce metadata. Typed columns enforce
 // relational tenancy and index lookups; the migration adds deferred composite FKs/RLS.
@@ -10,6 +10,8 @@ const page = () => text("page_id").notNull();
 const buyer = () => text("buyer_id").notNull();
 const contact = () => text("contact_id").notNull();
 export const users = pgTable("pager_users", { id: id(), payload: jsonb("payload").$type<User>().notNull() });
+export const adminAudit = pgTable("pager_admin_audit", { id: id(), payload: jsonb("payload").$type<AdminAuditEvent>().notNull() });
+export const creatorInvites = pgTable("pager_creator_invites", { id: id(), payload: jsonb("payload").$type<CreatorInvite>().notNull() });
 export const pages = pgTable("pager_pages", { id: id(), ownerId: owner().references(() => users.id), slug: text("slug").notNull(), payload: jsonb("payload").$type<Page>().notNull() }, t => [uniqueIndex("pager_pages_owner").on(t.ownerId), uniqueIndex("pager_pages_slug").on(t.slug), uniqueIndex("pager_pages_identity").on(t.id, t.ownerId)]);
 export const publishedPages = pgTable("pager_published_pages", { id: id(), ownerId: owner(), slug: text("slug").notNull(), payload: jsonb("payload").$type<Page>().notNull() }, t => [uniqueIndex("pager_published_slug").on(t.slug)]);
 export const items = pgTable("pager_items", { id: id(), ownerId: owner(), pageId: page(), payload: jsonb("payload").$type<CatalogItem>().notNull() }, t => [index("pager_items_owner").on(t.ownerId), uniqueIndex("pager_items_identity").on(t.id, t.ownerId)]);

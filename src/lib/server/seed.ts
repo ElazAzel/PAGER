@@ -2,7 +2,7 @@ import "server-only";
 import type { Block, DatabaseState, Page, User } from "../types";
 
 export function emptyState(): DatabaseState {
-  return { users: [], pages: [], publishedPages: [], items: [], contacts: [], opportunities: [], bookings: [], orders: [], subscriptions: [], entitlements: [], timeline: [], integrations: [], analytics: [], assets: [], webhooks: [], notifications: [] };
+  return { users: [], pages: [], publishedPages: [], items: [], contacts: [], opportunities: [], bookings: [], orders: [], subscriptions: [], entitlements: [], timeline: [], integrations: [], analytics: [], assets: [], webhooks: [], notifications: [], adminAudit: [], creatorInvites: [] };
 }
 export const DEMO_IDENTITIES = { creator: { primary: "creator-anna", secondary: "creator-other" }, buyer: { primary: "buyer-primary", secondary: "buyer-secondary" } } as const;
 export function starterPage(user: User): Page {

@@ -27,12 +27,22 @@ export function assertDemoRequest(request: Request, demo: boolean): void {
   const url = new URL(request.url);
   if (!demo || !isLoopback(url.hostname)) throw new IntegrationError(403, "Local demo requires explicit PAGER_DEMO=true and a loopback request");
   // A forwarded request is not local even when the reverse proxy targets localhost.
+  const host = request.headers.get("host") ?? url.host;
   for (const header of ["host", "x-forwarded-host"]) {
     const host = request.headers.get(header);
     if (host && (host.includes(",") || !isLoopback(new URL(`http://${host}`).hostname))) throw new IntegrationError(403, "Demo is unavailable through a remote proxy");
   }
+  const forwardedHost = request.headers.get("x-forwarded-host");
+  const origin = request.headers.get("origin");
+  let sameOriginLoopback = false;
+  if (origin && !request.headers.has("forwarded") && (!forwardedHost || forwardedHost === host)) {
+    try {
+      const originUrl = new URL(origin);
+      sameOriginLoopback = originUrl.protocol === url.protocol && originUrl.port === url.port && isLoopback(originUrl.hostname) && isLoopback(new URL("http://" + host).hostname);
+    } catch { sameOriginLoopback = false; }
+  }
   const forwarded = request.headers.get("x-forwarded-for");
-  if (request.headers.has("forwarded") || (forwarded && !forwarded.split(",").every(ip => isLoopback(ip.trim())))) throw new IntegrationError(403, "Demo is unavailable through a remote proxy");
+  if (request.headers.has("forwarded") || (forwarded && !forwarded.split(",").every(ip => isLoopback(ip.trim()) && ip.trim() !== "") && !sameOriginLoopback)) throw new IntegrationError(403, "Demo is unavailable through a remote proxy");
 }
 export function hashToken(value: string): string { return createHash("sha256").update(value).digest("hex"); }
 export function newOAuthState(ownerId: string, provider: "stripe" | "cal", now = Date.now()): { state: string; record: OAuthState } {
