@@ -13,6 +13,8 @@
     "test:api": "node scripts/smoke-api.mjs",
     "test:discovery": "node scripts/smoke-discovery.mjs",
     "test:real": "node scripts/smoke-real.mjs",
+    "test:e2e": "playwright test",
+    "test:demo-gate": "node scripts/demo-gate.mjs",
     "test:watch": "vitest",
     "db:generate": "supabase migration new",
     "db:migrate": "supabase db push"

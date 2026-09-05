@@ -1,15 +1,16 @@
-"use client";
+import { cookies } from "next/headers";
+import { entryLocale, LOCALE_COOKIE } from "@/lib/entry-locale";
+import { parseLoginRole, safeInternalReturnTo } from "@/lib/auth-intent";
+import { LoginScreen } from "./login-screen";
 
-import { Suspense } from "react";
-import { useRouter } from "next/navigation";
-import { AuthModal } from "../ui/public-page";
+type LoginPageProps = {
+  searchParams: Promise<Record<string, string | string[] | undefined>>;
+};
 
-function LoginContent() {
-  const router = useRouter();
-  const returnTo = typeof window === "undefined" ? "/dashboard" : new URLSearchParams(window.location.search).get("returnTo") || "/dashboard";
-  return <div className="app-background screen"><AuthModal locale="ru" onClose={() => router.push("/")} onComplete={user => router.push(user.role === "creator" ? "/dashboard" : returnTo === "/dashboard" ? "/anna" : returnTo)} /></div>;
-}
+const first = (value: string | string[] | undefined) => Array.isArray(value) ? value[0] : value;
 
-export default function LoginPage() {
-  return <Suspense fallback={<div className="app-background screen" />}><LoginContent /></Suspense>;
+export default async function LoginPage({ searchParams }: LoginPageProps) {
+  const query = await searchParams;
+  const locale = entryLocale(first(query.lang) ?? (await cookies()).get(LOCALE_COOKIE)?.value);
+  return <LoginScreen locale={locale} role={parseLoginRole(first(query.role))} returnTo={safeInternalReturnTo(first(query.returnTo))} />;
 }

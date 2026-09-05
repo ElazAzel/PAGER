@@ -84,6 +84,17 @@ describe("progressively enhanced author appearance", () => {
     expect(videoHtml).toContain('role="status"');
   });
 
+  it("runs custom widget code only inside a script-enabled opaque sandbox", () => {
+    const block = createBlock("custom_code", "en");
+    block.data.html = '<button onclick="document.body.dataset.ran=\'yes\'">Run</button><script>document.body.dataset.loaded="yes"</script>';
+    const html = renderToStaticMarkup(createElement(BlockRenderer, { block, locale: "en" }));
+    expect(html).toContain('sandbox="allow-scripts"');
+    expect(html).not.toContain("allow-same-origin");
+    expect(html).toContain('referrerPolicy="no-referrer"');
+    expect(html).toContain("document.body.dataset.loaded");
+    expect(html).toContain("onclick");
+  });
+
   it("renders author-provided alternative text for visual blocks", () => {
     const image = createBlock("image", "en");
     Object.assign(image.data, { image: "/portrait.jpg", alt: "Portrait in a studio" });
@@ -124,6 +135,12 @@ describe("progressively enhanced author appearance", () => {
     const html = renderToStaticMarkup(createElement(AuthModal, { locale: "ru", onClose: () => undefined, onComplete: () => undefined }));
     expect(html).toContain('aria-label="Закрыть"');
     expect(html).toContain('aria-describedby=');
+  });
+
+  it("explains creator enrollment instead of presenting the buyer sign-in copy", () => {
+    const html = renderToStaticMarkup(createElement(AuthModal, { locale: "en", role: "creator", onClose: () => undefined, onComplete: () => undefined }));
+    expect(html).toContain("Create your PAGER page");
+    expect(html).toContain("creator workspace will open");
   });
 
   it("explains block choices before asking the author to configure them", () => {

@@ -13,6 +13,7 @@ import { ApiClientError, apiJson, toErrorMessage } from "./api";
 import { EditorDialog, PageView as EditorPageView, SaveStatus } from "./page-editor";
 import { DraftWriter, navigateAfterDraftSave, type DraftState } from "./editor-draft";
 import { usePlatformLocale } from "./platform-preferences";
+import { LocaleSwitch } from "./locale-switch";
 
 type View = "page" | "clients" | "orders" | "analytics" | "catalog" | "settings";
 const navItems: Array<{ view: View; icon: string; label: MessageKey }> = [
@@ -29,17 +30,29 @@ function Toast({ message, onClose }: { message: string; onClose: () => void }) {
 
 function Loading({ label = "Загружаем…" }: { label?: string }) { return <div className="empty-state"><Icon name="Activity" size={18} /> <span>{label}</span></div>; }
 
-function DemoGate({ role, demoEnabled = false, creatorSignup = false }: { role: "creator" | "buyer"; demoEnabled?: boolean; creatorSignup?: boolean }) {
+function DemoGate({ role, locale: initialLocale = "ru", demoEnabled = false, creatorSignup = false }: { role: "creator" | "buyer"; locale?: Locale; demoEnabled?: boolean; creatorSignup?: boolean }) {
   const router = useRouter();
+  const [locale, setLocale] = useState(initialLocale);
+  usePlatformLocale(locale);
+  const ru = locale === "ru";
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState("");
   const enter = async () => {
     setBusy(true); setError("");
     try { await apiJson("/api/demo/session", { method: "POST", body: JSON.stringify({ role, identity: "primary" }) }); if (role === "creator" && window.location.pathname === "/dashboard") window.location.reload(); else router.push(role === "creator" ? "/dashboard" : "/anna"); }
-    catch (err) { setError(toErrorMessage(err, "Демо доступно только в локальном режиме.")); } finally { setBusy(false); }
+    catch (err) { setError(toErrorMessage(err, ru ? "Демо доступно только в локальном режиме." : "Demo is available locally only.")); } finally { setBusy(false); }
   };
-  const demoAction = demoEnabled && <button type="button" className="button button-primary" onClick={enter} disabled={busy}><Icon name="Pencil" size={16} />{role === "creator" ? "Открыть локальную демонстрацию" : "Смотреть локальную демонстрацию"}</button>;
-  return <main className="start-page app-background"><div className="page-width"><div className="start-card"><div className="start-copy"><div className="wordmark">PAGER<span>.</span></div><div className="eyebrow" style={{ marginTop: 42 }}>PAGER / PRIVATE BETA</div><h1>Ваша страница. Следующий разговор — здесь.</h1><p>Одна ссылка для записи, материалов и спокойной работы с клиентами.</p><div className="start-actions">{demoAction}<button className={`button ${demoEnabled ? "button-secondary" : "button-primary"}`} onClick={() => router.push("/login")}><Icon name="Mail" size={16} />{role === "creator" && creatorSignup ? "Подать заявку автора" : "Войти по email"}</button></div>{error && <div className="notice error-notice" role="alert"><Icon name="Info" size={16} />{error}</div>}<div className="start-proof"><span className="proof-dot" /> Первые 10 авторов — без комиссии PAGER</div></div><div className="start-preview"><div className="phone-preview"><div className="phone-preview-top"><div className="wordmark">PAGER<span>.</span></div><div className="avatar">AB</div></div><div className="phone-preview-body"><div className="preview-profile"><div className="avatar avatar-lg">AB</div><div><div className="preview-name">Анна Волкова</div><div className="preview-role">Карьерный консультант</div></div></div><div className="preview-card"><div className="preview-card-icon"><Icon name="CalendarClock" size={18} /></div><div><strong>Личная консультация</strong><span>60 минут · $150</span></div><Icon name="ArrowRight" size={17} /></div><div className="preview-card"><div className="preview-card-icon"><Icon name="FileText" size={18} /></div><div><strong>План на 30 дней</strong><span>Материал для клиентов</span></div><Icon name="LockKeyhole" size={16} /></div></div></div></div></div></div></main>;
+  const loginPath = `/login?lang=${locale}${role === "creator" && creatorSignup ? "&role=creator" : ""}`;
+  return <main lang={locale} className="start-page app-background"><div className="page-width"><div className="start-card"><div className="start-copy">
+    <div className="entry-heading"><div className="wordmark">PAGER<span>.</span></div><LocaleSwitch locale={locale} onChange={setLocale} /></div>
+    <div className="eyebrow" style={{ marginTop: 42 }}>PAGER / PRIVATE BETA</div>
+    <h1>{ru ? "Ваша страница. Следующий разговор — здесь." : "Your page. The next conversation starts here."}</h1>
+    <p>{ru ? "Одна ссылка для записи, материалов и спокойной работы с клиентами." : "One link for bookings, resources and thoughtful client relationships."}</p>
+    <div className="start-actions">{demoEnabled && <button type="button" className="button button-primary" onClick={enter} disabled={busy}><Icon name="Pencil" size={16} />{ru ? "Открыть локальную демонстрацию" : "Open the local demo"}</button>}<button type="button" className={`button ${demoEnabled ? "button-secondary" : "button-primary"}`} onClick={() => router.push(loginPath)}><Icon name="Mail" size={16} />{role === "creator" && creatorSignup ? (ru ? "Создать страницу" : "Create your page") : (ru ? "Войти по email" : "Sign in with email")}</button></div>
+    {error && <div className="notice error-notice" role="alert"><Icon name="Info" size={16} />{error}</div>}
+    <div className="start-proof"><span className="proof-dot" />{ru ? "Для независимых консультантов и коучей" : "For independent consultants and coaches"}</div>
+    <nav className="entry-legal" aria-label={ru ? "Правовая информация" : "Legal information"}><Link href="/privacy">{ru ? "Конфиденциальность" : "Privacy"}</Link><Link href="/terms">{ru ? "Условия" : "Terms"}</Link></nav>
+    </div><div className="start-preview" aria-label={ru ? "Пример страницы автора" : "Example creator page"}><div className="phone-preview"><div className="phone-preview-top"><div className="wordmark">PAGER<span>.</span></div><span className="status-chip">{ru ? "Пример" : "Example"}</span></div><div className="phone-preview-body"><div className="preview-profile"><div className="avatar avatar-lg">AV</div><div><div className="preview-name">{ru ? "Анна Волкова" : "Anna Volkova"}</div><div className="preview-role">{ru ? "Карьерный консультант" : "Career consultant"}</div></div></div><div className="preview-card"><div className="preview-card-icon"><Icon name="CalendarClock" size={18} /></div><div><strong>{ru ? "Личная консультация" : "Personal consultation"}</strong><span>{ru ? "60 минут · $150" : "60 minutes · $150"}</span></div><Icon name="ArrowRight" size={17} /></div><div className="preview-card"><div className="preview-card-icon"><Icon name="FileText" size={18} /></div><div><strong>{ru ? "План на 30 дней" : "Your 30-day plan"}</strong><span>{ru ? "Материал для клиентов" : "A resource for clients"}</span></div><Icon name="LockKeyhole" size={16} /></div></div></div></div></div></div></main>;
 }
 
 function WorkspaceError({ message }: { message: string }) {
@@ -272,4 +285,4 @@ export function CreatorScreen({ canAdmin = false, demoEnabled = false }: { canAd
   </div>;
 }
 
-export function HomeScreen({ demoEnabled = false, creatorSignup = false }: { demoEnabled?: boolean; creatorSignup?: boolean }) { return <DemoGate role="creator" demoEnabled={demoEnabled} creatorSignup={creatorSignup} />; }
+export function HomeScreen({ locale = "ru", demoEnabled = false, creatorSignup = false }: { locale?: Locale; demoEnabled?: boolean; creatorSignup?: boolean }) { return <DemoGate role="creator" locale={locale} demoEnabled={demoEnabled} creatorSignup={creatorSignup} />; }

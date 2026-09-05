@@ -33,6 +33,7 @@ async function webhook(signature = createHmac("sha256", "test-cal-webhook-secret
   return calWebhook(new Request(`https://pager.example/api/webhooks/cal/${fixture.page.ownerId}`, { method: "POST", headers: { "x-cal-signature-256": signature }, body: fixture.raw }), { params: Promise.resolve({ ownerId: fixture.page.ownerId }) });
 }
 beforeEach(async () => {
+  vi.stubEnv("PAGER_PILOT_MODE", "false"); vi.stubEnv("PAGER_PAYMENTS_ENABLED", "true");
   vi.stubEnv("PAGER_DEMO", "false"); vi.stubEnv("PAGER_STRIPE_LIVE", "true"); vi.stubEnv("PAGER_INTEGRATION_KEY", Buffer.alloc(32, 4).toString("base64"));
   fixture = setup(); dir = await mkdtemp(path.join(os.tmpdir(), "pager-cal-claims-")); repo = new FileRepository(dir, () => structuredClone(fixture.state));
   mocks.read.mockImplementation(() => repo.read()); mocks.mutate.mockImplementation((fn: Parameters<FileRepository["mutate"]>[0]) => repo.mutate(fn));

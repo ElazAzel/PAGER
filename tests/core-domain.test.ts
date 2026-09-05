@@ -11,6 +11,8 @@ import { sanitizeRichText } from "../src/lib/server/sanitize";
 import { applyTelegramUpdate, createTelegramPair, disconnectTelegram } from "../src/lib/integrations/telegram";
 
 describe("draft and tenant transactions", () => {
+  beforeEach(() => { vi.stubEnv("PAGER_PILOT_MODE", "false"); vi.stubEnv("PAGER_PAYMENTS_ENABLED", "true"); });
+  afterEach(() => vi.unstubAllEnvs());
   it("roundtrips all 25 editor defaults in both languages, including anchors, scratch bonuses and sandbox HTML", () => {
     for (const locale of ["ru", "en"] as const) {
       const state = createDemoState(); const draft = structuredClone(state.pages[0]);

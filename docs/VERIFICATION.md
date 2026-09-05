@@ -1,4 +1,14 @@
-# Проверка PAGER — 4 сентября 2026
+# Проверка PAGER — 5 сентября 2026
+
+## Подготовка GitHub + Fly.io
+
+Актуальный отчёт: [RELEASE-VERIFICATION-2026-09-05.md](RELEASE-VERIFICATION-2026-09-05.md). Исправлены returnTo и совместимость OTP, creator intent, включение платежей и readiness, RU/EN-вход, бронирование по дням, sandbox JavaScript и PWA-иконки. Добавлены Docker/Fly и CI jobs с обязательным browser/API/container gate.
+
+Подтверждено на текущем рабочем дереве: typecheck, lint, **313 тестов в 37 файлах**, production standalone build, **26 Chromium desktop/mobile сценариев**, 43 discovery + 69 API HTTP assertions, `git diff --check`, actionlint. Все платежи и бронирования в этих прогонах локальные либо тестовые фикстуры.
+
+Локальный Docker boot не проверен: Docker Engine недоступен, WSL не установлен. `fly config validate --strict` требует входа в Fly и локально не прошёл авторизацию; он включён перед deploy в CI. Удалённые jobs, production secrets, реальные миграции и провайдеры пока не проверены. [Инструкция запуска](FLY-DEPLOYMENT.md).
+
+## Исторический snapshot — 4 сентября 2026
 
 Локальный MVP PAGER и UX/UI remediation-пасс завершены в рабочем дереве. Выбранное mobile-first Page Studio и тёплое editorial-направление сохранены; реальные провайдеры и внешний HTTPS-стенд остаются отдельными release gates.
 

@@ -2,6 +2,8 @@
 
 This checklist separates a runnable local demonstration from a real pilot. A green local test suite does not certify external providers.
 
+GitHub + Fly.io setup and first release: [FLY-DEPLOYMENT.md](FLY-DEPLOYMENT.md).
+
 ## Before deployment
 
 - Set `PAGER_DEMO=false` and `PAGER_APP_URL` to the canonical HTTPS origin.
@@ -10,6 +12,8 @@ This checklist separates a runnable local demonstration from a real pilot. A gre
 - Confirm all `pager_*` tables use forced RLS and `pager-private` is private.
 - Configure Supabase Auth email templates and verified SMTP for RU/EN OTP delivery.
 - Keep `PAGER_PAYMENTS_ENABLED=false` until Stripe Connect is certified.
+- Set real `PAGER_OPERATOR_NAME` and `PAGER_SUPPORT_EMAIL`; review `/privacy` and `/terms`.
+- Select the Fly app/region and configure GitHub `production`, its app-scoped token, and deployment variables.
 
 ## Provider certification
 
@@ -26,6 +30,8 @@ This checklist separates a runnable local demonstration from a real pilot. A gre
 - `pnpm lint`
 - `pnpm test`
 - `pnpm build`
+- `pnpm test:demo-gate`
+- `docker build --tag pager:release-check .` and `node scripts/smoke-container.mjs`
 - `git diff --check`
 - `pnpm test:real`
 - Browser check at mobile 390x844 and desktop width.

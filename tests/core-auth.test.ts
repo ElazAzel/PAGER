@@ -2,6 +2,8 @@ import { describe, expect, it, vi, afterEach } from "vitest";
 import { assertDemoRequest, isDemoMode } from "../src/lib/server/demo";
 import { signDemoSession, verifyDemoSession } from "../src/lib/server/demo-session";
 import { assertSameOrigin } from "../src/lib/server/auth";
+import { enrollVerifiedUser } from "../src/lib/server/enrollment";
+import { createDemoState } from "../src/lib/server/seed";
 
 afterEach(() => vi.unstubAllEnvs());
 describe("explicit local signed demo auth", () => {
@@ -45,5 +47,13 @@ describe("explicit local signed demo auth", () => {
     expect(() => assertSameOrigin(new Request(url))).toThrow();
     expect(() => assertSameOrigin(new Request(url, { headers: { origin: "https://evil.test" } }))).toThrow();
     expect(() => assertSameOrigin(new Request(url, { headers: { origin: "http://127.0.0.1:3000" } }))).not.toThrow();
+  });
+  it("allows verified self-serve creators only outside the invite-only pilot", () => {
+    const verified = { id: "verified-new", email: "new-author@example.com", name: "New Author", locale: "en" as const };
+    vi.stubEnv("PAGER_DEMO", "false");
+    vi.stubEnv("PAGER_PILOT_MODE", "false");
+    expect(enrollVerifiedUser(createDemoState(), verified, "creator").role).toBe("creator");
+    vi.stubEnv("PAGER_PILOT_MODE", "true");
+    expect(enrollVerifiedUser(createDemoState(), verified, "creator").role).toBe("buyer");
   });
 });

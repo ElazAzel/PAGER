@@ -20,7 +20,7 @@ export async function supabaseAuth() {
   const jar = await cookies();
   return createServerClient(url, key, { cookieOptions: { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/" }, cookies: { getAll: () => jar.getAll(), setAll(values) { for (const { name, value, options } of values) { try { jar.set(name, value, options); } catch { /* Server components cannot refresh response cookies; API/session can. */ } } } } });
 }
-export async function currentUser(): Promise<User | null> {
+export async function currentUser(requestedRole?: "creator" | "buyer"): Promise<User | null> {
   if (isDemoMode()) {
     await guardDemoContext(); const jar = await cookies(); const token = jar.get(DEMO_COOKIE)?.value;
     if (!token) return null;
@@ -32,7 +32,7 @@ export async function currentUser(): Promise<User | null> {
   if (error || !data.user || !data.user.email || !data.user.email_confirmed_at) return null;
   const verified = data.user;
   return mutateState(state => {
-    const user = enrollVerifiedUser(state, { id: verified.id, email: verified.email!, name: typeof verified.user_metadata?.name === "string" ? verified.user_metadata.name.slice(0, 200) : verified.email!.split("@")[0], locale: verified.user_metadata?.locale === "en" ? "en" : "ru" }, verified.user_metadata?.role === "creator" ? "creator" : "buyer");
+    const user = enrollVerifiedUser(state, { id: verified.id, email: verified.email!, name: typeof verified.user_metadata?.name === "string" ? verified.user_metadata.name.slice(0, 200) : verified.email!.split("@")[0], locale: verified.user_metadata?.locale === "en" ? "en" : "ru" }, requestedRole ?? (verified.user_metadata?.role === "creator" ? "creator" : "buyer"));
     reconcileVerifiedBookings(state, user); return user;
   });
 }

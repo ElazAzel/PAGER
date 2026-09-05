@@ -3,18 +3,19 @@ name: Verify PAGER
 on:
   push:
   pull_request:
+  workflow_dispatch:
 
 permissions:
   contents: read
 
 concurrency:
   group: verify-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 jobs:
   quality:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 30
     env:
       NEXT_TELEMETRY_DISABLED: "1"
     steps:
@@ -31,3 +32,51 @@ jobs:
       - run: pnpm lint
       - run: pnpm test
       - run: pnpm build
+      - run: pnpm exec playwright install --with-deps chromium
+      - run: pnpm test:demo-gate
+      - run: git diff --check
+
+  container:
+    needs: quality
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - run: docker build --tag pager:release-check .
+      - run: node scripts/smoke-container.mjs
+
+  deploy:
+    needs: [quality, container]
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.FLY_DEPLOY_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment: production
+    concurrency:
+      group: pager-fly-production
+      cancel-in-progress: false
+    env:
+      FLY_APP_NAME: ${{ vars.FLY_APP_NAME }}
+      PAGER_REAL_URL: ${{ vars.PAGER_REAL_URL }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7
+        with:
+          persist-credentials: false
+      - uses: superfly/flyctl-actions/setup-flyctl@ed8efb33836e8b2096c7fd3ba1c8afe303ebbff1
+        with:
+          version: "0.4.99"
+      - name: Validate deployment target
+        shell: bash
+        run: |
+          [[ "$FLY_APP_NAME" =~ ^[a-z0-9][a-z0-9-]+[a-z0-9]$ ]] || { echo 'Set production variable FLY_APP_NAME'; exit 1; }
+          [[ "$FLY_APP_NAME" != 'pager-set-your-app-name' ]] || { echo 'Replace the example app name'; exit 1; }
+          node -e 'const u = new URL(process.env.PAGER_REAL_URL); if (u.protocol !== "https:" || u.username || u.password || u.pathname !== "/") process.exit(1)'
+      - name: Deploy to Fly
+        run: |
+          flyctl config validate --strict --app "$FLY_APP_NAME" --config fly.toml
+          flyctl deploy --remote-only --app "$FLY_APP_NAME" --config fly.toml --strategy rolling --wait-timeout 5m --yes
+        env:
+          FLY_API_TOKEN: ${{ secrets.FLY_API_TOKEN }}
+      - name: Verify deployed HTTPS runtime
+        run: node scripts/smoke-real.mjs

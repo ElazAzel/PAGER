@@ -9,7 +9,7 @@ export function getCapabilities(): Capabilities {
   const pilot = process.env.PAGER_PILOT_MODE === "true";
   return {
     demo, pilot,
-    payments: !pilot && (process.env.PAGER_PAYMENTS_ENABLED !== "false"),
+    payments: demo || (!pilot && process.env.PAGER_PAYMENTS_ENABLED === "true"),
     creatorSignup: !pilot,
     calOAuth: !!(process.env.CAL_OAUTH_CLIENT_ID && process.env.CAL_OAUTH_CLIENT_SECRET),
   };

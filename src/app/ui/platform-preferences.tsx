@@ -20,8 +20,10 @@ const localeStore = createPlatformLocaleStore();
 
 export function usePlatformLocale(locale: Locale) {
   useLayoutEffect(() => {
+    const previous = document.documentElement.lang;
+    document.documentElement.lang = locale;
     localeStore.set(locale);
-    return () => localeStore.set("ru");
+    return () => { document.documentElement.lang = previous; localeStore.set("ru"); };
   }, [locale]);
 }
 const copy = {

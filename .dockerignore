@@ -1,0 +1,17 @@
+.git
+.github
+.env*
+.data
+.next
+node_modules
+output
+test-results
+playwright-report
+coverage
+docs
+tests
+e2e
+supabase
+*.tsbuildinfo
+Dockerfile*
+fly.toml

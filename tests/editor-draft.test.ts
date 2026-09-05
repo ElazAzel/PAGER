@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DraftWriter, navigateAfterDraftSave, type DraftState } from "../src/app/ui/editor-draft";
 import { applyAppearancePreset } from "../src/lib/appearance";
 import { createDemoState } from "../src/lib/server/seed";
@@ -12,6 +12,8 @@ function barrier() {
 }
 
 describe("serialized visual draft writer", () => {
+  beforeEach(() => { vi.stubEnv("PAGER_PILOT_MODE", "false"); vi.stubEnv("PAGER_PAYMENTS_ENABLED", "true"); });
+  afterEach(() => vi.unstubAllEnvs());
   it("waits for pending appearance edits before leaving the editor for another client route", async () => {
     const state = createDemoState(); const gate = barrier(); let destination = "";
     const writer = new DraftWriter(state.pages[0], async page => { await gate.promise; return savePage(state, page.ownerId, page); }, () => {}, () => {});

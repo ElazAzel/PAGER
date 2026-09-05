@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { appearanceOf, appearanceVariables, appearanceAttributes, applyAppearancePreset, blockEffectAttributes, shouldAnimateAppearance } from "../src/lib/appearance";
 import { createDemoState } from "../src/lib/server/seed";
 import { savePage, publishPage } from "../src/lib/server/pages";
@@ -6,6 +6,8 @@ import { projectPublicPage } from "../src/lib/server/access";
 import { pageSchema } from "../src/lib/server/validation";
 
 describe("safe, backwards compatible author appearance", () => {
+  beforeEach(() => { vi.stubEnv("PAGER_PILOT_MODE", "false"); vi.stubEnv("PAGER_PAYMENTS_ENABLED", "true"); });
+  afterEach(() => vi.unstubAllEnvs());
   it("waits for browser preferences before motion and always respects system reduction", () => {
     expect(shouldAnimateAppearance(undefined, false)).toBe(false);
     expect(shouldAnimateAppearance("reduced", false)).toBe(false);
