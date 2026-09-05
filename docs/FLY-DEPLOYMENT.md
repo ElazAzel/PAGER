@@ -2,7 +2,7 @@
 
 Подготовлено 5 сентября 2026. Репозиторий: `https://github.com/ElazAzel/PAGER`.
 
-В репозитории есть Dockerfile, `fly.toml` и workflow `.github/workflows/verify.yml`. После настройки push в `main` запускает проверки, сборку и проверку контейнера, затем деплой через защищённое GitHub environment `production` и проверку HTTPS. Автодеплой включается явной repository variable `FLY_DEPLOY_ENABLED=true`.
+В репозитории есть Dockerfile, `fly.toml` и workflow `.github/workflows/verify.yml`. После настройки push в ветку из `FLY_DEPLOY_BRANCH` запускает проверки, сборку и проверку контейнера, затем деплой через защищённое GitHub environment `production` и проверку HTTPS. Автодеплой включается явной repository variable `FLY_DEPLOY_ENABLED=true`.
 
 ## 1. Создать приложение и выбрать регион
 
@@ -53,7 +53,7 @@ fly secrets list --app ИМЯ_ПРИЛОЖЕНИЯ
 
 ## 3. Настроить GitHub
 
-В репозитории откройте Settings → Environments → создайте `production`. Разрешите deployment только из `main`; при необходимости назначьте required reviewers.
+В репозитории откройте Settings → Environments → создайте `production`. Разрешите deployment только из выбранной релизной ветки; при необходимости назначьте required reviewers.
 
 В environment `production` добавьте:
 
@@ -62,6 +62,7 @@ fly secrets list --app ИМЯ_ПРИЛОЖЕНИЯ
 | Secret | `FLY_API_TOKEN` | App-scoped deploy token только этого Fly-приложения |
 | Variable | `FLY_APP_NAME` | Выбранное имя Fly-приложения |
 | Variable | `PAGER_REAL_URL` | Тот же HTTPS-origin, что в `PAGER_APP_URL` |
+| Variable | `FLY_DEPLOY_BRANCH` | Релизная ветка; для текущего репозитория `feat/pager-mvp` |
 
 Получить ограниченный токен можно локальной командой:
 
@@ -73,11 +74,11 @@ fly tokens create deploy --app ИМЯ_ПРИЛОЖЕНИЯ --expiry 720h
 
 В Settings → Secrets and variables → Actions → **Variables** добавьте repository variable `FLY_DEPLOY_ENABLED=true`, когда Supabase, secrets и регион готовы. Именно repository variable используется для включения job, поскольку environment variables на этапе выбора job ещё недоступны.
 
-Для `main` настройте правила pull request и обязательные checks `quality` и `container`. Pull request выполняет локальные проверки без доступа к `production` и без деплоя.
+Для выбранной релизной ветки настройте правила pull request и обязательные checks `quality` и `container`. Pull request выполняет локальные проверки без доступа к `production` и без деплоя.
 
 ## 4. Первый релиз
 
-Сохраните изменения в Git и отправьте ветку, выполните PR в `main`. Пока включение автодеплоя не задано, выполняются только проверки. После включения можно запустить workflow вручную через Actions → Verify PAGER → Run workflow → **main** или отправить следующий проверенный commit в `main`.
+Сохраните изменения в Git и отправьте ветку. Пока включение автодеплоя не задано, выполняются только проверки. После включения можно запустить workflow вручную через Actions → Verify PAGER → Run workflow → выберите `FLY_DEPLOY_BRANCH`, либо отправить следующий проверенный commit в эту ветку.
 
 Workflow выполняет:
 

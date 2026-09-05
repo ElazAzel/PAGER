@@ -10,7 +10,7 @@ permissions:
 
 concurrency:
   group: verify-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+  cancel-in-progress: ${{ github.ref_name != vars.FLY_DEPLOY_BRANCH }}
 
 jobs:
   quality:
@@ -34,7 +34,13 @@ jobs:
       - run: pnpm build
       - run: pnpm exec playwright install --with-deps chromium
       - run: pnpm test:demo-gate
-      - run: git diff --check
+      - name: Reject whitespace errors in the checked-out revision
+        shell: bash
+        run: |
+          git diff --check
+          if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+            git diff --check HEAD^ HEAD
+          fi
 
   container:
     needs: quality
@@ -49,7 +55,7 @@ jobs:
 
   deploy:
     needs: [quality, container]
-    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request' && vars.FLY_DEPLOY_ENABLED == 'true'
+    if: github.event_name != 'pull_request' && vars.FLY_DEPLOY_ENABLED == 'true' && github.ref_name == vars.FLY_DEPLOY_BRANCH
     runs-on: ubuntu-latest
     timeout-minutes: 25
     environment: production

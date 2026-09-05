@@ -1,6 +1,6 @@
 # PAGER platform release audit
 
-Date: 2026-09-04  
+Date: 2026-09-04
 Baseline revision: `39aeb482729344eb1320b132078a9f61ea057e33`
 
 ## Approved remediation scope

@@ -9,7 +9,7 @@ Date: 2026-09-05. Branch: `feat/pager-mvp`. Baseline: `39aeb482729344eb1320b1320
 - Real payments require explicit opt-in. Readiness reports `missing` for incomplete enabled integrations, and requires real operator contact. Legal text is bilingual and reflects whether payment is enabled; demo does not claim Stripe processing.
 - Booking slots are grouped by visitor timezone/day. Day tabs and time buttons expose selected state. Custom-code scripts remain inside `sandbox="allow-scripts"` without `allow-same-origin`, with no referrer.
 - Entry pages have RU/EN selection; explicit preference is stored in a cookie and active screen language updates the document. PWA manifest has 192/512 and maskable icons.
-- Next standalone Dockerfile uses a non-root UID 1001. Docker context excludes env/data files. Fly configuration uses HTTPS, SIGTERM and `/api/health`; GitHub deployment requires passing quality and container jobs, `main`, and explicit deployment enablement.
+- Next standalone Dockerfile uses a non-root UID 1001. Docker context excludes env/data files. Fly configuration uses HTTPS, SIGTERM and `/api/health`; GitHub deployment requires passing quality and container jobs, an explicitly configured release branch, and explicit deployment enablement.
 
 ## Security finding outcome: fixed
 
