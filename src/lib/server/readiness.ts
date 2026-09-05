@@ -1,5 +1,6 @@
 import "server-only";
 import { legalConfig } from "../legal";
+import { isLoopback, secretKey } from "../integrations/security";
 import type { RuntimeReadiness } from "../types";
 
 type Environment = Readonly<Record<string, string | undefined>>;
@@ -8,10 +9,18 @@ const present = (env: Environment, ...names: string[]) => names.every(name => Bo
 function trustedOrigin(value: string | undefined, demo: boolean): boolean {
   try {
     const url = new URL(value ?? "");
-    return !url.username && !url.password && (url.protocol === "https:" || (demo && ["localhost", "127.0.0.1", "::1"].includes(url.hostname.toLowerCase())));
+    if (url.username || url.password || url.pathname !== "/" || url.search || url.hash) return false;
+    return demo
+      ? isLoopback(url.hostname) && ["http:", "https:"].includes(url.protocol)
+      : !isLoopback(url.hostname) && url.protocol === "https:";
   } catch {
     return false;
   }
+}
+
+function usableIntegrationKey(env: Environment): boolean {
+  try { secretKey(env.PAGER_INTEGRATION_KEY ?? ""); return true; }
+  catch { return false; }
 }
 
 export function runtimeReadiness(env: Environment = process.env): RuntimeReadiness {
@@ -32,7 +41,7 @@ export function runtimeReadiness(env: Environment = process.env): RuntimeReadine
       },
     };
   }
-  const core = trustedOrigin(env.PAGER_APP_URL, false) && present(env, "DATABASE_URL", "NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY", "PAGER_INTEGRATION_KEY");
+  const core = trustedOrigin(env.PAGER_APP_URL, false) && present(env, "DATABASE_URL", "NEXT_PUBLIC_SUPABASE_URL", "NEXT_PUBLIC_SUPABASE_ANON_KEY", "SUPABASE_SERVICE_ROLE_KEY") && usableIntegrationKey(env);
   const legal = legalConfig(env).configured;
   const paymentsEnabled = !pilot && env.PAGER_PAYMENTS_ENABLED === "true";
   const stripeConfigured = present(env, "STRIPE_SECRET_KEY", "STRIPE_CONNECT_CLIENT_ID", "STRIPE_WEBHOOK_SECRET");

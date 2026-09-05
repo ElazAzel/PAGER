@@ -1,0 +1,23 @@
+.screen {
+  min-height: 100svh;
+  box-sizing: border-box;
+  display: grid;
+  place-items: center;
+  padding: max(24px, env(safe-area-inset-top)) 24px max(32px, env(safe-area-inset-bottom));
+  background: #f3f0e9;
+  color: #292923;
+  font: 16px/1.6 Arial, sans-serif;
+}
+.content { width: min(100%, 560px); }
+.brand { color: inherit; font-size: 24px; font-weight: 800; letter-spacing: -.08em; text-decoration: none; }
+.brand span { color: #a14a33; }
+.languages { display: flex; flex-wrap: wrap; gap: 8px; margin: 24px 0 64px; }
+.languages button { min-height: 44px; padding: 8px 14px; border: 1px solid #b9b5ab; border-radius: 20px; background: transparent; color: inherit; font: inherit; cursor: pointer; }
+.languages button[aria-pressed="true"] { border-color: #292923; background: #e4e1d8; }
+.marker { margin: 0 0 16px; color: #79533f; font-size: 14px; letter-spacing: .12em; }
+.content h1 { margin: 0; font: 400 clamp(32px, 7vw, 48px)/1.15 Georgia, serif; text-wrap: balance; }
+.description { max-width: 45ch; margin: 24px 0 32px; color: #55554d; }
+.actions { display: flex; flex-wrap: wrap; gap: 12px; }
+.actions a, .actions button { box-sizing: border-box; display: inline-flex; align-items: center; justify-content: center; min-height: 48px; border: 1px solid #9c988d; border-radius: 10px; padding: 10px 18px; color: inherit; background: transparent; font: inherit; text-decoration: none; cursor: pointer; }
+.actions > :first-child { background: #292923; border-color: #292923; color: #fffdf8; }
+.screen a:focus-visible, .screen button:focus-visible { outline: 3px solid #a14a33; outline-offset: 4px; }

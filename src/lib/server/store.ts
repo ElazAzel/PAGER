@@ -13,5 +13,11 @@ async function repository() {
   if (!process.env.DATABASE_URL) throw new ApiError(503, "PostgreSQL is not configured");
   postgresRepository ??= new PostgresRepository(process.env.DATABASE_URL); return postgresRepository;
 }
-export async function readState(): Promise<DatabaseState> { return (await repository()).read(); }
+export async function readState(): Promise<DatabaseState> {
+  const state = await (await repository()).read();
+  // Give legacy catalog editors a token without changing the raw payload used
+  // by the PostgreSQL repository's compare-and-swap mutation checks.
+  for (const item of state.items) item.revision ??= 0;
+  return state;
+}
 export async function mutateState<T>(fn: (state: DatabaseState) => T | Promise<T>): Promise<T> { return (await repository()).mutate(fn); }

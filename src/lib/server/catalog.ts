@@ -9,6 +9,8 @@ export function saveItem(state: DatabaseState, ownerId: string, input: CatalogIt
   if (item.ownerId !== ownerId || !state.pages.some(p => p.id === item.pageId && p.ownerId === ownerId)) throw new ApiError(403, "Item access denied");
   const index = state.items.findIndex(i => i.id === item.id); const existing = state.items[index];
   if (existing && (existing.ownerId !== ownerId || existing.pageId !== item.pageId)) throw new ApiError(403, "Item access denied");
+  if (existing && (item.revision === undefined || item.revision !== (existing.revision ?? 0))) throw new ApiError(409, "Item changed; reload before saving / Товар изменился. Обновите данные перед сохранением");
+  if (!existing && (item.revision ?? 0) !== 0) throw new ApiError(400, "A new item must start at revision zero");
   if (existing && state.orders.some(o => o.itemId === item.id) && existing.kind !== item.kind) throw new ApiError(409, "Sold item kind cannot change");
   if (!existing && item.reserved !== 0) throw new ApiError(400, "Reserved inventory is managed by checkout");
   if (existing && item.reserved !== existing.reserved) throw new ApiError(409, "Inventory changed; reload the item");
@@ -18,6 +20,9 @@ export function saveItem(state: DatabaseState, ownerId: string, input: CatalogIt
   for (const id of assetIdsInData({ image: item.image, fileId: item.fileId })) if (!state.assets.some(a => a.id === id && a.ownerId === ownerId && a.pageId === item.pageId)) throw new ApiError(400, "Invalid asset reference");
   item.description = sanitizeRichText(item.description); if (item.image) item.image = safeUrl(item.image, true); if (item.calLink) item.calLink = safeUrl(item.calLink);
   item.createdAt = existing?.createdAt ?? new Date().toISOString();
+  // Every catalog edit and checkout inventory transition advances this token.
+  // Comparing reservations alone misses a completed reservation/payment cycle.
+  item.revision = (existing?.revision ?? 0) + 1;
   // Keep server/integration extension fields if the shared type grows.
   const merged = { ...existing, ...item };
   if (index >= 0) state.items[index] = merged; else state.items.push(merged); return structuredClone(merged);

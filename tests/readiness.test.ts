@@ -8,7 +8,7 @@ const base = {
   NEXT_PUBLIC_SUPABASE_URL: "https://project.supabase.co",
   NEXT_PUBLIC_SUPABASE_ANON_KEY: "anon",
   SUPABASE_SERVICE_ROLE_KEY: "service",
-  PAGER_INTEGRATION_KEY: "a".repeat(44),
+  PAGER_INTEGRATION_KEY: Buffer.alloc(32, 7).toString("base64"),
   PAGER_OPERATOR_NAME: "PAGER Labs",
   PAGER_SUPPORT_EMAIL: "support@pager.test",
 };
@@ -39,6 +39,25 @@ describe("runtime readiness", () => {
     expect(result.ready).toBe(true);
     expect(result.checks.core.status).toBe("demo");
     expect(result.checks.stripe.status).toBe("disabled");
+  });
+
+  it("does not advertise a runtime with an unusable encryption key as ready", () => {
+    for (const key of ["present-but-not-a-key", "a".repeat(44), " "]) {
+      const result = runtimeReadiness({ ...base, PAGER_INTEGRATION_KEY: key });
+      expect(result.ready).toBe(false);
+      expect(result.checks.core.status).toBe("missing");
+      expect(JSON.stringify(result)).not.toContain(key.trim() || "PAGER_INTEGRATION_KEY");
+    }
+  });
+
+  it("requires an exact trusted origin and keeps demos on loopback", () => {
+    for (const origin of ["https://pager.test/path", "https://pager.test/?redirect=evil", "https://pager.test/#fragment", "https://localhost:3000", "https://[::1]:3000"]) {
+      expect(runtimeReadiness({ ...base, PAGER_APP_URL: origin }).ready).toBe(false);
+    }
+    for (const origin of ["https://public.pager.test", "ftp://localhost:3000", "http://localhost:3000/path"]) {
+      expect(runtimeReadiness({ PAGER_DEMO: "true", PAGER_APP_URL: origin }).ready).toBe(false);
+    }
+    expect(runtimeReadiness({ PAGER_DEMO: "true", PAGER_APP_URL: "http://[::1]:3000" }).ready).toBe(true);
   });
 
   it("degrades when payments are enabled without complete Stripe configuration", () => {

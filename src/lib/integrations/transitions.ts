@@ -14,12 +14,12 @@ export function reserveInventory(state: DatabaseState, order: Order): void {
   const item = inventoryItem(state, order); if (!item) return;
   const meta = orderMeta(order); if (meta.inventory === "reserved" || meta.inventory === "sold") return;
   if (item.stock! - item.reserved < order.quantity) throw new IntegrationError(409, "Insufficient stock");
-  item.reserved += order.quantity; meta.inventory = "reserved";
+  item.reserved += order.quantity; item.revision = (item.revision ?? 0) + 1; meta.inventory = "reserved";
 }
 export function releaseInventory(state: DatabaseState, order: Order): void {
   const meta = orderMeta(order); if (meta.inventory !== "reserved") return;
   const item = inventoryItem(state, order);
-  if (item) { if (item.reserved < order.quantity) throw new IntegrationError(409, "Inventory reservation invariant violated"); item.reserved -= order.quantity; }
+  if (item) { if (item.reserved < order.quantity) throw new IntegrationError(409, "Inventory reservation invariant violated"); item.reserved -= order.quantity; item.revision = (item.revision ?? 0) + 1; }
   meta.inventory = "released";
 }
 function sellInventory(state: DatabaseState, order: Order): void {
@@ -31,7 +31,7 @@ function sellInventory(state: DatabaseState, order: Order): void {
     if (item.reserved < order.quantity || item.stock! < order.quantity) throw new IntegrationError(409, "Inventory reservation invariant violated");
     item.reserved -= order.quantity;
   }
-  item.stock! -= order.quantity; meta.inventory = "sold"; meta.inventoryShortfall = false;
+  item.stock! -= order.quantity; item.revision = (item.revision ?? 0) + 1; meta.inventory = "sold"; meta.inventoryShortfall = false;
 }
 function upsertSubscription(state: DatabaseState, order: Order, event: CommerceEvent): CommerceSubscription {
   if (order.scope === "item" || !event.subscriptionId) throw new IntegrationError(400, "Missing access subscription");

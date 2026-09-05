@@ -92,6 +92,19 @@ describe("inventory", () => {
     applyCommerceEvent(state, event({ id: "expired", orderId: "o2", type: "expired" }));
     expect(item.stock).toBe(0); expect(item.reserved).toBe(0); expect(replacement.status).toBe("paid");
   });
+  it("invalidates a stale catalog edit after reservations return to zero", () => {
+    const { state, order, item } = stocked();
+    expect(item.revision ?? 0).toBe(0);
+    reserveInventory(state, order); reserveInventory(state, order);
+    expect(item.revision).toBe(1);
+    releaseInventory(state, order); releaseInventory(state, order);
+    expect(item.reserved).toBe(0); expect(item.revision).toBe(2);
+    const replacement = { ...order, id: "o2", commerce: undefined }; state.orders.push(replacement);
+    reserveInventory(state, replacement);
+    applyCommerceEvent(state, event({ orderId: "o2" }));
+    applyCommerceEvent(state, event({ id: "duplicate-payment", orderId: "o2" }));
+    expect(item.stock).toBe(0); expect(item.reserved).toBe(0); expect(item.revision).toBe(4);
+  });
   it("late payment cannot steal another buyer's reservation after expiry", () => {
     const { state, order, item } = stocked(); reserveInventory(state, order); releaseInventory(state, order);
     const other = { ...order, id: "o2", commerce: undefined }; state.orders.push(other); reserveInventory(state, other);

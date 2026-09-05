@@ -1,0 +1,20 @@
+.list { display: grid; }
+.row { display: grid; gap: 12px; padding: 20px; min-width: 0; }
+.row + .row { border-top: 1px solid var(--line); }
+.summary { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.summary > div { min-width: 0; }
+.summary h3 { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
+.summary p { margin: 6px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.summary > span { flex-shrink: 0; }
+.details { display: grid; gap: 6px; font-size: 13px; line-height: 1.6; overflow-wrap: anywhere; }
+.row > a, .row > button { justify-self: start; }
+.confirmation { padding: 16px; background: var(--surface-soft); border-radius: 14px; }
+.confirmation p { margin: 0 0 14px; font-size: 14px; line-height: 1.6; }
+.actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.actions > button { min-height: 44px; white-space: normal; }
+@media (max-width: 540px) {
+  .row { padding: 16px; }
+  .summary { flex-direction: column; }
+  .actions { flex-direction: column; }
+  .actions > button { width: 100%; }
+}
